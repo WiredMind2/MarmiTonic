@@ -85,17 +85,7 @@ WHERE {
 
 endpoint = "https://dbpedia.org/sparql"
 
-# Configure session with retry strategy
 session = requests.Session()
-retry_strategy = Retry(
-    total=5,
-    backoff_factor=2,
-    status_forcelist=[429, 500, 502, 503, 504],
-    allowed_methods=["GET"]
-)
-adapter = HTTPAdapter(max_retries=retry_strategy)
-session.mount("http://", adapter)
-session.mount("https://", adapter)
 
 headers = {
     "Accept": "text/turtle",
@@ -103,27 +93,23 @@ headers = {
 }
 
 print("Querying DBpedia SPARQL endpoint...")
-print("This may take a moment...")
+print("This can take a moment (but won't ahah)...")
 
-max_attempts = 3
-for attempt in range(1, max_attempts + 1):
-    try:
-        print(f"Attempt {attempt}/{max_attempts}...")
-        r = session.get(
-            endpoint,
-            params={"query": query, "format": "text/turtle", "timeout": "120000"},
-            headers=headers,
-            timeout=120,
-        )
-        r.raise_for_status()
-        
-        with open("iba_export.ttl", "wb") as f:
-            f.write(r.content)
-        
-        print(f"✓ Success! Saved {len(r.content)} bytes to iba_export.ttl")
-        sys.exit(0)
-        
-        
-    except Exception as e:
-        print(f"✗ Unexpected error: {type(e).__name__}: {e}")
-        sys.exit(1)
+try:
+    r = session.get(
+        endpoint,
+        params={"query": query, "format": "text/turtle", "timeout": "120000"},
+        headers=headers,
+        timeout=120,
+    )
+    r.raise_for_status()
+
+    with open("iba_export.ttl", "wb") as f:
+        f.write(r.content)
+
+    print(f"✓ Success! Saved {len(r.content)} bytes to iba_export.ttl")
+    sys.exit(0)
+
+except Exception as e:
+    print(f"✗ Unexpected error: {type(e).__name__}: {e}")
+    sys.exit(1)
