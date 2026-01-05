@@ -1,4 +1,5 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
+from typing import List
 from ..services.cocktail_service import CocktailService
 
 router = APIRouter()
@@ -29,3 +30,11 @@ async def get_almost_feasible_cocktails(user_id: str):
         return service.get_almost_feasible_cocktails(user_id)
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Invalid user_id or query failure: {str(e)}")
+
+@router.get("/cocktails/by-ingredients")
+async def get_cocktails_by_ingredients(ingredients: List[str] = Query(..., description="List of ingredients to search for")):
+    service = CocktailService()
+    try:
+        return service.get_cocktails_by_ingredients(ingredients)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

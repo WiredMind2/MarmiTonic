@@ -1,4 +1,3 @@
-from ..utils.dbpedia_client import query_dbpedia
 from SPARQLWrapper import SPARQLWrapper, JSON
 
 class SparqlService:

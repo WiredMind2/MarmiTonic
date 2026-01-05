@@ -107,3 +107,12 @@ class CocktailService:
         results = self.sparql_service.execute_query(query)
         ingredients = [result["label"]["value"] for result in results["results"]["bindings"]]
         return ingredients
+
+    def get_cocktails_by_ingredients(self, ingredients: List[str]) -> List[Cocktail]:
+        all_cocktails = self.get_all_cocktails()
+        matching_cocktails = []
+        for cocktail in all_cocktails:
+            # Check if all provided ingredients are in the cocktail's ingredients
+            if all(ingredient in cocktail.ingredients for ingredient in ingredients):
+                matching_cocktails.append(cocktail)
+        return matching_cocktails
