@@ -175,18 +175,6 @@ header {
     filter: drop-shadow(0 2px 4px rgba(21, 71, 38, 0.15));
 }
 
-.navbar:hover .navbar-center img {
-    animation: rotateLogo 3s cubic-bezier(0.4, 0, 0.2, 1) infinite; 
-}
-
-@keyframes rotateLogo {
-    0%, 100% {
-        transform: rotate(0deg) scale(1);
-    }
-    50% {
-        transform: rotate(360deg) scale(1.1);
-    }
-}
 
 .navbar-right input {
     padding: 10px 20px;
