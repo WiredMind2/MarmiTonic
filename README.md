@@ -1,126 +1,69 @@
+# MarmiTonic
 
-1) Mon Bar (inventaire)
+A semantic web application for intelligent cocktail discovery and management, developed as part of the "Web Sémantique" course at INSA Lyon. MarmiTonic leverages Linked Data technologies, SPARQL queries, and graph analysis to provide personalized cocktail recommendations and bar optimization.
 
-L’utilisateur coche/cherche les ingrédients qu’il a (gin, citron, sucre, vermouth…).
-L’app renvoie :
+## Key Features
 
-Cocktails faisables maintenant (0 ingrédient manquant)
+- **My Bar (Inventory)**: Manage your available ingredients and discover cocktails you can make immediately or with minimal additions. Add missing ingredients to a shopping cart.
+- **Bar Minimum (Optimization)**: Optimize your bar setup with two modes - maximize cocktails with N ingredients (Party mode) or minimize ingredients for desired cocktails (Playlist mode).
+- **Discovery**: Explore cocktail recommendations similar to Spotify, including similar cocktails, vibe clusters, and style bridges based on ingredients and relationships.
+- **SPARQL Explorer**: Execute custom SPARQL queries against DBpedia for advanced exploration.
+- **Insights**: Visualize and analyze cocktail-ingredient graphs, including centrality metrics, communities, and export to Gephi.
+- **Bonus Features**: Intelligent ingredient substitutions, dietary filters, and consolidated shopping lists.
 
-Presque faisables (il manque 1 ingrédient, puis 2)
+## Installation and Setup
 
-Bouton “ajouter au panier” pour les manquants
+### Prerequisites
+- Python 3.8 or higher
+- Git
 
-Pourquoi c’est utile : c’est concret, c’est un vrai besoin.
+### Backend Setup
+1. Clone the repository and navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
 
-Ce que ça exploite :
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv venv
+   venv\Scripts\activate  # On Windows
+   ```
 
-Graphe cocktail–ingrédient + requêtes SPARQL pour extraire les données.
+3. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-2) Bar Minimum (optimisation)
+4. Run the backend server:
+   ```bash
+   uvicorn main:app --reload
+   ```
+   The API will be available at `http://localhost:8000`.
 
-Deux modes pratiques :
+### Frontend Setup
+The frontend is a static web application. Simply open `frontend/index.html` in your web browser. Ensure the backend is running for API functionality.
 
-Mode “Party” : “j’ai N ingrédients → maximise le nombre de cocktails”
+## Usage
 
-Mode “Playlist” : “je veux ces cocktails → donne la liste minimale d’ingrédients”
+1. **Discover**: Search for cocktails or ingredients, explore trending items.
+2. **My Bar**: Check off your available ingredients to see feasible cocktails.
+3. **Planner**: Use optimization tools to plan your bar or shopping list.
+4. **Insights**: View graph analytics and export data.
+5. **SPARQL Explorer**: Run custom queries.
 
-Sortie :
+## Technical Stack
 
-la liste optimisée + combien de cocktails couverts
+- **Backend**: Python with FastAPI
+- **Frontend**: HTML5, CSS3, Vanilla JavaScript
+- **Data Sources**: DBpedia via SPARQL
+- **Graph Analysis**: NetworkX, Matplotlib
+- **Visualization**: D3.js
+- **Optional AI**: OpenAI/Anthropic APIs or local Ollama for generative features
 
-et surtout “presque couverts” (manque 1 ingrédient) → effet démo garanti
+## Contributing
 
-Pourquoi c’est utile : ça te dit quoi acheter sans te ruiner.
+This is a student project for educational purposes. Contributions are welcome via pull requests or issues.
 
-3) Découverte type Spotify
+## License
 
-Sur la fiche d’un cocktail :
-
-“Similaires” (même style / mêmes ingrédients) avec score
-
-“Dans la même vibe” (cluster)
-
-“Pont vers d’autres styles” (cocktails qui connectent des familles)
-
-Pourquoi c’est utile : tu trouves quoi boire ensuite, pas juste une recette.
-
-Bonus utiles (si vous avez du temps)
-4) Substitutions intelligentes
-
-Ex : il te manque “triple sec” → l’app suggère alternatives plausibles (curaçao, Cointreau, etc.)
-Méthode : similarité d’ingrédients par co-occurrence + éventuellement catégories.
-
-Utile : ça sauve les soirées.
-
-5) Filtres “réels”
-
-sans œuf
-
-sans lait/crème
-
-sans sucre ajouté
-
-“citrus / mint / coffee / bitter”
-Ça se fait en tags dérivés (mapping simple), pas besoin d’inventer une ontologie parfaite.
-
-6) Shopping list consolidée
-
-Tu sélectionnes 10 cocktails → ça te sort :
-
-liste des ingrédients uniques
-
-et les plus “rentables” (ceux qui débloquent le plus de cocktails)
-
-À quoi ressemble l’appli (IHM simple, efficace)
-Onglet 1 — Discover
-
-recherche cocktail / ingrédient
-
-tendances : “cocktails centraux”, “familles”, “random”
-
-Onglet 2 — My Bar
-
-liste d’ingrédients (avec search)
-
-résultats faisables / presque faisables
-
-Onglet 3 — Planner
-
-Bar minimum (slider N)
-
-playlist → ingrédients minimaux
-
-export shopping list
-
-Onglet 4 — Insights
-
-stats graphe (top ingrédients, communautés)
-
-export Gephi
-
-Pourquoi ça colle au sujet, point par point
-3.1 SPARQL & Linked Data
-
-Vous interrogez DBpedia en SPARQL pour extraire cocktails/ingrédients.
-
-Vous construisez un graphe à partir de ces données (pas une liste statique).
-
-3.2 Analyse de données
-
-Similarité cocktail–cocktail (projection) + communautés + centralités
-
-Bar minimum = optimisation (set cover greedy) → c’est une vraie “analyse/valorisation”.
-
-3.3 LLM (optionnel)
-
-Si vous le faites : NL→SPARQL (“cocktail au gin sans sucre”), ou résumé des clusters.
-
-Le point que tu dois comprendre (sinon tu te plantes)
-
-Ton dataset actuel avec ingredientsRaw n’est pas exploitable tel quel. L’appli devient utile quand vous transformez ça en vraies arêtes :
-
-Cocktail --usesIngredient--> Ingredient
-
-Dès que tu as ça, tout le reste (My Bar, Bar minimum, reco) devient mécanique.
-
-Si tu veux, je te donne une spec ultra courte “user stories + écrans + endpoints API” pour que votre groupe parte direct en dev.
+This project is developed for academic purposes and does not include a specific license.
