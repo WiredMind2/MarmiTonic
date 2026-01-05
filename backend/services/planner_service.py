@@ -13,7 +13,10 @@ class PlannerService:
     def _build_mapping(self):
         cocktails = self.cocktail_service.get_all_cocktails()
         for cocktail in cocktails:
-            self.cocktail_ingredients[cocktail.name] = set(cocktail.ingredients)
+            if cocktail.parsed_ingredients:
+                self.cocktail_ingredients[cocktail.name] = set(cocktail.parsed_ingredients)
+            else:
+                self.cocktail_ingredients[cocktail.name] = set()
 
     def optimize_party_mode(self, num_ingredients: int) -> Dict[str, List]:
         if num_ingredients <= 0:
