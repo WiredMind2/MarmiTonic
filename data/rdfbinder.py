@@ -1,3 +1,5 @@
+# This script queries the DBpedia SPARQL endpoint to extract data about IBA official cocktails and saves the results in Turtle format.
+
 import requests
 import sys
 from requests.adapters import HTTPAdapter
