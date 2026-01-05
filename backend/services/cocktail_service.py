@@ -242,13 +242,26 @@ class CocktailService:
         """Get cocktails that contain all specified ingredients"""
         all_cocktails = self.get_all_cocktails()
         matching_cocktails = []
-        
+
         for cocktail in all_cocktails:
             if cocktail.ingredients:
                 ingredient_names = self._parse_ingredient_names(cocktail.ingredients)
                 # Check if all provided ingredients are in the cocktail's ingredients
-                if all(ingredient.lower() in [ing.lower() for ing in ingredient_names] 
+                if all(ingredient.lower() in [ing.lower() for ing in ingredient_names]
                        for ingredient in ingredients):
                     matching_cocktails.append(cocktail)
-        
+
+        return matching_cocktails
+
+    def get_cocktails_by_uris(self, uris: List[str]) -> List[Cocktail]:
+        """Get cocktails that contain ingredients with the specified URIs"""
+        all_cocktails = self.get_all_cocktails()
+        matching_cocktails = []
+
+        for cocktail in all_cocktails:
+            if cocktail.ingredient_uris:
+                # Check if any of the provided URIs match the cocktail's ingredient URIs
+                if any(uri in cocktail.ingredient_uris for uri in uris):
+                    matching_cocktails.append(cocktail)
+
         return matching_cocktails

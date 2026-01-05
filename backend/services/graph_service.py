@@ -35,7 +35,7 @@ class GraphService:
             
             # Add edges between cocktails and their ingredients
             for cocktail in cocktails:
-                for ingredient_name in cocktail.ingredients:
+                for ingredient_name in cocktail.parsed_ingredients or []:
                     if graph.has_node(ingredient_name):
                         graph.add_edge(cocktail.name, ingredient_name)
             
