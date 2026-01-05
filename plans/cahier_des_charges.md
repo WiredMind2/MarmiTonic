@@ -9,7 +9,12 @@ Le projet MarmiTonic est une application web sémantique développée dans le ca
 L'application se concentre sur le domaine des cocktails, permettant aux utilisateurs de découvrir des recettes basées sur leurs ingrédients disponibles, d'optimiser leur bar et d'explorer des recommandations personnalisées.
 
 ### 1.3 Équipe
-Le projet est réalisé par des hexanômes d'étudiants en 4ème année à l'INSA Lyon.
+Elise Bachet
+Andy Gonzales
+Lou Reina--Kuntziger
+William Michaud
+Louis Labory
+Jason Laval
 
 ## 2. Objectifs
 
