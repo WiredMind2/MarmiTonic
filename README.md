@@ -60,10 +60,6 @@ The frontend is a static web application. Simply open `frontend/index.html` in y
 - **Visualization**: D3.js
 - **Optional AI**: OpenAI/Anthropic APIs or local Ollama for generative features
 
-## Contributing
-
-This is a student project for educational purposes. Contributions are welcome via pull requests or issues.
-
 ## License
 
 This project is developed for academic purposes and does not include a specific license.
