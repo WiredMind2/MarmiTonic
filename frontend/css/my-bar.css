@@ -1,0 +1,511 @@
+/* My Bar Page Styles */
+
+.my-bar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 120px 2rem 2rem;
+}
+
+.page-title {
+    font-family: 'Beckan', 'Inter', sans-serif;
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.page-subtitle {
+    text-align: center;
+    color: rgba(44, 62, 80, 0.7);
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+.my-bar-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Inventory Section */
+.inventory-section {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.section-header h2 {
+    font-family: 'Beckan', 'Inter', sans-serif;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.search-box {
+    position: relative;
+    flex: 1;
+    max-width: 300px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 10px 40px 10px 16px;
+    border: 2px solid rgba(21, 71, 38, 0.12);
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.8);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+}
+
+.search-box i {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(44, 62, 80, 0.5);
+}
+
+.selection-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+
+.selection-stats span {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.btn-link {
+    background: none;
+    border: none;
+    color: var(--accent-gold);
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: underline;
+    transition: opacity 0.3s ease;
+}
+
+.btn-link:hover {
+    opacity: 0.7;
+}
+
+/* Category Filters */
+.ingredient-categories {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.category-filter {
+    padding: 8px 16px;
+    border: 2px solid rgba(21, 71, 38, 0.2);
+    background: white;
+    border-radius: 50px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: var(--text-dark);
+}
+
+.category-filter:hover {
+    border-color: var(--accent-gold);
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.category-filter.active {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: white;
+}
+
+/* Ingredient List */
+.ingredient-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+    padding-right: 8px;
+}
+
+.ingredient-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.ingredient-list::-webkit-scrollbar-track {
+    background: rgba(21, 71, 38, 0.05);
+    border-radius: 4px;
+}
+
+.ingredient-list::-webkit-scrollbar-thumb {
+    background: rgba(21, 71, 38, 0.2);
+    border-radius: 4px;
+}
+
+.ingredient-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(21, 71, 38, 0.3);
+}
+
+.ingredient-item {
+    margin-bottom: 0.5rem;
+}
+
+.ingredient-checkbox {
+    display: flex;
+    align-items: center;
+    padding: 12px 16px;
+    background: white;
+    border: 2px solid rgba(21, 71, 38, 0.1);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.ingredient-checkbox:hover {
+    background: rgba(212, 175, 55, 0.05);
+    border-color: var(--accent-gold);
+    transform: translateX(4px);
+}
+
+.ingredient-checkbox input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.ingredient-icon {
+    font-size: 1.5rem;
+    margin-right: 12px;
+}
+
+.ingredient-name {
+    flex: 1;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.checkmark {
+    width: 24px;
+    height: 24px;
+    border: 2px solid rgba(21, 71, 38, 0.2);
+    border-radius: 6px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.ingredient-checkbox input[type="checkbox"]:checked ~ .checkmark {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+}
+
+.ingredient-checkbox input[type="checkbox"]:checked ~ .checkmark::after {
+    content: '\2713';
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ingredient-checkbox input[type="checkbox"]:checked ~ .ingredient-name {
+    color: var(--accent-gold);
+    font-weight: 600;
+}
+
+/* Primary Button */
+.btn-primary {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #1a5a30 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary i {
+    margin-right: 8px;
+}
+
+/* Results Section */
+.results-section {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    min-height: 600px;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.results-header h2 {
+    font-family: 'Beckan', 'Inter', sans-serif;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin: 0;
+}
+
+.sort-select {
+    padding: 10px 16px;
+    border: 2px solid rgba(21, 71, 38, 0.12);
+    border-radius: 12px;
+    background: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sort-select:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+}
+
+/* Cocktail Results */
+.cocktail-results {
+    max-height: 520px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.cocktail-results::-webkit-scrollbar {
+    width: 8px;
+}
+
+.cocktail-results::-webkit-scrollbar-track {
+    background: rgba(21, 71, 38, 0.05);
+    border-radius: 4px;
+}
+
+.cocktail-results::-webkit-scrollbar-thumb {
+    background: rgba(21, 71, 38, 0.2);
+    border-radius: 4px;
+}
+
+.result-section {
+    margin-bottom: 2rem;
+}
+
+.result-section-title {
+    font-size: 1.2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(21, 71, 38, 0.1);
+}
+
+.my-bar-cocktail-card {
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    background: white;
+    border-radius: 16px;
+    margin-bottom: 1rem;
+    border: 2px solid rgba(21, 71, 38, 0.1);
+    transition: all 0.3s ease;
+}
+
+.my-bar-cocktail-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.my-bar-cocktail-card.can-make {
+    border-color: rgba(34, 197, 94, 0.3);
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, white 100%);
+}
+
+.my-bar-cocktail-card.almost-make {
+    border-color: rgba(245, 158, 11, 0.3);
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, white 100%);
+}
+
+.cocktail-icon {
+    font-size: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.cocktail-info {
+    flex: 1;
+}
+
+.cocktail-name {
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin: 0 0 0.5rem 0;
+    font-weight: 600;
+}
+
+.cocktail-status {
+    margin-bottom: 0.75rem;
+}
+
+.badge-success {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(34, 197, 94, 0.15);
+    color: rgb(21, 128, 61);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-warning {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(245, 158, 11, 0.15);
+    color: rgb(161, 98, 7);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.ingredient-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.chip {
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.chip-have {
+    background: rgba(34, 197, 94, 0.15);
+    color: rgb(21, 128, 61);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.chip-need {
+    background: rgba(148, 163, 184, 0.15);
+    color: rgb(71, 85, 105);
+    border: 1px solid rgba(148, 163, 184, 0.3);
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    text-align: center;
+    color: rgba(44, 62, 80, 0.6);
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    color: rgba(21, 71, 38, 0.2);
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.empty-state small {
+    font-size: 0.9rem;
+    color: rgba(44, 62, 80, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .my-bar-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .results-section {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .my-bar-container {
+        padding: 100px 1rem 1rem;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-box {
+        max-width: none;
+    }
+    
+    .ingredient-categories {
+        gap: 0.25rem;
+    }
+    
+    .category-filter {
+        font-size: 0.75rem;
+        padding: 6px 12px;
+    }
+    
+    .my-bar-cocktail-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .ingredient-chips {
+        justify-content: center;
+    }
+}
