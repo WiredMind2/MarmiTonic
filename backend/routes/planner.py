@@ -13,7 +13,7 @@ class PartyModeRequest(BaseModel):
 class PlaylistModeRequest(BaseModel):
     cocktail_names: List[str]
 
-@router.post("/planner/party-mode")
+@router.post("/party-mode")
 async def party_mode(request: PartyModeRequest):
     try:
         if request.num_ingredients <= 0:
@@ -24,7 +24,7 @@ async def party_mode(request: PartyModeRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to optimize party mode: {str(e)}")
 
-@router.post("/planner/playlist-mode")
+@router.post("/playlist-mode")
 async def playlist_mode(request: PlaylistModeRequest):
     try:
         if not request.cocktail_names:

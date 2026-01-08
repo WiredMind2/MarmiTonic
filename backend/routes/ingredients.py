@@ -11,7 +11,7 @@ class InventoryUpdate(BaseModel):
     user_id: str
     ingredients: List[str]
 
-@router.get("/ingredients")
+@router.get("/")
 async def get_all_ingredients():
     try:
         ingredients = service.get_all_ingredients()
@@ -19,7 +19,7 @@ async def get_all_ingredients():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to retrieve ingredients: {str(e)}")
 
-@router.get("/ingredients/search")
+@router.get("/search")
 async def search_ingredients(q: str = Query(..., description="Search query for ingredients")):
     try:
         ingredients = service.search_ingredients(q)
@@ -27,7 +27,7 @@ async def search_ingredients(q: str = Query(..., description="Search query for i
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to search ingredients: {str(e)}")
 
-@router.post("/ingredients/inventory")
+@router.post("/inventory")
 async def update_inventory(update: InventoryUpdate):
     try:
         service.update_inventory(update.user_id, update.ingredients)
@@ -35,7 +35,7 @@ async def update_inventory(update: InventoryUpdate):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to update inventory: {str(e)}")
 
-@router.get("/ingredients/inventory/{user_id}")
+@router.get("/inventory/{user_id}")
 async def get_inventory(user_id: str):
     try:
         inventory = service.get_inventory(user_id)

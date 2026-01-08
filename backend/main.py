@@ -9,7 +9,7 @@ app = FastAPI()
 
 # Load RDF graph once at startup
 RDF_GRAPH = Graph()
-rdf_file = Path(__file__).parent / "data" / "iba_export.ttl"
+rdf_file = Path(__file__).parent / "data" / "data.ttl"
 print(f"Loading RDF data from {rdf_file}...")
 RDF_GRAPH.parse(rdf_file, format="turtle")
 print(f"✓ Loaded {len(RDF_GRAPH)} triples")
