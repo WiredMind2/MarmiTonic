@@ -1,11 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routes import cocktails, ingredients, planner, insights
-from .utils.front_server import start_frontend_server
+from .utils.front_server import start_frontend_server  # module starts frontend server in background on import
 from rdflib import Graph
 from pathlib import Path
-
-start_frontend_server()
 
 app = FastAPI()
 
