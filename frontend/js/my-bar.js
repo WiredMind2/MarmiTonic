@@ -6,85 +6,88 @@
 (function() {
     'use strict';
     
-    // Mock ingredient data (will be replaced with API call later)
-    const mockIngredients = [
-        // Spirits
-        { id: 1, name: "Vodka", category: "spirits", image: "🥃" },
-        { id: 2, name: "Gin", category: "spirits", image: "🍸" },
-        { id: 3, name: "Rhum Blanc", category: "spirits", image: "🥃" },
-        { id: 4, name: "Rhum Brun", category: "spirits", image: "🥃" },
-        { id: 5, name: "Tequila", category: "spirits", image: "🥃" },
-        { id: 6, name: "Whisky", category: "spirits", image: "🥃" },
-        { id: 7, name: "Bourbon", category: "spirits", image: "🥃" },
-        { id: 8, name: "Cognac", category: "spirits", image: "🥃" },
-        
-        // Liqueurs
-        { id: 9, name: "Triple Sec", category: "liqueurs", image: "🍊" },
-        { id: 10, name: "Cointreau", category: "liqueurs", image: "🍊" },
-        { id: 11, name: "Amaretto", category: "liqueurs", image: "🌰" },
-        { id: 12, name: "Kahlúa", category: "liqueurs", image: "☕" },
-        { id: 13, name: "Baileys", category: "liqueurs", image: "🥛" },
-        { id: 14, name: "Campari", category: "liqueurs", image: "🍷" },
-        { id: 15, name: "Vermouth Sec", category: "liqueurs", image: "🍷" },
-        { id: 16, name: "Vermouth Doux", category: "liqueurs", image: "🍷" },
-        
-        // Mixers
-        { id: 17, name: "Jus de Citron", category: "mixers", image: "🍋" },
-        { id: 18, name: "Jus de Lime", category: "mixers", image: "🍋" },
-        { id: 19, name: "Jus d'Orange", category: "mixers", image: "🍊" },
-        { id: 20, name: "Jus de Cranberry", category: "mixers", image: "🫐" },
-        { id: 21, name: "Jus d'Ananas", category: "mixers", image: "🍍" },
-        { id: 22, name: "Soda", category: "mixers", image: "🥤" },
-        { id: 23, name: "Tonic", category: "mixers", image: "🥤" },
-        { id: 24, name: "Cola", category: "mixers", image: "🥤" },
-        { id: 25, name: "Ginger Beer", category: "mixers", image: "🥤" },
-        
-        // Fresh
-        { id: 26, name: "Citron", category: "fresh", image: "🍋" },
-        { id: 27, name: "Lime", category: "fresh", image: "🍋" },
-        { id: 28, name: "Menthe", category: "fresh", image: "🌿" },
-        { id: 29, name: "Sucre", category: "fresh", image: "🧂" },
-        { id: 30, name: "Sirop Simple", category: "fresh", image: "🍯" },
-        { id: 31, name: "Angostura Bitters", category: "fresh", image: "💧" },
-        { id: 32, name: "Glaçons", category: "fresh", image: "🧊" },
-        
-        // Garnish
-        { id: 33, name: "Cerises", category: "garnish", image: "🍒" },
-        { id: 34, name: "Olives", category: "garnish", image: "🫒" },
-        { id: 35, name: "Sel", category: "garnish", image: "🧂" },
-        { id: 36, name: "Sucre de Canne", category: "garnish", image: "🧂" }
-    ];
-    
-    // Mock cocktail data with ingredients
-    const mockCocktails = [
-        { id: 1, name: "Mojito", image: "🍹", ingredients: ["Rhum Blanc", "Lime", "Menthe", "Sucre", "Soda", "Glaçons"] },
-        { id: 2, name: "Margarita", image: "🍹", ingredients: ["Tequila", "Triple Sec", "Jus de Lime", "Sel", "Glaçons"] },
-        { id: 3, name: "Cosmopolitan", image: "🍸", ingredients: ["Vodka", "Triple Sec", "Jus de Lime", "Jus de Cranberry", "Glaçons"] },
-        { id: 4, name: "Gin Tonic", image: "🍸", ingredients: ["Gin", "Tonic", "Citron", "Glaçons"] },
-        { id: 5, name: "Old Fashioned", image: "🥃", ingredients: ["Bourbon", "Sucre", "Angostura Bitters", "Cerises", "Glaçons"] },
-        { id: 6, name: "Manhattan", image: "🍸", ingredients: ["Whisky", "Vermouth Doux", "Angostura Bitters", "Cerises", "Glaçons"] },
-        { id: 7, name: "Martini", image: "🍸", ingredients: ["Gin", "Vermouth Sec", "Olives", "Glaçons"] },
-        { id: 8, name: "Piña Colada", image: "🍹", ingredients: ["Rhum Blanc", "Jus d'Ananas", "Glaçons"] },
-        { id: 9, name: "Daiquiri", image: "🍹", ingredients: ["Rhum Blanc", "Jus de Lime", "Sirop Simple", "Glaçons"] },
-        { id: 10, name: "Moscow Mule", image: "🍺", ingredients: ["Vodka", "Ginger Beer", "Lime", "Glaçons"] },
-        { id: 11, name: "Negroni", image: "🍷", ingredients: ["Gin", "Campari", "Vermouth Doux", "Glaçons"] },
-        { id: 12, name: "Whisky Sour", image: "🥃", ingredients: ["Whisky", "Jus de Citron", "Sirop Simple", "Glaçons"] },
-        { id: 13, name: "Cuba Libre", image: "🥃", ingredients: ["Rhum Blanc", "Cola", "Lime", "Glaçons"] },
-        { id: 14, name: "Screwdriver", image: "🍊", ingredients: ["Vodka", "Jus d'Orange", "Glaçons"] },
-        { id: 15, name: "Tequila Sunrise", image: "🌅", ingredients: ["Tequila", "Jus d'Orange", "Glaçons"] }
-    ];
+    // User ID handling: generate or read from localStorage
+    let marmitonicUserId = null;
+    function getOrCreateUserId() {
+        const key = 'marmitonic_user_id';
+        let id = localStorage.getItem(key);
+        if (!id) {
+            if (window.crypto && crypto.randomUUID) id = crypto.randomUUID();
+            else id = 'u-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,10);
+            localStorage.setItem(key, id);
+        }
+        return id;
+    }
+
+    // Save inventory to backend (debounced)
+    let saveTimer = null;
+    function scheduleSaveInventory(delay = 800) {
+        if (!marmitonicUserId) return;
+        if (saveTimer) clearTimeout(saveTimer);
+        saveTimer = setTimeout(() => saveInventory(), delay);
+    }
+
+    async function saveInventory() {
+        if (!marmitonicUserId) return;
+        try {
+            const body = { user_id: marmitonicUserId, ingredients: Array.from(selectedIngredients) };
+            await fetch(`${API_BASE_URL}/ingredients/inventory`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+        } catch (err) {
+            console.error('Failed to save inventory:', err);
+        }
+    }
+
+    async function loadInventory() {
+        if (!marmitonicUserId) return;
+        try {
+            const res = await fetch(`${API_BASE_URL}/ingredients/inventory/${marmitonicUserId}`);
+            if (!res.ok) return;
+            const data = await res.json();
+            if (data && Array.isArray(data.ingredients)) {
+                selectedIngredients = new Set(data.ingredients);
+                updateSelectionCount();
+            }
+        } catch (err) {
+            console.error('Failed to load inventory:', err);
+        }
+    }
     
     // State
     let selectedIngredients = new Set();
     let currentCategory = 'all';
-    let currentIngredients = mockIngredients;
+    let currentIngredients = [];
+    let allCocktails = [];
     
     /**
      * Initialize the My Bar page
      */
-    function init() {
-        renderIngredients();
+    async function init() {
+        marmitonicUserId = getOrCreateUserId();
         setupEventListeners();
+        // Load data from backend
+        try {
+            const [ings, cocktails] = await Promise.all([fetchIngredients(), fetchCocktails()]);
+            // Normalize ingredients list
+            currentIngredients = (ings || []).map(i => ({
+                id: i.id,
+                name: i.name,
+                image: i.image || '🍸',
+                categories: i.categories || []
+            }));
+            allCocktails = (cocktails || []).map(c => c);
+        } catch (err) {
+            console.error('Failed to load ingredients or cocktails:', err);
+            currentIngredients = [];
+            allCocktails = [];
+        }
+
+        // Load saved inventory then render
+        await loadInventory();
+        renderIngredients();
         console.log('My Bar page initialized');
     }
     
@@ -127,7 +130,7 @@
      */
     function handleSearch(e) {
         const searchTerm = e.target.value.toLowerCase();
-        const filtered = mockIngredients.filter(ing => 
+        const filtered = currentIngredients.filter(ing => 
             ing.name.toLowerCase().includes(searchTerm)
         );
         renderIngredients(filtered);
@@ -148,9 +151,10 @@
      */
     function filterByCategory(category) {
         if (category === 'all') {
-            currentIngredients = mockIngredients;
+            // keep full list loaded from backend
         } else {
-            currentIngredients = mockIngredients.filter(ing => ing.category === category);
+            // Filter by categories array if present
+            currentIngredients = currentIngredients.filter(ing => Array.isArray(ing.categories) && ing.categories.some(c => c.toLowerCase().includes(category.toLowerCase())));
         }
         renderIngredients(currentIngredients);
     }
@@ -205,6 +209,8 @@
             selectedIngredients.delete(ingredientName);
         }
         updateSelectionCount();
+        // Persist change to backend (debounced)
+        scheduleSaveInventory();
     }
     
     /**
@@ -220,29 +226,42 @@
     /**
      * Find cocktails based on selected ingredients
      */
+    function normalizeName(s) {
+        return (s || '').toString().toLowerCase().trim();
+    }
+
+    function getCocktailIngredientNames(cocktail) {
+        if (Array.isArray(cocktail.parsed_ingredients) && cocktail.parsed_ingredients.length) return cocktail.parsed_ingredients;
+        if (typeof cocktail.ingredients === 'string' && cocktail.ingredients.length) {
+            // crude parse: split lines and remove bullets/quantities
+            return cocktail.ingredients.split('\n').map(l => l.replace(/^\s*[\*\-•]?\s*/, '').replace(/^[0-9\.]+\s*(ml|cl|oz|dash|tsp|teaspoon|tablespoon)?\s*/i, '').trim()).filter(Boolean);
+        }
+        return [];
+    }
+
     function findCocktails() {
         if (selectedIngredients.size === 0) {
             alert('Veuillez sélectionner au moins un ingrédient');
             return;
         }
-        
-        const results = mockCocktails.map(cocktail => {
-            const missingIngredients = cocktail.ingredients.filter(ing => 
-                !selectedIngredients.has(ing)
-            );
-            const matchingIngredients = cocktail.ingredients.filter(ing => 
-                selectedIngredients.has(ing)
-            );
-            
+
+        // use normalized selected set for comparisons
+        const selectedNorm = new Set(Array.from(selectedIngredients).map(normalizeName));
+
+        const results = allCocktails.map(cocktail => {
+            const ingNames = getCocktailIngredientNames(cocktail);
+            const missing = ingNames.filter(ing => !selectedNorm.has(normalizeName(ing)));
+            const matching = ingNames.filter(ing => selectedNorm.has(normalizeName(ing)));
             return {
                 ...cocktail,
-                missingCount: missingIngredients.length,
-                missingIngredients,
-                matchingIngredients,
-                canMake: missingIngredients.length === 0
+                ingredients: ingNames,
+                missingCount: missing.length,
+                missingIngredients: missing,
+                matchingIngredients: matching,
+                canMake: missing.length === 0
             };
         });
-        
+
         sortAndRenderResults(results);
     }
     
@@ -286,7 +305,7 @@
         container.innerHTML = '';
         
         const makeable = results.filter(r => r.canMake);
-        const almostMakeable = results.filter(r => !r.canMake && r.missingCount <= 2);
+        const almostMakeable = results.filter(r => !r.canMake && r.missingCount === 1 && Array.isArray(r.matchingIngredients) && r.matchingIngredients.length > 0);
         
         if (makeable.length > 0) {
             const section = createResultSection('✅ Cocktails Réalisables', makeable);
@@ -341,8 +360,8 @@
                 <h4 class="cocktail-name">${cocktail.name}</h4>
                 <div class="cocktail-status">${missingText}</div>
                 <div class="ingredient-chips">
-                    ${cocktail.ingredients.map(ing => 
-                        `<span class="chip ${selectedIngredients.has(ing) ? 'chip-have' : 'chip-need'}">${ing}</span>`
+                    ${ (cocktail.ingredients || []).map(ing => 
+                        `<span class="chip ${selectedIngredients.has(ing) || selectedIngredients.has(ing) ? 'chip-have' : 'chip-need'}">${ing}</span>`
                     ).join('')}
                 </div>
             </div>
