@@ -90,17 +90,6 @@ function setupPlaylistCards() {
                 openPlaylistModal(playlistId);
             }
         });
-
-        // Play button functionality
-        const playButton = card.querySelector('.play-button');
-        if (playButton) {
-            playButton.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const playlistId = card.dataset.playlistId;
-                console.log('Playing playlist:', playlistId);
-                showNotification('Lecture de la playlist...', 'info');
-            });
-        }
     });
 }
 

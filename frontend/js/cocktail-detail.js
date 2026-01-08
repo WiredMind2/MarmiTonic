@@ -270,8 +270,8 @@ function populateCocktailData(data) {
     document.getElementById('cocktailName').textContent = data.name;
     
     // Update meta information
-    document.getElementById('prepTime').textContent = data.prepTime;
-    document.getElementById('glassType').textContent = data.glassType;
+    document.getElementById('servedType').textContent = data.servedType;
+    document.getElementById('garnishType').textContent = data.garnishType;
     document.getElementById('category').textContent = data.category;
     document.getElementById('difficulty').textContent = data.difficulty;
     

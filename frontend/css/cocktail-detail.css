@@ -326,17 +326,6 @@
     font-weight: 700;
 }
 
-.btn-link {
-    background: none;
-    border: none;
-    color: var(--accent-gold);
-    cursor: pointer;
-    font-weight: 600;
-    text-decoration: underline;
-    transition: opacity 0.3s ease;
-    font-size: 0.9rem;
-}
-
 .btn-link:hover {
     opacity: 0.7;
 }
@@ -417,40 +406,6 @@
     top: 100px;
 }
 
-/* Nutrition Section */
-.nutrition-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
-.nutrition-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    padding: 16px;
-    background: rgba(255, 248, 231, 0.5);
-    border-radius: 12px;
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.nutrition-item:hover {
-    background: rgba(255, 248, 231, 0.8);
-    transform: translateY(-3px);
-}
-
-.nutrition-label {
-    font-size: 0.85rem;
-    color: rgba(44, 62, 80, 0.7);
-    font-weight: 500;
-}
-
-.nutrition-value {
-    font-size: 1.3rem;
-    color: var(--primary-color);
-    font-weight: 700;
-}
 
 /* Tips Section */
 .tips-list {
@@ -585,11 +540,6 @@
     .detail-section {
         padding: 1.5rem;
     }
-
-    .nutrition-grid {
-        grid-template-columns: 1fr;
-    }
-
     .sidebar-content {
         grid-template-columns: 1fr;
     }
