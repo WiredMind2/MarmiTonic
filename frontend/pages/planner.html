@@ -6,6 +6,8 @@
     <!-- Base Styles -->
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/navbar.css">
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="../css/planner.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Planificateur - MarmiTonic</title>
@@ -47,11 +49,179 @@
             <p>Menu</p>
         </div>
     </header>
-    <main class="page-container">
-        <h2>Planificateur de Cocktails</h2>
-        <!-- Content for Planner -->
+    
+    <main class="planner-page">
+        <div class="planner-container">
+            <!-- Header Section -->
+            <div class="planner-header">
+                <h1 class="page-title">Mes Playlists</h1>
+                <button class="btn-create-playlist" id="createPlaylistBtn">
+                    <i class="fa fa-plus"></i> Créer une playlist
+                </button>
+            </div>
+
+            <!-- Liked Cocktails - Full Width Card -->
+            <div class="liked-cocktails-section">
+                <div class="playlist-card liked-card" data-playlist-id="liked">
+                    <div class="playlist-gradient-bg"></div>
+                    <div class="playlist-card-content">
+                        <div class="playlist-icon-large">
+                            <i class="fa fa-heart"></i>
+                        </div>
+                        <div class="playlist-info">
+                            <span class="playlist-label">Playlist</span>
+                            <h2 class="playlist-title">Cocktails Favoris</h2>
+                            <p class="playlist-description">Tous vos cocktails préférés en un seul endroit</p>
+                            <div class="playlist-stats">
+                                <span id="likedCount">12 cocktails</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other Playlists Section -->
+            <div class="playlists-section">
+                <h2 class="section-title">Vos Playlists</h2>
+                <div class="playlists-grid" id="playlistsGrid">
+                    <!-- Playlists will be dynamically added here -->
+                    <div class="playlist-card" data-playlist-id="1">
+                        <div class="playlist-image">
+                            <img src="https://images.unsplash.com/photo-1514361892635-6b07e31e75f9?w=300&h=300&fit=crop" alt="Playlist">
+                            <div class="playlist-overlay">
+                                <button class="play-button">
+                                    <i class="fa fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="playlist-card-info">
+                            <h3 class="playlist-name">Soirée d'Été</h3>
+                            <p class="playlist-meta">8 cocktails</p>
+                        </div>
+                    </div>
+
+                    <div class="playlist-card" data-playlist-id="2">
+                        <div class="playlist-image">
+                            <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=300&h=300&fit=crop" alt="Playlist">
+                            <div class="playlist-overlay">
+                                <button class="play-button">
+                                    <i class="fa fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="playlist-card-info">
+                            <h3 class="playlist-name">Classiques</h3>
+                            <p class="playlist-meta">15 cocktails</p>
+                        </div>
+                    </div>
+
+                    <div class="playlist-card" data-playlist-id="3">
+                        <div class="playlist-image">
+                            <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=300&h=300&fit=crop" alt="Playlist">
+                            <div class="playlist-overlay">
+                                <button class="play-button">
+                                    <i class="fa fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="playlist-card-info">
+                            <h3 class="playlist-name">Cocktails Tropicaux</h3>
+                            <p class="playlist-meta">6 cocktails</p>
+                        </div>
+                    </div>
+
+                    <div class="playlist-card" data-playlist-id="4">
+                        <div class="playlist-image">
+                            <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=300&h=300&fit=crop" alt="Playlist">
+                            <div class="playlist-overlay">
+                                <button class="play-button">
+                                    <i class="fa fa-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="playlist-card-info">
+                            <h3 class="playlist-name">Apéritif</h3>
+                            <p class="playlist-meta">10 cocktails</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
+
+    <!-- Playlist Modal -->
+    <div class="playlist-modal" id="playlistModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-header-info">
+                    <div class="modal-playlist-icon">
+                        <i class="fa fa-list"></i>
+                    </div>
+                    <div>
+                        <span class="modal-label">Playlist</span>
+                        <h2 class="modal-title" id="modalPlaylistName">Soirée d'Été</h2>
+                        <p class="modal-meta"><span id="modalCocktailCount">8</span> cocktails</p>
+                    </div>
+                </div>
+                <button class="modal-close" id="closeModal">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="modal-cocktails-section">
+                    <h3 class="modal-section-title">Cocktails</h3>
+                    <div class="modal-cocktails-grid" id="modalCocktailsGrid">
+                        <!-- Cocktails will be dynamically added -->
+                    </div>
+                </div>
+                
+                <div class="modal-ingredients-section">
+                    <h3 class="modal-section-title">
+                        <i class="fa fa-shopping-basket"></i>
+                        Ingrédients nécessaires
+                    </h3>
+                    <div class="ingredients-needed-list" id="modalIngredientsList">
+                        <!-- Ingredients will be dynamically added -->
+                    </div>
+                    <button class="btn-primary btn-full-width">
+                        <i class="fa fa-cart-plus"></i> Ajouter à ma liste de courses
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Playlist Modal -->
+    <div class="create-playlist-modal" id="createPlaylistModal">
+        <div class="modal-backdrop"></div>
+        <div class="modal-content create-modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Créer une playlist</h2>
+                <button class="modal-close" id="closeCreateModal">
+                    <i class="fa fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="playlistName">Nom de la playlist</label>
+                    <input type="text" id="playlistName" placeholder="Ma nouvelle playlist" />
+                </div>
+                <div class="form-group">
+                    <label for="playlistDescription">Description (optionnelle)</label>
+                    <textarea id="playlistDescription" rows="3" placeholder="Décrivez votre playlist..."></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-secondary" id="cancelCreatePlaylist">Annuler</button>
+                    <button class="btn-primary" id="confirmCreatePlaylist">Créer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Core Scripts -->
     <script src="../js/navbar.js"></script>
+    <script src="../js/planner.js"></script>
 </body>
 </html>
