@@ -31,6 +31,43 @@ async function fetchIngredients() {
     }
 }
 
+// Rechercher un cocktail avec son nom
+async function searchCocktails(query) {
+    if (!query || query.trim() === '') {
+        return [];
+    }
+    try {
+        const response = await fetch(`${API_BASE_URL}/cocktails?q=${encodeURIComponent(query)}`);
+        if (!response.ok) {
+            throw new Error('Failed to search cocktails');
+        }
+        const data = await response.json();
+        
+        // Gérer différents formats de réponse
+        // Si la reponse est un tableau, le retourner directement   
+        if (Array.isArray(data)) {
+            return data;
+        }
+
+        // Si la réponse est un objet avec une clé 'data' qui est un tableau, le retourner
+        if (data && typeof data === 'object' && Array.isArray(data.data)) {
+            return data.data;
+        }
+
+        // Si la réponse est un objet, le mettre dans un tableau
+        if (data && typeof data === 'object' && data.id) {
+            return [data];
+        }
+        
+        // Default: return empty array
+        console.warn('Unexpected search response format:', data);
+        return [];
+    } catch (error) {
+        console.error('Error searching cocktails:', error);
+        return [];
+    }
+}
+
 // Example API call to execute SPARQL query
 async function executeSparqlQuery(query) {
     try {
