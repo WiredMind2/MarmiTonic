@@ -26,8 +26,6 @@
 
 .brand-highlight {
     color: var(--accent-gold);
-    position: relative;
-    display: inline-block;
 }
 
 .hero-subtitle {
@@ -54,7 +52,7 @@
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s ease;
     border: 2px solid transparent;
 }
 
@@ -99,7 +97,6 @@
 .cocktail-left {
     left: 5%;
     top: 15%;
-    animation-delay: 0s;
 }
 
 .cocktail-right {
@@ -109,18 +106,13 @@
 }
 
 @keyframes float {
-    0%, 100% {
-        transform: translateY(0px) rotate(0deg);
-    }
-    50% {
-        transform: translateY(-20px) rotate(5deg);
-    }
+    0%, 100% { transform: translateY(0) rotate(0); }
+    50% { transform: translateY(-20px) rotate(5deg); }
 }
 
 @media (max-width: 768px) {
     .hero-main {
         padding: 1rem;
-        min-height: 100vh;
     }
     
     .hero-buttons {

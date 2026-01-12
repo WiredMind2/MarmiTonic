@@ -5,7 +5,7 @@ A semantic web application for intelligent cocktail discovery and management, de
 ## Key Features
 
 - **My Bar (Inventory)**: Manage your available ingredients and discover cocktails you can make immediately or with minimal additions. Add missing ingredients to a shopping cart.
-- **Bar Minimum (Optimization)**: Optimize your bar setup with two modes - maximize cocktails with N ingredients (Party mode) or minimize ingredients for desired cocktails (Playlist mode).
+- **Bar Minimum (Optimization)**: Optimize your bar setup by minimizing ingredients for desired cocktails (Playlist mode).
 - **Discovery**: Explore cocktail recommendations similar to Spotify, including similar cocktails, vibe clusters, and style bridges based on ingredients and relationships.
 - **SPARQL Explorer**: Execute custom SPARQL queries against DBpedia for advanced exploration.
 - **Insights**: Visualize and analyze cocktail-ingredient graphs, including centrality metrics, communities, and export to Gephi.
@@ -36,7 +36,7 @@ A semantic web application for intelligent cocktail discovery and management, de
 
 4. Run the backend server:
    ```bash
-   uvicorn main:app --reload
+   uvicorn backend.main:app --reload
    ```
    The API will be available at `http://localhost:8000`.
 

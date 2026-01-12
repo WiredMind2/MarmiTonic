@@ -7,7 +7,6 @@ from rdflib import Graph
 from pathlib import Path
 
 start_frontend_server_once()
-
 app = FastAPI()
 
 # Load RDF graph once at startup

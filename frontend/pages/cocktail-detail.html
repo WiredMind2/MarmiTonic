@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="../css/cocktail-detail.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Cocktail - MarmiTonic</title>
+</head>
+<body>
+    <header>
+        <nav id="navbar" class="navbar">
+            <div class="navbar-left">
+                <a href="discovery.html" class="link-main">
+                    <div h="full" class="hover-underline-animation">                        
+                        Explorer
+                    </div>
+                </a>
+                <a href="my-bar.html" class="link-main">
+                    <div h="full" class="hover-underline-animation">                        
+                        Mon Bar
+                    </div>
+                </a>
+                <a href="planner.html" class="link-main">
+                    <div h="full" class="hover-underline-animation">                        
+                        Planificateur
+                    </div>
+                </a>
+            </div>
+            <div class="navbar-center">
+                <img src="../assets/logo.png" alt="MarmiTonic Logo">
+                <a href="../index.html" class="link-main">
+                    <span>MarmiTonic</span>
+                </a>
+            </div>
+            <div class="navbar-right">
+                <input type="text" placeholder="Recherche">
+                <img src="../assets/account.png" alt="">
+            </div>
+        </nav>
+        
+        <div id="no-navbar-menu" class="no-navbar-menu">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+            <p>Menu</p>
+        </div>
+    </header>
+
+    <main class="cocktail-detail-page">
+        <!-- Back Navigation -->
+        <div class="back-nav">
+            <a href="discovery.html" class="back-link">
+                <i class="fa fa-arrow-left"></i>
+                <span>Retour à l'exploration</span>
+            </a>
+        </div>
+
+        <!-- Hero Section with Image -->
+        <section class="cocktail-hero">
+            <div class="hero-image-container">
+                <img id="cocktailImage" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=800&h=600&fit=crop" alt="Cocktail">
+                <div class="hero-overlay"></div>
+                <div class="hero-badge">
+                    <i class="fa fa-star"></i>
+                    <span id="difficulty">Facile</span>
+                </div>
+            </div>
+            <div class="hero-content">
+                <div class="cocktail-header">
+                    <h1 id="cocktailName" class="cocktail-title">Mojito</h1>
+                    <div class="cocktail-meta">
+                        <div class="meta-item">
+                            <i class="fa fa-clock-o"></i>
+                            <span id="servedType">Rocks</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fa fa-glass"></i>
+                            <span id="garnishType">Lemon slice and maraschino cherry</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-primary" id="addToPlaylistBtn">
+                        <i class="fa fa-plus-circle"></i> Ajouter à une liste
+                    </button>
+                    <button class="btn-secondary" id="favoriteBtn">
+                        <i class="fa fa-heart-o"></i>
+                    </button>
+                    <button class="btn-secondary" id="shareBtn">
+                        <i class="fa fa-share-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <div class="detail-container">
+            <!-- Left Column: Ingredients & Instructions -->
+            <div class="main-content">
+                <!-- Ingredients Section -->
+                <section class="detail-section ingredients-section">
+                    <div class="section-title">
+                        <i class="fa fa-list-ul"></i>
+                        <h2>Ingrédients</h2>
+                    </div>
+                    <div class="ingredients-list" id="ingredientsList">
+                        <div class="ingredient-item">
+                            <div class="ingredient-icon">
+                                <i class="fa fa-check-circle available"></i>
+                            </div>
+                            <div class="ingredient-info">
+                                <span class="ingredient-name">Rhum blanc</span>
+                                <span class="ingredient-quantity">60 ml</span>
+                            </div>
+                        </div>
+                        <div class="ingredient-item">
+                            <div class="ingredient-icon">
+                                <i class="fa fa-check-circle available"></i>
+                            </div>
+                            <div class="ingredient-info">
+                                <span class="ingredient-name">Jus de citron vert</span>
+                                <span class="ingredient-quantity">30 ml</span>
+                            </div>
+                        </div>
+                        <div class="ingredient-item">
+                            <div class="ingredient-icon">
+                                <i class="fa fa-times-circle unavailable"></i>
+                            </div>
+                            <div class="ingredient-info">
+                                <span class="ingredient-name">Menthe fraîche</span>
+                                <span class="ingredient-quantity">10 feuilles</span>
+                            </div>
+                        </div>
+                        <div class="ingredient-item">
+                            <div class="ingredient-icon">
+                                <i class="fa fa-check-circle available"></i>
+                            </div>
+                            <div class="ingredient-info">
+                                <span class="ingredient-name">Sucre de canne</span>
+                                <span class="ingredient-quantity">2 c. à café</span>
+                            </div>
+                        </div>
+                        <div class="ingredient-item">
+                            <div class="ingredient-icon">
+                                <i class="fa fa-check-circle available"></i>
+                            </div>
+                            <div class="ingredient-info">
+                                <span class="ingredient-name">Eau gazeuse</span>
+                                <span class="ingredient-quantity">Top</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ingredients-status">
+                        <span class="status-text">Vous avez <strong>4/5</strong> ingrédients</span>
+                    </div>
+                </section>
+
+                <!-- Instructions Section -->
+                <section class="detail-section instructions-section">
+                    <div class="section-title">
+                        <i class="fa fa-book"></i>
+                        <h2>Préparation</h2>
+                    </div>
+                    <div class="instructions-list" id="instructionsList">
+                        <div class="instruction-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <p>Dans un verre highball, placez les feuilles de menthe et le sucre.</p>
+                            </div>
+                        </div>
+                        <div class="instruction-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <p>Écrasez délicatement la menthe avec un pilon pour libérer les arômes.</p>
+                            </div>
+                        </div>
+                        <div class="instruction-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <p>Ajoutez le jus de citron vert et mélangez pour dissoudre le sucre.</p>
+                            </div>
+                        </div>
+                        <div class="instruction-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <p>Remplissez le verre de glace pilée.</p>
+                            </div>
+                        </div>
+                        <div class="instruction-step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <p>Versez le rhum blanc et complétez avec l'eau gazeuse.</p>
+                            </div>
+                        </div>
+                        <div class="instruction-step">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <p>Mélangez doucement et décorez avec une branche de menthe et une rondelle de citron vert.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Description Section -->
+                <section class="detail-section description-section">
+                    <div class="section-title">
+                        <i class="fa fa-info-circle"></i>
+                        <h2>À propos</h2>
+                    </div>
+                    <div class="description-tags">
+                        <span class="tag">Rafraîchissant</span>
+                        <span class="tag">Classique</span>
+                        <span class="tag">Cubain</span>
+                        <span class="tag">Été</span>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Additional Info -->
+            <aside class="sidebar-content">
+                <!-- Tips Section -->
+                <section class="detail-section tips-section">
+                    <div class="section-title">
+                        <i class="fa fa-lightbulb-o"></i>
+                        <h3>Informations</h3>
+                    </div>
+                    <ul class="tips-list">
+                        <li>
+                            <i class="fa fa-info"></i>
+                            <span>cocktail made with gin, maraschino liqueur, crème de violette, and lemon juice</span>
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Similar Cocktails -->
+                <section class="detail-section similar-section">
+                    <div class="section-title">
+                        <i class="fa fa-refresh"></i>
+                        <h3>Cocktails similaires</h3>
+                    </div>
+                    <div class="similar-cocktails">
+                        <a href="#" class="similar-card">
+                            <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&h=150&fit=crop" alt="Caipirinha">
+                            <div class="similar-info">
+                                <h4>Caipirinha</h4>
+                                <span class="similar-meta">4/5 ingrédients</span>
+                            </div>
+                        </a>
+                        <a href="#" class="similar-card">
+                            <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=150&h=150&fit=crop" alt="Daiquiri">
+                            <div class="similar-info">
+                                <h4>Daiquiri</h4>
+                                <span class="similar-meta">3/3 ingrédients</span>
+                            </div>
+                        </a>
+                        <a href="#" class="similar-card">
+                            <img src="https://images.unsplash.com/photo-1541544181051-e46607bc22a4?w=150&h=150&fit=crop" alt="Mint Julep">
+                            <div class="similar-info">
+                                <h4>Mint Julep</h4>
+                                <span class="similar-meta">2/4 ingrédients</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Navbar Script -->
+    <script src="../js/navbar.js"></script>
+    <script src="../js/cocktail-detail.js"></script>
+</body>
+</html>

@@ -27,7 +27,7 @@ async def party_mode(request: PartyModeRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to optimize party mode: {str(e)}")
 
-@router.post("/planner/playlist-mode")
+@router.post("/playlist-mode")
 async def playlist_mode(request: PlaylistModeRequest):
     try:
         if not request.cocktail_names:

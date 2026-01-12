@@ -104,10 +104,10 @@ try:
     )
     r.raise_for_status()
 
-    with open("iba_export.ttl", "wb") as f:
+    with open("data.ttl", "wb") as f:
         f.write(r.content)
 
-    print(f"✓ Success! Saved {len(r.content)} bytes to iba_export.ttl")
+    print(f"✓ Success! Saved {len(r.content)} bytes to data.ttl")
     sys.exit(0)
 
 except Exception as e:

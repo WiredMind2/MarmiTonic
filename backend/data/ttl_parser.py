@@ -1,15 +1,14 @@
 """
 Parser centralisé pour charger et interroger les données IBA en mémoire
-Charge le fichier iba_export.ttl et parse correctement les ingrédients depuis dbp:ingredients
+Charge le fichier data.ttl et parse correctement les ingrédients depuis dbp:ingredients
 Retourne des instances de classes Pydantic définies dans backend/models
 """
 
 import sys
 from pathlib import Path
 
-# Ajouter le répertoire backend au path pour importer les models
-backend_path = Path(__file__).parent.parent / "backend"
-sys.path.insert(0, str(backend_path))
+backend_path = Path(__file__).parent.parent
+sys.path.insert(0, str(backend_path.resolve()))
 
 from rdflib import Graph, Namespace, Literal, URIRef
 from rdflib.namespace import RDF, RDFS
@@ -31,7 +30,7 @@ FOAF = Namespace("http://xmlns.com/foaf/0.1/")
 class IBADataParser:
     """Parser pour les données IBA en format Turtle avec extraction d'ingrédients"""
     
-    def __init__(self, ttl_file_path: str = "iba_export.ttl"):
+    def __init__(self, ttl_file_path: str = "data.ttl"):
         """
         Initialise le parser et charge le fichier TTL en mémoire
         
