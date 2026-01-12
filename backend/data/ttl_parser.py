@@ -84,12 +84,16 @@ class IBADataParser:
             
             # Enlever les bullets (* ou -)
             line = re.sub(r'^[\*\-]\s*', '', line)
+
+            #enlever les nombres 
+            line = re.sub(r'^\d+\s*', '', line)
+            
             
             # Enlever les quantités (nombres + unités)
             # Ex: "30 ml gin" -> "gin", "1 dash bitters" -> "bitters"
-            line = re.sub(r'^\d+\.?\d*\s*(ml|cl|oz|dash|dashes|barspoon|teaspoon|tsp|tablespoon|tbsp|drop|drops|splash|piece|pieces|cube|cubes|slice|slices)?\s+', '', line, flags=re.IGNORECASE)
+            line = re.sub(r'^\d+\.?\d*\s*(ml|cl|oz|dash|dashes|barspoon|teaspoon|tsp|tablespoon|tbsp|drop|drops|splash|piece|pieces|cube|cubes|slice|slices|splash|teaspoons)?\s+', '', line, flags=re.IGNORECASE)
             
-            # Nettoyer les espaces multiples
+            # Nettoyer les espaces multiples    
             line = re.sub(r'\s+', ' ', line).strip()
             
             if line and len(line) > 1:  # Ignorer les lignes vides ou trop courtes
