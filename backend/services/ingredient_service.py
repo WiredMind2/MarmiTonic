@@ -10,6 +10,7 @@ class IngredientService:
 
     def get_all_ingredients(self) -> List[Ingredient]:
         # First, load parsed ingredients from the local TTL parser
+        # These are the "canonical" ingredients used in our cocktail database
         ingredients = []
         try:
             local_ings = get_local_ingredients()
@@ -19,8 +20,9 @@ class IngredientService:
             # Fall back to empty list if parser fails
             local_ings = []
 
-        # If we have less than 50, supplement with DBpedia
-        if len(ingredients) < 50:
+        # If we have very few ingredients, supplement with DBpedia
+        # This handles the case where local data might be missing or empty
+        if len(ingredients) < 10:
             dbpedia_query = """
             SELECT ?id ?name ?category ?description WHERE {
                 ?id rdf:type dbo:Food .
@@ -31,62 +33,40 @@ class IngredientService:
             } LIMIT 50
             """
             results = self.sparql_service.execute_query(dbpedia_query)
+            
+            existing_ids = {ing.id for ing in ingredients}
+            existing_names = {ing.name.lower() for ing in ingredients}
+            
             for result in results["results"]["bindings"]:
                 uri = result["id"]["value"]
-                # Avoid duplicates by URI or name
-                existing_ids = {ing.id for ing in ingredients if getattr(ing, 'id', None)}
-                existing_names = {ing.name for ing in ingredients if getattr(ing, 'name', None)}
-                if uri not in existing_ids and result["name"]["value"] not in existing_names:
+                name = result["name"]["value"]
+                
+                if uri not in existing_ids and name.lower() not in existing_names:
+                    category_val = result.get("category", {}).get("value", "Unknown")
                     ingredient = Ingredient(
                         id=uri,
-                        name=result["name"]["value"],
-                        category=result.get("category", {}).get("value", "Unknown"),
+                        name=name,
+                        categories=[category_val], # Normalized to list
                         description=result.get("description", {}).get("value")
                     )
                     ingredients.append(ingredient)
-                    if len(ingredients) >= 50:
-                        break
 
         return ingredients
 
-    def _get_local_ingredient_uris(self) -> List[str]:
-        """Extract unique ingredient URIs from cocktail wikiPageWikiLink"""
-        query = """
-        SELECT DISTINCT ?ingredient WHERE {
-            ?cocktail dbo:wikiPageWikiLink ?ingredient .
-            ?cocktail rdfs:label ?cocktailName .
-            FILTER(LANG(?cocktailName) = "en")
-        }
-        """
-        try:
-            results = self.sparql_service.execute_local_query(query)
-            return [result["ingredient"]["value"] for result in results["results"]["bindings"]]
-        except:
-            return []
-
-    def _query_local_ingredient(self, uri: str) -> Ingredient:
-        """Query local graph for ingredient details"""
-        query = f"""
-        SELECT ?name ?description WHERE {{
-            <{uri}> rdfs:label ?name .
-            FILTER(LANG(?name) = "en")
-            OPTIONAL {{ <{uri}> dbo:abstract ?description . FILTER(LANG(?description) = "en") }}
-        }}
-        """
-        try:
-            results = self.sparql_service.execute_local_query(query)
-            if results["results"]["bindings"]:
-                result = results["results"]["bindings"][0]
-                return Ingredient(
-                    id=uri,
-                    name=result.get("name", {}).get("value", "Unknown"),
-                    description=result.get("description", {}).get("value")
-                )
-        except:
-            pass
-        return None
-
     def search_ingredients(self, query: str) -> List[Ingredient]:
+        # 1. Search locally first (fast and relevant)
+        local_matches = []
+        query_lower = query.lower()
+        
+        try:
+            all_local = get_local_ingredients()
+            for ing in all_local:
+                if query_lower in ing.name.lower():
+                    local_matches.append(ing)
+        except Exception:
+            pass
+            
+        # 2. Setup DBpedia search for broader results
         sparql_query = f"""
         SELECT ?id ?name ?category ?description WHERE {{
             ?id rdf:type dbo:Food .
@@ -94,19 +74,32 @@ class IngredientService:
             FILTER(LANG(?name) = "en" && CONTAINS(LCASE(?name), LCASE("{query}")))
             OPTIONAL {{ ?id dbo:category ?category }}
             OPTIONAL {{ ?id dbo:abstract ?description . FILTER(LANG(?description) = "en") }}
-        }} LIMIT 50
+        }} LIMIT 20
         """
-        results = self.sparql_service.execute_query(sparql_query)
-        ingredients = []
-        for result in results["results"]["bindings"]:
-            ingredient = Ingredient(
-                id=result["id"]["value"],
-                name=result["name"]["value"],
-                category=result.get("category", {}).get("value", "Unknown"),
-                description=result.get("description", {}).get("value")
-            )
-            ingredients.append(ingredient)
-        return ingredients
+        
+        dbpedia_matches = []
+        try:
+            results = self.sparql_service.execute_query(sparql_query)
+            
+            local_names = {ing.name.lower() for ing in local_matches}
+            
+            for result in results["results"]["bindings"]:
+                name = result["name"]["value"]
+                if name.lower() in local_names:
+                    continue # Skip if already found locally
+                    
+                category_val = result.get("category", {}).get("value", "Unknown")
+                ingredient = Ingredient(
+                    id=result["id"]["value"],
+                    name=name,
+                    categories=[category_val], # Normalized to list
+                    description=result.get("description", {}).get("value")
+                )
+                dbpedia_matches.append(ingredient)
+        except Exception:
+            pass # DBpedia might be down
+            
+        return local_matches + dbpedia_matches
 
     def update_inventory(self, user_id: str, ingredients: List[str]):
         self.inventories[user_id] = ingredients
