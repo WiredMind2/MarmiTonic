@@ -355,15 +355,15 @@
             : `<span class="badge-warning">Il manque ${cocktail.missingCount} ingrédient(s): ${cocktail.missingIngredients.join(', ')}</span>`;
         
         div.innerHTML = `
-            <div class="cocktail-icon">${cocktail.image}</div>
+            <div class="cocktail-icon"><img src="${cocktail.image}" alt="${cocktail.name}" onerror="this.style.display='none'"></div>
             <div class="cocktail-info">
-                <h4 class="cocktail-name">${cocktail.name}</h4>
-                <div class="cocktail-status">${missingText}</div>
-                <div class="ingredient-chips">
-                    ${ (cocktail.ingredients || []).map(ing => 
-                        `<span class="chip ${selectedIngredients.has(ing) || selectedIngredients.has(ing) ? 'chip-have' : 'chip-need'}">${ing}</span>`
-                    ).join('')}
-                </div>
+            <h4 class="cocktail-name">${cocktail.name}</h4>
+            <div class="cocktail-status">${missingText}</div>
+            <div class="ingredient-chips">
+                ${ (cocktail.ingredients || []).map(ing => 
+                `<span class="chip ${selectedIngredients.has(ing) || selectedIngredients.has(ing) ? 'chip-have' : 'chip-need'}">${ing}</span>`
+                ).join('')}
+            </div>
             </div>
         `;
         
