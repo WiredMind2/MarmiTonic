@@ -56,14 +56,20 @@ class GraphService:
                 if cocktail.id and hasattr(cocktail, 'parsed_ingredients') and cocktail.parsed_ingredients:
                     for ingredient_name in cocktail.parsed_ingredients:
                         # Find ingredient by name (simplified for testing)
+                        # Use case-insensitive matching and check for partial matches
+                        ing_name_lower = ingredient_name.lower().strip()
                         for ingredient in ingredients:
-                            if ingredient.name == ingredient_name and ingredient.id:
-                                graph_data['edges'].append({
-                                    'source': cocktail.id,
-                                    'target': ingredient.id,
-                                    'type': 'cocktail_ingredient'
-                                })
-                                break
+                            if ingredient.id and ingredient.name:
+                                target_name_lower = ingredient.name.lower().strip()
+                                if ing_name_lower == target_name_lower or \
+                                   ing_name_lower in target_name_lower or \
+                                   target_name_lower in ing_name_lower:
+                                    graph_data['edges'].append({
+                                        'source': cocktail.id,
+                                        'target': ingredient.id,
+                                        'type': 'cocktail_ingredient'
+                                    })
+                                    break
             
             return graph_data
             

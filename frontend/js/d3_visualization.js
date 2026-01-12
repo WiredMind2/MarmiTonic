@@ -105,9 +105,6 @@ class D3DisjointForceGraph {
             .attr('dx', 15)
             .attr('dy', '.35em')
             .attr('fill', '#333');
-
-        // Add legend
-        this.addLegend();
     }
 
     ticked() {
@@ -158,38 +155,6 @@ class D3DisjointForceGraph {
             'default': '#76b7b2'
         };
         return colors[type] || colors.default;
-    }
-
-    addLegend() {
-        const legendData = [
-            {type: 'cocktail', color: '#4e79a7'},
-            {type: 'ingredient', color: '#f28e2b'}
-        ];
-
-        const legend = this.graphGroup.append('g')
-            .attr('class', 'legend')
-            .attr('transform', `translate(${this.width/2 - 120}, ${-this.height/2 + 40})`);
-
-        legend.selectAll('rect')
-            .data(legendData)
-            .enter().append('rect')
-            .attr('x', 0)
-            .attr('y', (d, i) => i * 20)
-            .attr('width', 15)
-            .attr('height', 15)
-            .attr('fill', d => d.color)
-            .attr('stroke', '#fff')
-            .attr('stroke-width', 1);
-
-        legend.selectAll('text')
-            .data(legendData)
-            .enter().append('text')
-            .attr('x', 20)
-            .attr('y', (d, i) => i * 20 + 12)
-            .text(d => d.type)
-            .attr('font-size', '12px')
-            .attr('fill', '#2C3E50')
-            .attr('font-weight', '500');
     }
 
     // Disjoint graph specific methods
