@@ -20,3 +20,15 @@ def start_frontend_server():
         print(f"Frontend server already running or failed: {e}")
 
 
+# Start frontend server in a separate thread only if not already started
+frontend_thread = None
+
+
+def start_frontend_server_once():
+    global frontend_thread
+    if frontend_thread is None or not frontend_thread.is_alive():
+        frontend_thread = threading.Thread(target=start_frontend_server, daemon=True)
+        frontend_thread.start()
+        print(f"Starting frontend server on: http://localhost:8080")
+    else:
+        print(f"Frontend server already running on: http://localhost:8080")

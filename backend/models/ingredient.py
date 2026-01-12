@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional, Dict, List
 
 
@@ -13,7 +13,8 @@ class Ingredient(BaseModel):
     labels: Optional[Dict[str, str]] = Field(None, description="Multilingual labels")
     descriptions: Optional[Dict[str, str]] = Field(None, description="Multilingual descriptions")
 
-    class Config:
+    model_config = ConfigDict(
         json_encoders = {
             # Custom encoders if needed
         }
+    )

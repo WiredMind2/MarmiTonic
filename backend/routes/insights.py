@@ -3,7 +3,7 @@ from ..services.graph_service import GraphService
 
 router = APIRouter()
 
-@router.get("/insights/graph")
+@router.get("/graph")
 async def get_graph_analysis():
     """
     Return graph analysis results including metrics and communities.
@@ -14,7 +14,7 @@ async def get_graph_analysis():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to analyze graph: {str(e)}")
 
-@router.get("/insights/visualization")
+@router.get("/visualization")
 async def get_graph_visualization():
     """
     Return graph data in D3.js compatible format.
@@ -25,7 +25,7 @@ async def get_graph_visualization():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to generate visualization: {str(e)}")
 
-@router.get("/insights/export")
+@router.get("/export")
 async def export_graph():
     """
     Return graph data in Gephi-compatible format.
@@ -37,7 +37,7 @@ async def export_graph():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to export graph: {str(e)}")
 
-@router.get("/insights/components")
+@router.get("/components")
 async def get_disjoint_components():
     """
     Analyze and return information about disjoint components in the graph.

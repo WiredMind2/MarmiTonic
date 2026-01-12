@@ -23,7 +23,19 @@ class CocktailService:
         self.ingredient_service = IngredientService()
         self.graph = get_shared_graph()
 
-    # _load_local_data is no longer needed since we use get_shared_graph()
+    @staticmethod
+    def generate_slug(name: str) -> str:
+        """Generate a slug from cocktail name"""
+        # Convert to lowercase
+        slug = name.lower()
+        # Remove parentheses and their content
+        slug = re.sub(r'\([^)]*\)', '', slug)
+        # Replace non-alphanumeric characters with hyphens
+        slug = re.sub(r'[^a-z0-9]+', '-', slug)
+        # Remove leading/trailing hyphens
+        slug = slug.strip('-')
+        return slug
+
     def _load_local_data(self):
         pass
 
@@ -73,9 +85,11 @@ class CocktailService:
             if isinstance(alt_name, Literal) and alt_name != name:
                 alt_names.append(str(alt_name))
 
+        cocktail_name = name or "Unknown Cocktail"
         return Cocktail(
-            id=str(cocktail_uri),
-            name=name or "Unknown Cocktail",
+            uri=str(cocktail_uri),
+            id=self.generate_slug(cocktail_name),
+            name=cocktail_name,
             alternative_names=alt_names if alt_names else None,
             description=descriptions.get("en") or None,
             image=image,
@@ -88,6 +102,7 @@ class CocktailService:
             related_ingredients=related if related else None,
             labels=labels if labels else None,
             descriptions=descriptions if descriptions else None
+            
         )
 
     def _get_property(self, subject: URIRef, predicate: URIRef, lang: str = None) -> str:
@@ -109,10 +124,11 @@ class CocktailService:
     def get_all_cocktails(self) -> List[Cocktail]:
         """Get all cocktails from local TTL data using SPARQL"""
         query = """
-        SELECT ?cocktail ?name ?desc ?ingredients ?prep ?served ?garnish ?source WHERE {
+        SELECT ?cocktail ?name ?desc ?image ?ingredients ?prep ?served ?garnish ?source WHERE {
             ?cocktail rdfs:label ?name .
             FILTER(LANG(?name) = "en")
             OPTIONAL { ?cocktail dbo:description ?desc . FILTER(LANG(?desc) = "en") }
+            OPTIONAL { ?cocktail foaf:depiction ?image }
             OPTIONAL { ?cocktail dbp:ingredients ?ingredients . FILTER(LANG(?ingredients) = "en") }
             OPTIONAL { ?cocktail dbp:prep ?prep . FILTER(LANG(?prep) = "en") }
             OPTIONAL { ?cocktail dbp:served ?served . FILTER(LANG(?served) = "en") }
@@ -126,11 +142,17 @@ class CocktailService:
             print(f"SPARQL query failed: {e}")
             return []
 
-        cocktails = []
+        cocktails_dict = {}
         for result in results["results"]["bindings"]:
             cocktail_uri = result["cocktail"]["value"]
+
+            # If we've already seen this cocktail URI, skip (keep first occurrence)
+            if cocktail_uri in cocktails_dict:
+                continue
+
             name = result.get("name", {}).get("value", "Unknown Cocktail")
             description = result.get("desc", {}).get("value")
+            image = result.get("image", {}).get("value")
             ingredients = result.get("ingredients", {}).get("value")
             preparation = result.get("prep", {}).get("value")
             served = result.get("served", {}).get("value")
@@ -142,9 +164,11 @@ class CocktailService:
             ingredient_uris = self._extract_ingredient_uris(cocktail_uri) if self.graph else None
 
             cocktail = Cocktail(
-                id=cocktail_uri,
+                uri=cocktail_uri,
+                id=self.generate_slug(name),
                 name=name,
                 description=description,
+                image=image,
                 ingredients=ingredients,
                 parsed_ingredients=parsed_ingredients,
                 ingredient_uris=ingredient_uris,
@@ -153,9 +177,10 @@ class CocktailService:
                 garnish=garnish,
                 source_link=source_link
             )
-            cocktails.append(cocktail)
+            cocktails_dict[cocktail_uri] = cocktail
 
-        return cocktails
+        # Return list of unique cocktails preserving first-seen order
+        return list(cocktails_dict.values())
 
     def search_cocktails(self, query: str) -> List[Cocktail]:
         """Search cocktails by name"""

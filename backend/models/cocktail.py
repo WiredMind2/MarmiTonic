@@ -1,9 +1,10 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional, Dict
 
 
 class Cocktail(BaseModel):
-    id: str = Field(..., description="DBpedia resource URI for the cocktail")
+    uri: str = Field(..., description="DBpedia resource URI for the cocktail")
+    id: str = Field(..., description="URL-friendly slug generated from name")
     name: str = Field(..., min_length=1, description="Name of the cocktail")
     alternative_names: Optional[List[str]] = Field(None, description="Alternative names for the cocktail")
     description: Optional[str] = Field(None, description="Description of the cocktail")
@@ -20,7 +21,8 @@ class Cocktail(BaseModel):
     labels: Optional[Dict[str, str]] = Field(None, description="Multilingual labels")
     descriptions: Optional[Dict[str, str]] = Field(None, description="Multilingual descriptions")
 
-    class Config:
+    model_config = ConfigDict(
         json_encoders = {
             # Custom encoders if needed
         }
+    )

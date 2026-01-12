@@ -27,7 +27,7 @@ class D3DisjointForceGraph {
             .attr('width', this.width)
             .attr('height', this.height)
             .attr('viewBox', [-this.width / 2, -this.height / 2, this.width, this.height])
-            .style('background-color', '#f0f0f0');
+            .style('background-color', '#fff8e7');
 
         // Add zoom and pan functionality
         const zoom = d3.zoom()
@@ -168,7 +168,7 @@ class D3DisjointForceGraph {
 
         const legend = this.graphGroup.append('g')
             .attr('class', 'legend')
-            .attr('transform', `translate(${this.width/2 - 100}, ${this.height/2 - 50})`);
+            .attr('transform', `translate(${this.width/2 - 120}, ${-this.height/2 + 40})`);
 
         legend.selectAll('rect')
             .data(legendData)
@@ -177,7 +177,9 @@ class D3DisjointForceGraph {
             .attr('y', (d, i) => i * 20)
             .attr('width', 15)
             .attr('height', 15)
-            .attr('fill', d => d.color);
+            .attr('fill', d => d.color)
+            .attr('stroke', '#fff')
+            .attr('stroke-width', 1);
 
         legend.selectAll('text')
             .data(legendData)
@@ -186,7 +188,8 @@ class D3DisjointForceGraph {
             .attr('y', (d, i) => i * 20 + 12)
             .text(d => d.type)
             .attr('font-size', '12px')
-            .attr('fill', '#333');
+            .attr('fill', '#2C3E50')
+            .attr('font-weight', '500');
     }
 
     // Disjoint graph specific methods
