@@ -1,3 +1,8 @@
+# data files and caches used for similarity search
+cocktails_cache.pkl
+embeddings_cache.pkl
+faiss_index.bin
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]

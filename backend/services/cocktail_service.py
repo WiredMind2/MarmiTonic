@@ -254,7 +254,7 @@ class CocktailService:
 
         return matching_cocktails
 
-    def get_cocktails_by_uris(self, uris: List[str]) -> List[Cocktail]:
+    def get_cocktails_by_ingredient_uris(self, uris: List[str]) -> List[Cocktail]:
         """Get cocktails that contain ingredients with the specified URIs"""
         all_cocktails = self.get_all_cocktails()
         matching_cocktails = []
@@ -266,110 +266,3 @@ class CocktailService:
                     matching_cocktails.append(cocktail)
 
         return matching_cocktails
-
-    def get_similar_cocktails(self, cocktail_id: str, limit: int = 10) -> List[Dict[str, Any]]:
-        """Get cocktails similar to the given cocktail based on ingredient overlap"""
-        all_cocktails = self.get_all_cocktails()
-
-        # Find the target cocktail
-        target_cocktail = None
-        for cocktail in all_cocktails:
-            if cocktail.id == cocktail_id:
-                target_cocktail = cocktail
-                break
-
-        if not target_cocktail or not target_cocktail.parsed_ingredients:
-            return []
-
-        target_ingredients = set(ing.lower() for ing in target_cocktail.parsed_ingredients)
-        similarities = []
-
-        for cocktail in all_cocktails:
-            if cocktail.id == cocktail_id or not cocktail.parsed_ingredients:
-                continue
-
-            cocktail_ingredients = set(ing.lower() for ing in cocktail.parsed_ingredients)
-            intersection = len(target_ingredients & cocktail_ingredients)
-            union = len(target_ingredients | cocktail_ingredients)
-
-            if union > 0:
-                similarity_score = intersection / union
-                similarities.append({
-                    "cocktail": cocktail,
-                    "similarity_score": similarity_score
-                })
-
-        # Sort by similarity score descending and return top limit
-        similarities.sort(key=lambda x: x["similarity_score"], reverse=True)
-        return similarities[:limit]
-
-    def get_same_vibe_cocktails(self, cocktail_id: str, limit: int = 10) -> List[Cocktail]:
-        """Get cocktails in the same graph community/cluster as the given cocktail"""
-        from .graph_service import GraphService  # Import locally to avoid circular imports
-
-        all_cocktails = self.get_all_cocktails()
-
-        # Find the target cocktail
-        target_cocktail = None
-        for cocktail in all_cocktails:
-            if cocktail.id == cocktail_id:
-                target_cocktail = cocktail
-                break
-
-        if not target_cocktail:
-            return []
-
-        # Get graph analysis with communities
-        graph_service = GraphService()
-        analysis = graph_service.analyze_graph()
-        communities = analysis.get('communities', {})
-
-        # Find the community of the target cocktail
-        target_community = None
-        for node, community_id in communities.items():
-            if node == target_cocktail.name:
-                target_community = community_id
-                break
-
-        if target_community is None:
-            return []
-
-        # Find all cocktails in the same community
-        same_vibe_cocktails = []
-        for cocktail in all_cocktails:
-            if cocktail.id != cocktail_id and cocktail.name in communities:
-                if communities[cocktail.name] == target_community:
-                    same_vibe_cocktails.append(cocktail)
-
-        # Return up to limit cocktails
-        return same_vibe_cocktails[:limit]
-
-    def get_bridge_cocktails(self, limit: int = 10) -> List[Cocktail]:
-        """Get cocktails that connect different communities (bridge cocktails)"""
-        from .graph_service import GraphService  # Import locally to avoid circular imports
-
-        all_cocktails = self.get_all_cocktails()
-
-        # Get graph analysis with communities
-        graph_service = GraphService()
-        analysis = graph_service.analyze_graph()
-        communities = analysis.get('communities', {})
-
-        bridge_cocktails = []
-
-        for cocktail in all_cocktails:
-            if not cocktail.parsed_ingredients:
-                continue
-
-            # Collect communities of ingredients used in this cocktail
-            ingredient_communities = set()
-            for ingredient_name in cocktail.parsed_ingredients:
-                if ingredient_name in communities:
-                    ingredient_communities.add(communities[ingredient_name])
-
-            # If ingredients span more than one community, it's a bridge cocktail
-            if len(ingredient_communities) > 1:
-                bridge_cocktails.append(cocktail)
-
-        # Return up to limit bridge cocktails
-        return bridge_cocktails[:limit]

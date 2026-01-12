@@ -5,7 +5,9 @@ from sentence_transformers import SentenceTransformer
 import pickle
 import os
 from ..models.cocktail import Cocktail
+from ..models.vibe_cluster import VibeCluster
 from .cocktail_service import CocktailService
+from backend.models import cocktail
 
 
 class SimilarityService:
@@ -22,13 +24,20 @@ class SimilarityService:
         self.embeddings_path = "backend/data/embeddings_cache.pkl"
         
     def _create_cocktail_text(self, cocktail: Cocktail) -> str:
-        parts = [f"Nom: {cocktail.name}", f"Ingrédients: {', '.join(cocktail.ingredients)}"]
-        if cocktail.category:
-            parts.append(f"Catégorie: {cocktail.category}")
+        ingredients = cocktail.ingredients or []
+        ingredients_str = ', '.join(str(i) for i in ingredients if i)
+        parts = [f"Nom: {cocktail.name}", f"Ingrédients: {ingredients_str}"]
         if cocktail.description:
             parts.append(f"Description: {cocktail.description}")
-        if cocktail.instructions:
-            parts.append(f"Instructions: {cocktail.instructions}")
+        if cocktail.alternative_names:
+            alt_names_str = ', '.join(cocktail.alternative_names)
+            parts.append(f"Noms alternatifs: {alt_names_str}")
+        if cocktail.categories:
+            categories_str = ', '.join(cocktail.categories)
+            parts.append(f"Catégories: {categories_str}")
+        if cocktail.related_ingredients:
+            related_str = ', '.join(cocktail.related_ingredients)
+            parts.append(f"Ingrédients liés: {related_str}")
         return " | ".join(parts)
     
     def build_index(self, force_rebuild: bool = False) -> None:
@@ -45,6 +54,7 @@ class SimilarityService:
             print("Aucun cocktail trouvé")
             return
         
+        print("Génération des textes des cocktails pour les embeddings...")
         cocktail_texts = [self._create_cocktail_text(c) for c in self.cocktails]
         print("Génération des embeddings...")
         self.embeddings = self.model.encode(cocktail_texts, show_progress_bar=True)
@@ -55,6 +65,9 @@ class SimilarityService:
         self.index.add(self.embeddings)
         
         print(f"Index construit avec {self.index.ntotal} cocktails")
+        
+        print(self.embeddings)
+        
         self.save_index()
     
     def save_index(self) -> None:
@@ -132,3 +145,75 @@ class SimilarityService:
     def find_similar_by_ingredients(self, ingredients: List[str], top_k: int = 5) -> List[Dict[str, Any]]:
         query_text = f"Cocktail avec les ingrédients: {', '.join(ingredients)}"
         return self.find_similar_by_text(query_text, top_k)
+    
+    def create_cocktails_clusters(self, n_clusters: int = 6) -> Dict[int, VibeCluster]:
+        """Regroupe les cocktails en clusters basés sur leurs embeddings."""
+        if self.index is None or not self.cocktails:
+            self.build_index()
+        if self.index is None or not self.cocktails:
+            return {}
+        
+        d = self.embeddings.shape[1]
+
+        kmeans = faiss.Kmeans(
+            d=d,
+            k=n_clusters,
+            niter=50,
+            nredo=5,
+            verbose=True,
+            gpu=False
+        )
+        kmeans.train(self.embeddings)
+        labels = kmeans.index.search(self.embeddings, 1)[1].flatten()
+        distances = kmeans.index.search(self.embeddings, 1)[0].flatten()
+
+        #create clusters dictionary
+        clusters: Dict[int, VibeCluster] = {}
+        for idx, label in enumerate(labels):
+            cocktail = self.cocktails[idx]
+            distance = float(distances[idx])  # Convert numpy to Python float
+            label_int = int(label)  # Convert numpy.int64 to Python int
+            if label_int not in clusters:
+                clusters[label_int] = VibeCluster(
+                    cluster_id=label_int,
+                    title=None,
+                    center=None,
+                    cocktail_ids=[],
+                    closest_to_center=[]
+                )
+            clusters[label_int].cocktail_ids.append(cocktail.id)
+            cocktail.vibe_id = label_int
+        
+        # Keep track of closest cocktails to center
+        centroids = kmeans.centroids
+        index_centroid = faiss.IndexFlatIP(d)
+        index_centroid.add(self.embeddings)
+
+        D, I = index_centroid.search(
+            centroids,
+            10  # Top 10 closest to center
+        )
+
+        for cluster_id, cluster in clusters.items():
+            closest_ids = I[cluster_id]
+            closest_cocktail_ids = [self.cocktails[int(i)].id for i in closest_ids if self.cocktails[int(i)].id in cluster.cocktail_ids]
+            cluster.closest_to_center = closest_cocktail_ids
+            # Convert centroid to Python list of floats
+            cluster.center = centroids[cluster_id].tolist()
+
+        # find titles for clusters based on closest cocktails using ai model
+        for cluster_id, cluster in clusters.items():
+            if cluster.closest_to_center:
+                descriptions = []
+                for cocktail_id in cluster.closest_to_center:
+                    cocktail = next((c for c in self.cocktails if c.id == cocktail_id), None)
+                    if cocktail and cocktail.description:
+                        descriptions.append(cocktail.description)
+                cluster_descriptions = f",".join(descriptions)
+                #cluster.title = TODO: generate title using ai model
+
+        # check if every cocktail is in a cluster
+        for (cluster_id, cluster) in clusters.items():
+            print(f"Cluster {cluster_id} has {len(cluster.cocktail_ids)} cocktails.")
+
+        return clusters
