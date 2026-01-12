@@ -84,13 +84,47 @@ class IBADataParser:
             
             # Enlever les bullets (* ou -)
             line = re.sub(r'^[\*\-]\s*', '', line)
-            
+
             # Enlever les quantités (nombres + unités)
             # Ex: "30 ml gin" -> "gin", "1 dash bitters" -> "bitters"
-            line = re.sub(r'^\d+\.?\d*\s*(ml|cl|oz|dash|dashes|barspoon|teaspoon|tsp|tablespoon|tbsp|drop|drops|splash|piece|pieces|cube|cubes|slice|slices)?\s+', '', line, flags=re.IGNORECASE)
+            line = re.sub(r'^\d+\.?\d*\s*(ml|cl|oz|dash|dashes|barspoon|teaspoon|tsp|tablespoon|tbsp|drop|drops|splash|piece|pieces|cube|cubes|slice|slices|splash|teaspoons|of)?\s+', '', line, flags=re.IGNORECASE)
             
-            # Nettoyer les espaces multiples
+            # Nettoyer les espaces multiples    
             line = re.sub(r'\s+', ' ', line).strip()
+
+            
+            #Cas particulier, 1/4 barspoon Absinthe supprimer le 1/4
+            line = re.sub(r'^\d+\/\d+\s*(ml|cl|oz|dash|dashes|barspoon|teaspoon|tsp|tablespoon|tbsp|drop|drops|splash|piece|pieces|cube|cubes|slice|slices)?\s+', '', line, flags=re.IGNORECASE)
+
+            #Les cas rares Select/Aperol/Campari/Cynar garder que Cynar
+            line = re.sub(r'^(Select)\/', '', line, flags=re.IGNORECASE)
+            line = re.sub(r'^(Aperol)\/', '', line, flags=re.IGNORECASE)
+            line = re.sub(r'^(Campari)\/', '', line, flags=re.IGNORECASE)
+
+            #5.049216E8 supprimer cette ligne si elle est présente
+            line = re.sub(r'^5\.049216E8$', '', line, flags=re.IGNORECASE)
+
+            #Supprimer les splash
+            line = re.sub(r'^(splash of|splash|a splash of)\s+', '', line, flags=re.IGNORECASE)
+
+
+            #supprimer les barspoon of bar spoon
+            line = re.sub(r'^(barspoon of|bar spoon of|barspoon|bar spoon|bar spoons)\s+', '', line, flags=re.IGNORECASE)
+            
+            #supprimer les lignes qui commencent par 100%
+            line = re.sub(r'^(100%|100 %)\s+', '', line, flags=re.IGNORECASE)
+            
+            #Remplacer of Worcestershire sauce par Worcestershire sauce
+            line = re.sub(r'^(of)\s+Worcestershire sauce', 'Worcestershire sauce', line, flags=re.IGNORECASE)
+           
+            #to 8 mint leaves -> mint leaves
+            line = re.sub(r'^(to\s+8|to\s+6|to\s+4|to\s+2|to\s+1)\s+', '', line, flags=re.IGNORECASE)
+            
+            #Two dashes Peychaud's Bitters -> Peychaud's Bitters and Few dashes Angostura bitters -> Angostura bitters
+            line = re.sub(r'^(two|few|one|three|four|five|six|seven|eight|nine|ten)\s+dashes\s+', '', line, flags=re.IGNORECASE)
+            line = re.sub(r'^(two|few|one|three|four|five|six|seven|eight|nine|ten)\s+dash\s+', '', line, flags=re.IGNORECASE)
+
+
             
             if line and len(line) > 1:  # Ignorer les lignes vides ou trop courtes
                 ingredients.append(line)

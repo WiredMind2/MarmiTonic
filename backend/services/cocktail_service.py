@@ -91,6 +91,7 @@ class CocktailService:
             related_ingredients=related if related else None,
             labels=labels if labels else None,
             descriptions=descriptions if descriptions else None
+            
         )
 
     def _get_property(self, subject: URIRef, predicate: URIRef, lang: str = None) -> str:
@@ -112,10 +113,11 @@ class CocktailService:
     def get_all_cocktails(self) -> List[Cocktail]:
         """Get all cocktails from local TTL data using SPARQL"""
         query = """
-        SELECT ?cocktail ?name ?desc ?ingredients ?prep ?served ?garnish ?source WHERE {
+        SELECT ?cocktail ?name ?desc ?image ?ingredients ?prep ?served ?garnish ?source WHERE {
             ?cocktail rdfs:label ?name .
             FILTER(LANG(?name) = "en")
             OPTIONAL { ?cocktail dbo:description ?desc . FILTER(LANG(?desc) = "en") }
+            OPTIONAL { ?cocktail foaf:depiction ?image }
             OPTIONAL { ?cocktail dbp:ingredients ?ingredients . FILTER(LANG(?ingredients) = "en") }
             OPTIONAL { ?cocktail dbp:prep ?prep . FILTER(LANG(?prep) = "en") }
             OPTIONAL { ?cocktail dbp:served ?served . FILTER(LANG(?served) = "en") }
@@ -134,6 +136,7 @@ class CocktailService:
             cocktail_uri = result["cocktail"]["value"]
             name = result.get("name", {}).get("value", "Unknown Cocktail")
             description = result.get("desc", {}).get("value")
+            image = result.get("image", {}).get("value")
             ingredients = result.get("ingredients", {}).get("value")
             preparation = result.get("prep", {}).get("value")
             served = result.get("served", {}).get("value")
@@ -148,6 +151,7 @@ class CocktailService:
                 id=cocktail_uri,
                 name=name,
                 description=description,
+                image=image,
                 ingredients=ingredients,
                 parsed_ingredients=parsed_ingredients,
                 ingredient_uris=ingredient_uris,
