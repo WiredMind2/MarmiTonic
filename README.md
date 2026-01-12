@@ -69,6 +69,10 @@ You can also directly open `frontend/index.html` in your web browser.
 4. **Insights**: View graph analytics and export data.
 5. **SPARQL Explorer**: Run custom queries.
 
+## Easter Egg 🎉
+
+Try typing "gin" in the natural language query input on the Graph Visualization page... 🍸✨
+
 ## Technical Stack
 
 - **Backend**: Python with FastAPI

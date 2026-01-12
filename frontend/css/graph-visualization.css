@@ -456,3 +456,60 @@
 button, input, .metric-card, .legend-item {
     transition: all 0.2s ease;
 }
+
+/* Easter Egg: GIN mode */
+.gin-mode-active {
+    animation: ginBlink 0.3s infinite alternate !important;
+}
+
+@keyframes ginBlink {
+    0% {
+        background-color: #00ff00 !important;
+        filter: hue-rotate(0deg) saturate(3) brightness(1.5) !important;
+    }
+    100% {
+        background-color: #ff0066 !important;
+        filter: hue-rotate(180deg) saturate(3) brightness(1.5) !important;
+    }
+}
+
+.gin-mode-active *,
+.gin-mode-active::before,
+.gin-mode-active::after {
+    animation: ginTextBlink 0.3s infinite alternate !important;
+    border-color: currentColor !important;
+}
+
+@keyframes ginTextBlink {
+    0% {
+        color: #000000 !important;
+        text-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00 !important;
+        background-color: rgba(0, 255, 0, 0.3) !important;
+        transform: scale(1.02) !important;
+    }
+    100% {
+        color: #ffffff !important;
+        text-shadow: 0 0 20px #ff0066, 0 0 40px #ff0066 !important;
+        background-color: rgba(255, 0, 102, 0.3) !important;
+        transform: scale(0.98) !important;
+    }
+}
+
+.gin-mode-active button,
+.gin-mode-active input,
+.gin-mode-active .card,
+.gin-mode-active .metric-card,
+.gin-mode-active .control-group {
+    animation: ginPulse 0.3s infinite alternate !important;
+}
+
+@keyframes ginPulse {
+    0% {
+        box-shadow: 0 0 30px #00ff00, inset 0 0 20px #00ff00 !important;
+        border: 2px solid #00ff00 !important;
+    }
+    100% {
+        box-shadow: 0 0 30px #ff0066, inset 0 0 20px #ff0066 !important;
+        border: 2px solid #ff0066 !important;
+    }
+}

@@ -38,6 +38,7 @@ class GraphVisualizationPage {
     
     init() {
         this.setupEventListeners();
+        this.ginModeActive = false;
     }
     
     setupEventListeners() {
@@ -74,6 +75,21 @@ class GraphVisualizationPage {
         if (this.elements.executeSparqlBtn) {
             this.elements.executeSparqlBtn.addEventListener('click', () => this.executeSparqlGraph());
         }
+        
+        // Easter egg: listen for "gin" in the input
+        if (this.elements.nlInput) {
+            console.log('Easter egg listener attached to nlInput');
+            this.elements.nlInput.addEventListener('input', (e) => {
+                const value = e.target.value.toLowerCase();
+                console.log('NL Input value:', value);
+                if (value.includes('gin')) {
+                    console.log('GIN detected! Activating easter egg...');
+                    this.activateGinMode();
+                }
+            });
+        } else {
+            console.error('nlInput element not found!');
+        }
     }
     
     async convertNlToSparql() {
@@ -81,6 +97,11 @@ class GraphVisualizationPage {
         if (!prompt) {
             alert('Veuillez entrer une question.');
             return;
+        }
+
+        // Easter egg: detect "gin" in the input
+        if (prompt.toLowerCase().includes('gin')) {
+            this.activateGinMode();
         }
 
         this.elements.nlToSparqlBtn.disabled = true;
@@ -409,6 +430,72 @@ class GraphVisualizationPage {
         if (this.elements.ingredientsCount) {
             this.elements.ingredientsCount.textContent = ingredientsCount;
         }
+    }
+
+    activateGinMode() {
+        console.log('activateGinMode called! Current state:', this.ginModeActive);
+        
+        if (this.ginModeActive) {
+            console.log('Already active, skipping...');
+            return;
+        }
+        
+        this.ginModeActive = true;
+        console.log('Activating HORRIBLE GIN MODE!');
+        
+        // Créer un effet horrible en modifiant directement les styles
+        let isGreen = true;
+        const interval = setInterval(() => {
+            if (isGreen) {
+                // Vert fluo
+                document.body.style.backgroundColor = '#00ff00';
+                document.body.style.color = '#000000';
+                document.body.style.filter = 'saturate(5) brightness(2)';
+                document.querySelectorAll('*').forEach(el => {
+                    el.style.backgroundColor = '#00ff00';
+                    el.style.color = '#000000';
+                    el.style.borderColor = '#00ff00';
+                    el.style.boxShadow = '0 0 50px #00ff00';
+                    el.style.textShadow = '0 0 20px #00ff00';
+                });
+            } else {
+                // Rouge fluo
+                document.body.style.backgroundColor = '#ff0066';
+                document.body.style.color = '#ffffff';
+                document.body.style.filter = 'saturate(5) brightness(2)';
+                document.querySelectorAll('*').forEach(el => {
+                    el.style.backgroundColor = '#ff0066';
+                    el.style.color = '#ffffff';
+                    el.style.borderColor = '#ff0066';
+                    el.style.boxShadow = '0 0 50px #ff0066';
+                    el.style.textShadow = '0 0 20px #ff0066';
+                });
+            }
+            isGreen = !isGreen;
+        }, 200);
+        
+        // Arrêter après 10 secondes et restaurer
+        setTimeout(() => {
+            clearInterval(interval);
+            
+            // Restaurer les styles
+            document.body.style.backgroundColor = '';
+            document.body.style.color = '';
+            document.body.style.filter = '';
+            document.querySelectorAll('*').forEach(el => {
+                el.style.backgroundColor = '';
+                el.style.color = '';
+                el.style.borderColor = '';
+                el.style.boxShadow = '';
+                el.style.textShadow = '';
+            });
+            
+            this.ginModeActive = false;
+            console.log('HORRIBLE GIN MODE deactivated');
+            
+            // Recharger la page pour être sûr de tout restaurer
+            window.location.reload();
+        }, 10000);
     }
 }
 
