@@ -133,8 +133,9 @@ class IBADataParser:
             line = re.sub(r'^(two|few|one|three|four|five|six|seven|eight|nine|ten)\s+dashes\s+', '', line, flags=re.IGNORECASE)
             line = re.sub(r'^(two|few|one|three|four|five|six|seven|eight|nine|ten)\s+dash\s+', '', line, flags=re.IGNORECASE)
 
+            #Few drops of egg white -> egg white
+            line = re.sub(r'^(few|one|two|three|four|five|six|seven|eight|nine|ten)\s+drops?\s+(of\s+)?', '', line, flags=re.IGNORECASE)
 
-            
             if line and len(line) > 1:  # Ignorer les lignes vides ou trop courtes
                 ingredients.append(line)
         
