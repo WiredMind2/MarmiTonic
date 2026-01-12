@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Query
 from typing import List
-from services.cocktail_service import CocktailService
+from ..services.cocktail_service import CocktailService
 
 router = APIRouter()
 

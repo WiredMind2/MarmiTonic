@@ -1,8 +1,8 @@
 import networkx as nx
 from typing import Dict, List, Any, Optional
-from services.cocktail_service import CocktailService
-from services.ingredient_service import IngredientService
-from services.sparql_service import SparqlService
+from .cocktail_service import CocktailService
+from .ingredient_service import IngredientService
+from .sparql_service import SparqlService
 import json
 import io
 

@@ -1,7 +1,7 @@
 import os
-from services.sparql_service import SparqlService
-from services.ingredient_service import IngredientService
-from models.cocktail import Cocktail
+from .sparql_service import SparqlService
+from .ingredient_service import IngredientService
+from ..models.cocktail import Cocktail
 from typing import List, Dict, Any
 import rdflib
 from rdflib import Graph, URIRef, Literal
