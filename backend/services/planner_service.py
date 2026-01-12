@@ -18,35 +18,7 @@ class PlannerService:
             else:
                 self.cocktail_ingredients[cocktail.name] = set()
 
-    def optimize_party_mode(self, num_ingredients: int) -> Dict[str, List]:
-        if num_ingredients <= 0:
-            return {'selected_ingredients': [], 'covered_cocktails': []}
-
-        # Get all unique ingredients
-        all_ingredients = set()
-        for ings in self.cocktail_ingredients.values():
-            all_ingredients.update(ings)
-
-        selected = []
-        covered_cocktails = set()
-
-        for _ in range(min(num_ingredients, len(all_ingredients))):
-            best_ing = None
-            max_new = 0
-            for ing in all_ingredients - set(selected):
-                new_covered = {c for c in self.cocktail_ingredients if ing in self.cocktail_ingredients[c] and c not in covered_cocktails}
-                if len(new_covered) > max_new:
-                    max_new = len(new_covered)
-                    best_ing = ing
-            if best_ing is None:
-                break
-            selected.append(best_ing)
-            covered_cocktails.update(new_covered)
-
-        return {
-            'selected_ingredients': selected,
-            'covered_cocktails': list(covered_cocktails)
-        }
+  
 
     def optimize_playlist_mode(self, cocktail_names: List[str]) -> Dict[str, List]:
         if not cocktail_names:
