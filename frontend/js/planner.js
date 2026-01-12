@@ -4,6 +4,7 @@
 let allCocktails = [];
 let userPlaylists = [];
 let marmitonicUserId = null;
+let userInventory = new Set(); // User's ingredient inventory from my-bar
 
 // User ID handling
 function getOrCreateUserId() {
@@ -35,6 +36,46 @@ function savePlaylists() {
     localStorage.setItem(`marmitonic_playlists_${marmitonicUserId}`, JSON.stringify(userPlaylists));
 }
 
+// Load user's ingredient inventory from backend
+async function loadUserInventory() {
+    if (!marmitonicUserId) return;
+    try {
+        const res = await fetch(`${API_BASE_URL}/ingredients/inventory/${marmitonicUserId}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (data && Array.isArray(data.ingredients)) {
+            userInventory = new Set(data.ingredients);
+        }
+    } catch (err) {
+        console.error('Failed to load inventory:', err);
+    }
+}
+
+// Save user's ingredient inventory to backend
+async function saveUserInventory() {
+    if (!marmitonicUserId) return;
+    try {
+        const body = { user_id: marmitonicUserId, ingredients: Array.from(userInventory) };
+        await fetch(`${API_BASE_URL}/ingredients/inventory`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+    } catch (err) {
+        console.error('Failed to save inventory:', err);
+    }
+}
+
+// Toggle ingredient in user's inventory
+function toggleIngredient(ingredientName) {
+    if (userInventory.has(ingredientName)) {
+        userInventory.delete(ingredientName);
+    } else {
+        userInventory.add(ingredientName);
+    }
+    saveUserInventory();
+}
+
 // Get cocktail by ID, or name
 function findCocktail(idOrName) {
     return allCocktails.find(c => 
@@ -60,12 +101,17 @@ function getPlaylist(playlistId) {
 document.addEventListener('DOMContentLoaded', async () => {
     marmitonicUserId = getOrCreateUserId();
     
-    // Load cocktails from backend
+    // Load cocktails and user inventory from backend
     try {
-        allCocktails = await fetchCocktails();
+        const [cocktails] = await Promise.all([
+            fetchCocktails(),
+            loadUserInventory()
+        ]);
+        allCocktails = cocktails;
         console.log(`Loaded ${allCocktails.length} cocktails from backend`);
+        console.log(`Loaded ${userInventory.size} ingredients from inventory`);
     } catch (err) {
-        console.error('Failed to load cocktails:', err);
+        console.error('Failed to load data:', err);
         allCocktails = [];
     }
     
@@ -204,15 +250,17 @@ async function openPlaylistModal(playlistId) {
     
     try {
         const cocktailNames = cocktails.map(c => c.name);
+        console.log('Optimizing ingredients for cocktails:', cocktailNames);
         if (cocktailNames.length > 0) {
             const optimization = await optimizePlaylistMode(cocktailNames);
+            console.log('Optimization result:', optimization);
             displayOptimizedIngredients(ingredientsList, optimization);
         } else {
             ingredientsList.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 1rem;">Aucun ingrédient nécessaire</p>';
         }
     } catch (err) {
         console.error('Failed to optimize ingredients:', err);
-        ingredientsList.innerHTML = '<p style="text-align: center; color: #ff6b6b; padding: 1rem;">Erreur lors du calcul des ingrédients</p>';
+        ingredientsList.innerHTML = `<p style="text-align: center; color: #ff6b6b; padding: 1rem;">Erreur lors du calcul des ingrédients: ${err.message}</p>`;
     }
 
     // Show modal
@@ -232,23 +280,37 @@ function displayOptimizedIngredients(container, optimization) {
         return;
     }
     
+    const ownedCount = optimization.selected_ingredients.filter(ing => userInventory.has(ing)).length;
+    const totalCount = optimization.selected_ingredients.length;
+    
     container.innerHTML = `
         <div style="margin-bottom: 1rem; padding: 0.75rem; background: rgba(56, 142, 60, 0.1); border-radius: 8px; color: var(--primary-color); font-size: 0.9rem;">
-            <i class="fa fa-check-circle"></i> ${optimization.selected_ingredients.length} ingrédients pour ${optimization.covered_cocktails.length} cocktails
+            <i class="fa fa-check-circle"></i> ${ownedCount}/${totalCount} ingrédients possédés
         </div>
     `;
     
     optimization.selected_ingredients.forEach((ingredient, index) => {
         const item = document.createElement('div');
         item.className = 'ingredient-needed-item';
+        const isOwned = userInventory.has(ingredient);
         
         item.innerHTML = `
-            <input type="checkbox" id="ingredient-${index}">
+            <input type="checkbox" id="ingredient-${index}" ${isOwned ? 'checked' : ''}>
             <label class="ingredient-needed-name" for="ingredient-${index}">${ingredient}</label>
             <span class="ingredient-needed-count">
                 <i class="fa fa-flask" style="font-size: 0.8rem; opacity: 0.7;"></i>
             </span>
         `;
+        
+        // Add checkbox event listener
+        const checkbox = item.querySelector('input[type="checkbox"]');
+        checkbox.addEventListener('change', (e) => {
+            toggleIngredient(ingredient);
+            // Update the summary count
+            const newOwnedCount = optimization.selected_ingredients.filter(ing => userInventory.has(ing)).length;
+            const summary = container.querySelector('div');
+            summary.innerHTML = `<i class="fa fa-check-circle"></i> ${newOwnedCount}/${totalCount} ingrédients possédés`;
+        });
         
         container.appendChild(item);
     });
