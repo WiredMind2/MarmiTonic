@@ -11,11 +11,11 @@ class LLMService:
             api_key=API_KEY)
     
     def example(self, prompt: str):
-        response = self.client.responses.create(
-            model="kwaipilot/kat-coder-pro:free",
-            input=prompt
+        response = self.client.chat.completions.create(
+            model="mistralai/devstral-2512:free",
+            messages=[{"role": "user", "content": prompt}]
         )
-        return response.output_text
+        return response.choices[0].message.content
     
 if __name__ == "__main__":
     llm_service = LLMService()
