@@ -17,7 +17,7 @@ class SparqlService:
         if local_graph_path:
             self.local_graph_path = local_graph_path
         else:
-            self.local_graph_path = "backend/data/data.ttl"
+            self.local_graph_path = "data/data.ttl"
 
         # Load shared graph if not already loaded or path changed
         if SparqlService._shared_graph_path != self.local_graph_path or SparqlService._shared_graph is None:
@@ -26,8 +26,8 @@ class SparqlService:
                 # Calculate correct path relative to this file
                 # File is in backend/services/sparql_service.py
                 # Data is in backend/data/data.ttl
-                # So we go up 1 level to backend/, then down to data/
-                absolute_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", self.local_graph_path))
+                # So we go up 2 levels to project root, then down to backend/data/
+                absolute_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "backend", self.local_graph_path))
                 print(f"DEBUG: Loading shared local graph from {absolute_path}")
                 SparqlService._shared_graph = Graph()
                 SparqlService._shared_graph.parse(absolute_path, format="turtle")
