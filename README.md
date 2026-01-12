@@ -36,7 +36,7 @@ A semantic web application for intelligent cocktail discovery and management, de
 
 4. Run the backend server:
    ```bash
-   uvicorn main:app --reload
+   uvicorn backend.main:app --reload
    ```
    The API will be available at `http://localhost:8000`.
 
