@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List
-from ..services.planner_service import PlannerService
+from services.planner_service import PlannerService
 
 router = APIRouter()
 
@@ -11,6 +11,9 @@ class PartyModeRequest(BaseModel):
     num_ingredients: int
 
 class PlaylistModeRequest(BaseModel):
+    cocktail_names: List[str]
+
+class UnionIngredientsRequest(BaseModel):
     cocktail_names: List[str]
 
 @router.post("/planner/party-mode")
@@ -34,3 +37,16 @@ async def playlist_mode(request: PlaylistModeRequest):
         return result
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to optimize playlist mode: {str(e)}")
+
+@router.post("/planner/union-ingredients")
+async def union_ingredients(request: UnionIngredientsRequest):
+    try:
+        if not request.cocktail_names:
+            raise HTTPException(status_code=400, detail="cocktail_names list cannot be empty")
+        
+        result = service.get_union_ingredients(request.cocktail_names)
+        return {"ingredients": result}
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get union ingredients: {str(e)}")

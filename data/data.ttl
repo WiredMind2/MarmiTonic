@@ -1,0 +1,2428 @@
+@prefix rdfs:	<http://www.w3.org/2000/01/rdf-schema#> .
+<http://dbpedia.org/resource/Aviation_(cocktail)>	rdfs:label	"Aviation (cocktail)"@en ,
+		"Aviation (cocktail)"@fr .
+@prefix dbp:	<http://dbpedia.org/property/> .
+<http://dbpedia.org/resource/Aviation_(cocktail)>	dbp:name	"Aviation"@en .
+@prefix foaf:	<http://xmlns.com/foaf/0.1/> .
+<http://dbpedia.org/resource/Aviation_(cocktail)>	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Aviation_Cocktail.jpg> .
+@prefix dbo:	<http://dbpedia.org/ontology/> .
+<http://dbpedia.org/resource/Aviation_(cocktail)>	dbo:description	"cocktail made with gin, maraschino liqueur, cr\u00E8me de violette, and lemon juice"@en ;
+	dbo:wikiPageWikiLink	<http://dbpedia.org/resource/Cr\u00E8me_de_violette> .
+@prefix dbr:	<http://dbpedia.org/resource/> .
+<http://dbpedia.org/resource/Aviation_(cocktail)>	dbo:wikiPageWikiLink	dbr:Liqueur ,
+		dbr:Lemon_juice ,
+		dbr:Creme_Yvette ,
+		dbr:Harry_Craddock ,
+		<http://dbpedia.org/resource/Parfait_d\u0027Amour> ,
+		dbr:Savoy_Cocktail_Book ,
+		dbr:Maraschino ,
+		<http://dbpedia.org/resource/Takumi_Watanabe_(bartender)> ,
+		<http://dbpedia.org/resource/Takumi\u0027s_Aviation> ,
+		dbr:Cocktail_shaker ,
+		dbr:Cointreau ,
+		dbr:Cherry ,
+		<http://dbpedia.org/resource/Sour_(cocktail)> ,
+		dbr:Gary_Regan ,
+		dbr:Bartending_terminology ,
+		dbr:List_of_cocktails ,
+		dbr:List_of_IBA_official_cocktails ,
+		<http://dbpedia.org/resource/List_of_cocktails_(alphabetical)> ,
+		dbr:Bartender ,
+		dbr:Gin ,
+		dbr:Cocktail .
+@prefix dct:	<http://purl.org/dc/terms/> .
+@prefix dbc:	<http://dbpedia.org/resource/Category:> .
+<http://dbpedia.org/resource/Aviation_(cocktail)>	dct:subject	dbc:Cocktails_with_liqueur ,
+		dbc:Cocktails_with_gin ,
+		<http://dbpedia.org/resource/Category:Cocktails_with_cr\u00E8me_de_violette> ;
+	dbp:ingredients	"* 45 ml gin\n* 15 ml maraschino Luxardo\n* 15 ml lemon juice\n* 1 barspoon cr\u00E8me de violette"@en ;
+	dbp:prep	"Add all ingredients into a cocktail shaker. Shake with cracked ice and strain into a chilled cocktail glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	dbr:Maraschino_cherry ;
+	dbp:sourcelink	692 .
+<http://dbpedia.org/resource/Planter\u0027s_punch>	rdfs:label	"Planter's punch"@en ,
+		"Punch planteur"@fr ;
+	dbp:name	"Planter's punch"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Planters_Punch_2.jpg> ;
+	dbo:description	"cocktail made with dark rum"@en ,
+		"cocktail avec alcool"@fr ;
+	dbo:wikiPageWikiLink	dbr:IBA_Official_Cocktail ,
+		<http://dbpedia.org/resource/Charleston,_South_Carolina> ,
+		dbr:Rum ,
+		dbr:Sugar_cane ,
+		dbr:Jamaica ,
+		<http://dbpedia.org/resource/Lime_(fruit)> ,
+		<http://dbpedia.org/resource/Zest_(ingredient)> ,
+		<http://dbpedia.org/resource/Fun_(magazine)> ,
+		<http://dbpedia.org/resource/Orange_(fruit)> ;
+	dct:subject	dbc:Bahamian_cuisine ,
+		dbc:Sugar_industry_of_Jamaica ,
+		<http://dbpedia.org/resource/Category:Limes_(fruit)> ,
+		dbc:Sour_cocktails ,
+		dbc:Jamaican_drinks ,
+		dbc:Mixed_drinks ,
+		dbc:Tiki_drinks ,
+		dbc:Cocktails_with_rum ,
+		dbc:Sweet_cocktails ;
+	dbp:ingredients	"* 45 ml Jamaican rum\n* 15 ml lime juice\n* 30 ml sugar cane juice"@en ;
+	dbp:prep	"Pour all ingredients directly in a small tumbler or a typical terracotta glass."@en ;
+	dbp:garnish	<http://dbpedia.org/resource/Zest_(ingredient)> ,
+		<http://dbpedia.org/resource/Orange_(fruit)> ;
+	dbp:sourcelink	"planters-punch"@en .
+<http://dbpedia.org/resource/John_Collins_(cocktail)>	rdfs:label	"John Collins (cocktail)"@fr ,
+		"John Collins (cocktail)"@en ;
+	dbp:name	"John Collins"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/IBA_Cocktail_John_Collins_(29221732881).jpg> ;
+	dbo:description	"cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:Jenever ,
+		dbr:Singapore_Sling ,
+		dbr:Bourbon_whiskey ,
+		dbr:Cocktail ,
+		dbr:Mayfair ,
+		dbr:Tom_Collins ,
+		dbr:Conduit_Street ,
+		dbr:Long_drink ,
+		dbr:Lemon ,
+		<http://dbpedia.org/resource/Punch_(drink)> ,
+		dbr:London_dry_gin ,
+		dbr:Maraschino ,
+		dbr:Sugar_syrup ,
+		dbr:Garrick_Club ,
+		dbr:Gin ,
+		dbr:Maraschino_cherry ,
+		dbr:Carbonated_water ,
+		dbr:Sugar ,
+		dbr:Old_Tom_gin ,
+		dbr:Lemon_juice ;
+	dct:subject	dbc:Cocktails_with_gin ;
+	dbp:ingredients	"* 45 ml gin\n* 30 ml fresh lemon juice\n* 15 ml simple syrup\n* 60 ml soda water"@en ;
+	dbp:prep	"Pour all ingredients directly into a Collins glass filled with ice. Stir gently."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"Lemon slice and maraschino cherry"@en ;
+	dbp:sourcelink	"john-collins"@en .
+<http://dbpedia.org/resource/Martini_(cocktail)>	rdfs:label	"Martini (cocktail)"@en ,
+		"Martini (cocktail)"@fr ;
+	dbp:name	"Dry martini"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/15-09-26-RalfR-WLC-0084.jpg> ;
+	dbo:description	"un cocktail \u00E0 base de gin et de vermouth blanc sec"@fr ,
+		"cocktail made with gin and vermouth"@en ;
+	dbo:wikiPageWikiLink	dbr:Cocktail_onion ,
+		dbr:Saketini ,
+		<http://dbpedia.org/resource/Luis_Bu\u00F1uel> ,
+		dbr:Three-martini_lunch ,
+		dbr:Lemon_twist ,
+		<http://dbpedia.org/resource/Goldfinger_(film)> ,
+		<http://dbpedia.org/resource/Hawkeye_(M*A*S*H)> ,
+		<http://dbpedia.org/resource/Diamonds_Are_Forever_(novel)> ,
+		dbr:Prosecco ,
+		<http://dbpedia.org/resource/Boker\u2019s_Bitters> ,
+		dbr:Espresso_martini ,
+		<http://dbpedia.org/resource/Dr._Julius_No> ,
+		dbr:Espresso ,
+		<http://dbpedia.org/resource/Gibson_(cocktail)> ,
+		dbr:List_of_cocktails ,
+		dbr:James_Bond ,
+		dbr:Olive ,
+		dbr:Caper ,
+		dbr:Roaring_Twenties ,
+		dbr:Bernard_Montgomery ,
+		<http://dbpedia.org/resource/Cura\u00E7ao_(liqueur)> ,
+		dbr:Appletini ,
+		<http://dbpedia.org/resource/Shaken,_not_stirred> ,
+		dbr:Shot_glass ,
+		dbr:Cocktail_garnish ,
+		dbr:Bitters ,
+		dbr:Sean_Connery ,
+		dbr:Lemon ,
+		<http://dbpedia.org/resource/Cr\u00E8me_de_violette> ,
+		dbr:Porn_star_martini ,
+		<http://dbpedia.org/resource/Manhattan_(cocktail)> ,
+		dbr:Old_fashioned_glass ,
+		<http://dbpedia.org/resource/Vesper_(cocktail)> ,
+		<http://dbpedia.org/resource/Casino_Royale_(novel)> ,
+		dbr:Angostura_bitters ,
+		dbr:Vermouth ,
+		dbr:Mexican_martini ,
+		dbr:I_Dream_of_Jeannie ,
+		<http://dbpedia.org/resource/Bronx_(cocktail)> ,
+		<http://dbpedia.org/resource/Martinez_(cocktail)> ,
+		dbr:Lillet ,
+		dbr:American_National_Standards_Institute ,
+		dbr:Cocktail_glass ,
+		dbr:Cocktail_shaker ,
+		dbr:Old_Tom_gin ,
+		dbr:Syrup ,
+		dbr:Flavored_liquor ,
+		<http://dbpedia.org/resource/Harry_Johnson_(bartender)> ,
+		<http://dbpedia.org/resource/Martinez,_California> ,
+		<http://dbpedia.org/resource/Straight_up_(bartending)> ,
+		<http://dbpedia.org/resource/Dry_(alcohol)> ,
+		dbr:Ian_Fleming ,
+		<http://dbpedia.org/resource/Occidental_Hotel_(San_Francisco)> ,
+		dbr:Plymouth_Gin ,
+		<http://dbpedia.org/resource/M*A*S*H_(TV_series)> ,
+		<http://dbpedia.org/resource/Amaro_(liqueur)> ,
+		<http://dbpedia.org/resource/Martini_(vermouth)> ,
+		dbr:Maraschino ,
+		dbr:Bacon_martini ,
+		dbr:Cocktail ,
+		<http://dbpedia.org/resource/Knickerbocker_Hotel_(New_York)> ,
+		dbr:Breakfast_martini ,
+		<http://dbpedia.org/resource/Dr._No_(film)> ,
+		dbr:Gin ,
+		dbr:Prohibition_in_the_United_States ,
+		dbr:New_York_City ,
+		dbr:Wine_spritzer ,
+		<http://dbpedia.org/resource/Dryness_(taste)> ,
+		dbr:Passion_fruit ,
+		dbr:Vodka ,
+		dbr:Secret_Intelligence_Service ,
+		dbr:List_of_liqueurs ,
+		<http://dbpedia.org/resource/Cosmopolitan_(cocktail)> ,
+		dbr:Creme_Yvette ,
+		dbr:French_martini ;
+	dct:subject	dbc:Italian_alcoholic_drinks ,
+		dbc:Cocktails_with_vodka ,
+		dbc:Three-ingredient_cocktails ,
+		dbc:Cocktails_with_gin ,
+		dbc:Cocktails_with_vermouth ,
+		dbc:Spirit-forward_cocktails ,
+		dbc:Californian_cuisine ;
+	dbp:ingredients	"*  gin\n*  dry vermouth"@en ;
+	dbp:prep	"Pour all ingredients into mixing glass with ice cubes. Stir or shake well. Strain into chilled martini cocktail glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"Olive or lemon twist"@en ;
+	dbp:sourcelink	"dry-martini"@en .
+<http://dbpedia.org/resource/Zombie_(cocktail)>	rdfs:label	"Zombie (cocktail)"@fr ,
+		"Zombie (cocktail)"@en ;
+	dbp:name	"Zombie"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/ZombieCocktail.jpg> ;
+	dbo:description	"cocktail made of fruit juices and rum"@en ,
+		"cocktail"@fr ;
+	dbo:wikiPageWikiLink	dbr:Joseph_Stephen_Crane ,
+		<http://dbpedia.org/resource/Lime_(fruit)> ,
+		dbr:Donn_Beach ,
+		dbr:Alcohol_proof ,
+		dbr:Angostura_bitters ,
+		dbr:Falernum ,
+		dbr:Zombie ,
+		<http://dbpedia.org/resource/Trader_Vic\u0027s> ,
+		dbr:Cocktail ,
+		<http://dbpedia.org/resource/Jeff_Berry_(mixologist)> ,
+		dbr:Zombie_Hut ,
+		dbr:Pernod ,
+		dbr:Cinnamon ,
+		dbr:Liqueur ,
+		dbr:The_Royal_Scam ,
+		dbr:Steely_Dan ,
+		<http://dbpedia.org/resource/Tumbler_(glass)> ,
+		dbr:Flaming_beverage ,
+		dbr:Cocktail_shaker ,
+		dbr:Tiki_culture ,
+		dbr:Grapefruit ,
+		dbr:Alcoholic_beverage ,
+		<http://dbpedia.org/resource/1939_New_York_World\u0027s_Fair> ,
+		dbr:Rum ,
+		<http://dbpedia.org/resource/Copacabana_(nightclub)> ,
+		dbr:Grenadine ;
+	dct:subject	dbc:Cocktails_with_lime_juice ,
+		dbc:Cocktails_with_rum ,
+		dbc:Tiki_drinks ,
+		dbc:Cocktails_with_grapefruit_juice ,
+		dbc:Cocktails_with_grenadine ,
+		dbc:Cocktails_with_Angostura_bitters ,
+		dbc:Zombies ,
+		dbc:Cocktails_with_anise-flavored_liquors ;
+	dbp:ingredients	"*45 ml Jamaican dark rum\n*45 ml Puerto Rican gold rum\n*30 ml Demerara rum\n*20 ml fresh lime juice\n*15 ml falernum\n*15 ml Donn\u2019s Mix \n*1 tsp Grenadine syrup\n*1 dash Angostura bitters\n*6 drops Pernod"@en ;
+	dbp:prep	"Add all ingredients into an electric blender with 170 grams of cracked ice. With pulse bottom blend for a few seconds. Serve in a tall tumbler glass."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"mint leaves"@en ;
+	dbp:sourcelink	"zombie"@en .
+<http://dbpedia.org/resource/Last_Word_(cocktail)>	rdfs:label	"Last Word (cocktail)"@fr ,
+		"Last Word (cocktail)"@en ;
+	dbp:name	"The Last Word"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/The_Last_Word_cocktail_raised.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/DetroitAthleticClub_1915.jpg> ;
+	dbo:description	"Gin based prohibition-era cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:Harold_Camping ,
+		dbr:Gin ,
+		<http://dbpedia.org/resource/2011_end_times_prediction> ,
+		dbr:List_of_cocktails ,
+		dbr:Vancouver_Magazine ,
+		dbr:Maraschino ,
+		dbr:Rye_whiskey ,
+		<http://dbpedia.org/resource/Lime_(fruit)> ,
+		dbr:Detroit_Athletic_Club ,
+		dbr:Vaudevillian ,
+		<http://dbpedia.org/resource/Straight_up_(bartending)> ,
+		dbr:Cocktail ,
+		dbr:Bathtub_gin ,
+		<http://dbpedia.org/resource/Mr._Boston_Official_Bartender\u0027s_Guide> ,
+		dbr:New_York_Morning_Telegraph ,
+		dbr:The_Seattle_Times ,
+		dbr:Prohibition_in_the_United_States ,
+		dbr:Cocktail_shaker ,
+		dbr:Stand-up_comedy ,
+		dbr:Cocktail_strainer ,
+		<http://dbpedia.org/resource/The_Last_Word_with_Lawrence_O\u0027Donnell> ,
+		dbr:Seattle ,
+		dbr:MSNBC ,
+		dbr:World_War_II ,
+		<http://dbpedia.org/resource/Chartreuse_(liqueur)> ,
+		<http://dbpedia.org/resource/The_Rachel_Maddow_Show_(TV_series)> ,
+		dbr:Rachel_Maddow ;
+	dct:subject	dbc:Cocktails_with_chartreuse ,
+		dbc:Cocktails_with_gin ,
+		dbc:Cocktails_with_lime_juice ,
+		dbc:Cocktails_with_fruit_liqueur ;
+	dbp:ingredients	"* 22.5 ml gin\n* 22.5 ml green Chartreuse\n* 22.5 ml maraschino Luxardo\n* 22.5 ml fresh lime juice"@en ;
+	dbp:prep	"Add all ingredients into a cocktail shaker. Shake with ice and strain into a chilled cocktail glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:sourcelink	"last-word"@en .
+<http://dbpedia.org/resource/Vesper_(cocktail)>	rdfs:label	"Vesper (cocktail)"@en ,
+		"Vesper (cocktail)"@fr ;
+	dbp:name	"Vesper"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/The_Vesper.png> ;
+	dbo:description	"cocktail originally made of gin, vodka, and Kina Lillet"@en ,
+		"cocktail cr\u00E9\u00E9 par James Bond"@fr ;
+	dbo:wikiPageWikiLink	dbr:Vespers ,
+		dbr:List_of_cocktails ,
+		<http://dbpedia.org/resource/James_Bond_(character)> ,
+		dbr:Lillet ,
+		<http://dbpedia.org/resource/Casino_Royale_(novel)> ,
+		dbr:Molotov_Cocktail ,
+		<http://dbpedia.org/resource/Martini_(vermouth)> ,
+		<http://dbpedia.org/resource/Gordon\u0027s_Gin> ,
+		dbr:Gin ,
+		dbr:Olive ,
+		<http://dbpedia.org/resource/Broker\u0027s_gin> ,
+		<http://dbpedia.org/resource/Dryness_(taste)> ,
+		dbr:Bombay_Sapphire ,
+		dbr:Cocchi_Americano ,
+		dbr:Champagne_stemware ,
+		dbr:Lemon_peel ,
+		dbr:Ian_Fleming ,
+		dbr:Cocktail_glass ,
+		<http://dbpedia.org/resource/Gibson_(cocktail)> ,
+		dbr:Vodka_martini ,
+		dbr:Vesper_Lynd ,
+		<http://dbpedia.org/resource/Casino_Royale_(2006_film)> ,
+		dbr:TIME_magazine ,
+		dbr:Tanqueray ,
+		dbr:Outline_of_James_Bond ,
+		<http://dbpedia.org/resource/Martini_(cocktail)> ,
+		<http://dbpedia.org/resource/Martini_&_Rossi> ,
+		<http://dbpedia.org/resource/Gordon\u0027s> ,
+		<http://dbpedia.org/resource/Bronx_(cocktail)> ,
+		<http://dbpedia.org/resource/Manhattan_(cocktail)> ,
+		dbr:Cocktail ,
+		dbr:Felix_Leiter ,
+		dbr:Vodka ,
+		dbr:Bitters ,
+		dbr:Lemon_zest ,
+		dbr:Three-martini_lunch ,
+		dbr:Canonical_hours ;
+	dct:subject	<http://dbpedia.org/resource/Category:1953_introductions> ,
+		dbc:Three-ingredient_cocktails ,
+		<http://dbpedia.org/resource/Category:Casino_Royale_(novel)> ,
+		dbc:Cocktails_with_gin ,
+		dbc:Cocktails_with_vodka ;
+	dbp:ingredients	"* 45 ml gin\n* 15 ml vodka\n* 7.5 ml Lillet Blanc"@en ;
+	dbp:prep	"Pour all ingredients into a cocktail shaker filled with ice cubes. Shake and strain into a chilled cocktail glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	<http://dbpedia.org/resource/Zest_(ingredient)> ;
+	dbp:sourcelink	"vesper"@en .
+<http://dbpedia.org/resource/Fizz_(cocktail)>	rdfs:label	"Fizz (cocktail)"@fr ,
+		"Fizz (cocktail)"@en ;
+	dbp:name	"Sloe gin fizz"@en ,
+		"Fizz"@en ,
+		"Gin fizz"@en ,
+		"Ramos gin fizz"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Ramos_Gin_Fizz.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/15-09-26-RalfR-WLC-0032.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Gin_Fizz_en_El_Bulli.jpg> ;
+	dbo:description	"type of carbonated alcoholic mixed drinks"@en ,
+		"type de cocktail"@fr ;
+	dbo:wikiPageWikiLink	dbr:Egg_white ,
+		dbr:Absinthe ,
+		dbr:Carbonated_water ,
+		dbr:The_Roosevelt_Hotel_New_Orleans ,
+		<http://dbpedia.org/resource/St._Germain_liqueur> ,
+		dbr:Grapefruit_juice ,
+		<http://dbpedia.org/resource/L\u0027Art_Culinaire_Francais> ,
+		dbr:Port_wine ,
+		<http://dbpedia.org/resource/Huey_P._Long> ,
+		dbr:Creme_Yvette ,
+		<http://dbpedia.org/resource/Sour_(cocktail)> ,
+		dbr:Yolk ,
+		dbr:Museum_of_the_American_Cocktail ,
+		dbr:List_of_cocktails_with_gin ,
+		dbr:Syrup ,
+		dbr:Lime_juice ,
+		<http://dbpedia.org/resource/French_75_(cocktail)> ,
+		dbr:Gin ,
+		dbr:Cream ,
+		dbr:Rum ,
+		<http://dbpedia.org/resource/New_Orleans,_Louisiana> ,
+		<http://dbpedia.org/resource/Mimosa_(cocktail)> ,
+		dbr:London_Dry_Gin ,
+		dbr:Maraschino_cherry ,
+		dbr:Lemon ,
+		dbr:Mixed_drink ,
+		dbr:Punsch ,
+		<http://dbpedia.org/resource/Buck\u0027s_Fizz_(cocktail)> ,
+		dbr:Cocktail ,
+		dbr:Old_Tom_gin ,
+		dbr:Sparkling_wine ,
+		dbr:Blackthorn ,
+		dbr:Meyer_lemon ,
+		dbr:Sloe_gin ,
+		dbr:Grapefruit ,
+		dbr:Vanilla_extract ,
+		<http://dbpedia.org/resource/Cr\u00E8me_de_menthe> ,
+		dbr:Lemon_juice ,
+		dbr:Tom_Collins ,
+		<http://dbpedia.org/resource/Jerry_Thomas_(bartender)> ,
+		dbr:Soda_water ,
+		dbr:Orange_flower_water ;
+	dct:subject	dbc:New_Orleans_cocktails ,
+		dbc:Cocktails_with_lemon-lime_soda ,
+		dbc:Bubbly_cocktails ,
+		dbc:Cocktails_with_eggs ,
+		dbc:Cocktails_with_lemonade ,
+		dbc:Citrus_cocktails ;
+	dbp:ingredients	"* 6 cl sloe gin\n* 3 cl fresh grapefruit juice\n* 1 cl simple syrup\n* 8 cl soda water\n* 1 egg white"@en ,
+		"*4.5 cl gin\n* 1.5 cl fresh lime juice\n* 1.5 cl fresh lemon juice\n* 3 cl simple syrup\n* 6 cl cream\n* 1 egg white\n* 3 dashes orange flower water\n* 2 drops vanilla extract\n* soda water"@en ,
+		"* 4.5 cl gin\n* 3 cl fresh lemon juice\n* 1 cl simple syrup\n* Splash of soda water"@en ;
+	dbp:prep	"Shake all ingredients with ice cubes, except soda water. Pour into glass. Top with soda water."@en ,
+		"All ingredients except the soda are poured in a mixing glass, dry shaken  for two minutes, then ice is added and shaken hard for another minute. Strain into a highball glass without ice and topped with soda."@en ;
+	dbp:served	"rocks"@en ,
+		"straight"@en ;
+	dbp:garnish	"lemon slice"@en ,
+		"grapefruit slice, maraschino cherry"@en ;
+	dbp:sourcelink	"gin-fizz"@en ,
+		"ramos-fizz"@en .
+dbr:Long_Island_iced_tea	rdfs:label	"Long Island iced tea"@fr ,
+		"Long Island iced tea"@en ;
+	dbp:name	"Long Island Iced Tea"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Long_Island_Iced_Teas.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Adios_Motherfucker_Cocktail.jpg> ;
+	dbo:description	"mixed drink with vodka, gin, tequila, and rum"@en ,
+		"cocktail"@fr ;
+	dbo:wikiPageWikiLink	dbr:International_Bartenders_Association ,
+		dbr:Concentration ,
+		dbr:Iced_tea ,
+		dbr:Tennessee_whiskey ,
+		dbr:Lemon_juice ,
+		dbr:Oak_Beach_Inn ,
+		dbr:Bar_spoon ,
+		dbr:Cointreau ,
+		dbr:Maple_syrup ,
+		dbr:Lemon ,
+		<http://dbpedia.org/resource/Cura\u00E7ao_(liqueur)> ,
+		dbr:Prohibition_in_the_United_States ,
+		dbr:Triple_sec ,
+		<http://dbpedia.org/resource/Long_Island_(Tennessee)> ,
+		dbr:Light_rum ,
+		dbr:Cranberry_juice ,
+		dbr:Vodka ,
+		dbr:Tequila ,
+		dbr:Cocktail ,
+		dbr:Whisky ,
+		<http://dbpedia.org/resource/Long_Island,_New_York> ,
+		dbr:Cola ,
+		dbr:Sour_mix ,
+		dbr:Highball ,
+		dbr:Gin ,
+		dbr:Whiskey ,
+		<http://dbpedia.org/resource/Kingsport,_Tennessee> ,
+		dbr:Simple_syrup ,
+		dbr:Ethanol ,
+		<http://dbpedia.org/resource/Chambord_(liqueur)> .
+@prefix ns7:	<http://dbpedia.org/resource/Wikt:> .
+dbr:Long_Island_iced_tea	dbo:wikiPageWikiLink	ns7:boozy ,
+		dbr:The_New_York_Times ,
+		dbr:Drink_mixer ,
+		dbr:Pineapple_juice ,
+		<http://dbpedia.org/resource/Midori_(liqueur)> ;
+	dct:subject	dbc:Cocktails_with_tequila ,
+		dbc:Cocktails_with_cola ,
+		dbc:Cocktails_with_lemon_juice ,
+		dbc:Cocktails_with_light_rum ,
+		dbc:Cocktails_with_gin ,
+		dbc:Cocktails_with_vodka ,
+		<http://dbpedia.org/resource/Category:Cocktails_with_triple_sec_or_cura\u00E7ao> ;
+	dbp:ingredients	"* 15 ml Tequila\n* 15 ml Vodka\n* 15 ml White rum\n* 15 ml Cointreau\n* 15 ml Gin\n* 30 ml Lemon juice\n* 20 ml simple syrup\n* Top with Cola"@en ;
+	dbp:prep	"Add all ingredients into highball glass filled with ice. Stir gently. Optionally garnish with lemon slice."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"lemon slice"@en ;
+	dbp:sourcelink	"long-island-iced-tea"@en .
+dbr:Old_Cuban	rdfs:label	"Old Cuban"@fr ,
+		"Old Cuban"@en ;
+	dbp:name	"Old Cuban"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/VTR_-_The_%22Old_Cuban%22_(6038903420).jpg> ;
+	dbo:description	"Cocktail made from rum, lime, mint and champagne"@en ;
+	dbo:wikiPageWikiLink	dbr:Prosecco ,
+		dbr:Angostura_bitters ,
+		dbr:IBA_official_cocktail ,
+		dbr:List_of_cocktails ,
+		dbr:Audrey_Saunders ,
+		dbr:Syrup ,
+		dbr:Champagne ,
+		dbr:Rum ;
+	dct:subject	dbc:Cocktails_with_rum ,
+		dbc:Cocktails_with_Angostura_bitters ;
+	dbp:ingredients	"* 4.5 cl aged rum\n* 2.25 cl fresh lime juice\n* 3 cl simple syrup\n* 2 dashes Angostura bitters\n* 6 to 8 mint leaves\n* 6 cl champagne brut or Prosecco"@en ;
+	dbp:prep	"Pour all ingredients except the wine into cocktail shaker, shake well with ice, strain into chilled elegant cocktail glass. Top up with the sparkling wine and garnish with mint sprigs"@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"Mint sprigs"@en ;
+	dbp:sourcelink	"old-cuban"@en .
+dbr:Champagne_cocktail	rdfs:label	"Champagne cocktail"@fr ,
+		"Champagne cocktail"@en ;
+	dbp:name	"Champagne Cocktail"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Champagne_cocktail_-_Portal,_Clerkenwell,_London_(4356768748)_(cropped).jpg> ;
+	dbo:description	"cocktail of champagne and Angostura bitters"@en ;
+	dbo:wikiPageWikiLink	dbr:Cognac ,
+		dbr:IBA_official_cocktail ,
+		<http://dbpedia.org/resource/Harry_Johnson_(bartender)> ,
+		dbr:Sugar ,
+		dbr:Champagne ,
+		<http://dbpedia.org/resource/Orange_(fruit)> ,
+		dbr:Brandy ,
+		dbr:Maraschino_cherry ,
+		dbr:Cocktail ,
+		dbr:Angostura_bitters ;
+	dct:subject	dbc:Cocktails_with_brandy ,
+		dbc:Cocktails_with_Champagne ,
+		dbc:Cocktails_with_Angostura_bitters ;
+	dbp:ingredients	"* 9cl Champagne\n* 1cl Cognac\n* 2 dashes Angostura bitters\n* 1 Sugar cube"@en ;
+	dbp:prep	"Place the sugar cube with 2 dashes of bitters in a large Champagne glass, add the cognac. Pour gently chilled Champagne. Garnish with orange zest and maraschino cherry."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"Orange slice and maraschino cherry"@en ;
+	dbp:sourcelink	"champagne-cocktail"@en .
+dbr:Caipirinha	rdfs:label	"Caipirinha"@en ,
+		"Ca\u00EFpirinha"@fr ;
+	dbp:name	"Caipirinha"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Caipirinha_with_lime.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Caipirinha,_Highgate,_N6_(7285728440).jpg> ;
+	dbo:description	"cocktail br\u00E9silien compos\u00E9 de cacha\u00E7a, de sucre blanc et citron vert"@fr ,
+		"Brazil's national cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:Grapes ,
+		dbr:Caipira ,
+		dbr:Law_of_Brazil ,
+		dbr:Mango ,
+		dbr:Campari ,
+		dbr:Spanish_flu ,
+		dbr:Piracicaba ,
+		dbr:Rum ,
+		dbr:US_English ,
+		dbr:List_of_cocktails ,
+		dbr:Teuchter ,
+		dbr:List_of_Brazilian_dishes ,
+		dbr:Kiwifruit ,
+		dbr:Diminutive ,
+		<http://dbpedia.org/resource/Cacha\u00E7a> ,
+		dbr:Brazilian_Portuguese ,
+		dbr:IBA_Official_Cocktail ,
+		dbr:Garlic ,
+		dbr:Lemon ,
+		dbr:Caipiroska ,
+		dbr:Passion_fruit ,
+		<http://dbpedia.org/resource/Ti\u0027_Punch> ,
+		dbr:Sugar ,
+		<http://dbpedia.org/resource/Lime_(fruit)> ,
+		dbr:Mojito ,
+		dbr:Sugarcane ,
+		dbr:Aguardente ,
+		dbr:Honey ,
+		dbr:Daiquiri ,
+		dbr:Italy ,
+		dbr:Grammatical_gender ,
+		dbr:Madeira ,
+		<http://dbpedia.org/resource/Cocktails_with_cacha\u00E7a> ,
+		dbr:Tangerine ,
+		dbr:Poncha ,
+		dbr:Sake ,
+		dbr:Brazil ,
+		dbr:Hillbilly ,
+		<http://dbpedia.org/resource/State_of_S\u00E3o_Paulo> ,
+		dbr:List_of_Brazilian_drinks ,
+		dbr:Portuguese_cuisine ,
+		<http://dbpedia.org/resource/Sour_(cocktail)> ,
+		dbr:Portugal ,
+		dbr:Rhum_agricole ,
+		dbr:Distilled_spirits ,
+		dbr:Pineapple ,
+		<http://dbpedia.org/resource/Licor_Beir\u00E3o> ,
+		dbr:Cashew ,
+		dbr:International_Bartenders_Association ,
+		dbr:Liquor ,
+		<http://dbpedia.org/resource/Steinh\u00E4ger> ,
+		dbr:Spondias_mombin ,
+		dbr:Alentejo ;
+	dct:subject	<http://dbpedia.org/resource/Category:Cuisine_of_S\u00E3o_Paulo_(state)> ,
+		dbc:Sour_cocktails ,
+		dbc:Three-ingredient_cocktails ,
+		dbc:Cocktails_with_rum ,
+		dbc:Brazilian_alcoholic_drinks ,
+		<http://dbpedia.org/resource/Category:Cocktails_with_cacha\u00E7a> ,
+		dbc:Mint_drinks ,
+		dbc:Citrus_cocktails ,
+		dbc:Cold_drinks ,
+		dbc:Mixed_drinks ,
+		<http://dbpedia.org/resource/Category:Limes_(fruit)> ;
+	dbp:ingredients	"* 60 ml cacha\u00E7a\n* 1 persian lime cut into small wedges\n* 4 teaspoons white cane sugar"@en ;
+	dbp:prep	"Place lime and sugar into a double old fashioned glass and muddle gently. Fill the glass with cracked ice and add Cacha\u00E7a. Stir gently to involve ingredients."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"sugarcane, lime"@en ;
+	dbp:sourcelink	"caipirinha"@en .
+<http://dbpedia.org/resource/Paloma_(cocktail)>	rdfs:label	"Paloma (cocktail)"@en ,
+		"Paloma (cocktail)"@fr ;
+	dbp:name	"Paloma"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/TequilaPaloma.jpg> ;
+	dbo:description	"tequila-based cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:Fresca ,
+		dbr:Club_soda ,
+		<http://dbpedia.org/resource/Lime_(fruit)> ,
+		<http://dbpedia.org/resource/Squirt_(soft_drink)> ,
+		dbr:List_of_cocktails ,
+		dbr:Jarritos ,
+		<http://dbpedia.org/resource/Greyhound_(cocktail)> ,
+		dbr:Lonkero ,
+		dbr:Tequila ,
+		dbr:Vodka ,
+		dbr:Gin ,
+		dbr:Grapefruit_juice ,
+		dbr:Grapefruit ,
+		dbr:Cantarito ;
+	dct:subject	dbc:Citrus_cocktails ,
+		dbc:Mexican_alcoholic_drinks ,
+		dbc:Bubbly_cocktails ,
+		dbc:Sour_cocktails ,
+		dbc:Three-ingredient_cocktails ,
+		dbc:Sweet_cocktails ,
+		dbc:Cocktails_with_grapefruit_soda ,
+		dbc:Cocktails_with_tequila ;
+	dbp:ingredients	"* 50 ml 100% agave tequila\n* 5 ml fresh lime juice\n* pinch of salt\n* 100 ml pink grapefruit soda"@en ;
+	dbp:prep	"Pour the tequila into a highball glass, squeeze the lime juice. Add ice and salt, fill up pink grapefruit soda. Stir gently."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"slice of lime"@en ;
+	dbp:sourcelink	"paloma"@en .
+dbr:Mojito	rdfs:label	"Mojito"@en ,
+		"Mojito"@fr ;
+	dbp:name	"Mojito"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/15-09-26-RalfR-WLC-0072.jpg> ;
+	dbo:description	"cocktail traditionnel cubain"@fr ,
+		"traditional Cuban highball cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:Cuba ,
+		dbr:Spearmint ,
+		dbr:Carbonated_water ,
+		dbr:Aguardiente ,
+		dbr:Tafia ,
+		dbr:Light_rum ,
+		dbr:List_of_cocktails ,
+		<http://dbpedia.org/resource/Mojo_(sauce)> ,
+		dbr:Sir_Francis_Drake ,
+		dbr:Sugar_cane_juice ,
+		dbr:Sugar_syrup ,
+		dbr:Grog ,
+		dbr:Cocktail ,
+		dbr:Ernest_Hemingway ,
+		dbr:White_rum ,
+		dbr:Tequila ,
+		dbr:Mentha ,
+		dbr:Havana ,
+		dbr:El_Floridita ,
+		dbr:Lime_juice ,
+		dbr:Citrus ,
+		dbr:Coconut ,
+		dbr:Daiquiri ,
+		dbr:Bodeguita_del_Medio ,
+		dbr:Caipirinha ,
+		dbr:Powdered_sugar ,
+		<http://dbpedia.org/resource/Mentha_\u00D7_villosa> ,
+		dbr:Don_Julio ,
+		dbr:Sugar_cane ,
+		dbr:Lanique ,
+		dbr:Rum ,
+		dbr:Muddler ,
+		dbr:Angostura_bitters ,
+		dbr:Cojito ,
+		dbr:Mint_julep ,
+		dbr:Simple_syrup ;
+	dct:subject	dbc:Cocktails_with_carbonated_water ,
+		dbc:Caribbean_drinks ,
+		dbc:Mint_drinks ,
+		dbc:Cocktails_with_lime_juice ,
+		dbc:Cocktails_with_light_rum ,
+		dbc:Cuban_cocktails ,
+		dbc:Cuban_inventions ,
+		dbc:Cold_drinks ,
+		dbc:Articles_containing_video_clips ;
+	dbp:ingredients	"* 45 ml white rum\n* 20 ml fresh lime juice\n* 6 sprigs of mint\n* 2 teaspoons white cane sugar \n* Soda water"@en ;
+	dbp:prep	"Mix mint sprigs with sugar and lime juice. Add splash of soda water and fill the glass with ice. Pour the rum and top with soda water. Light stir to involve all ingredients."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"sprigs of mint or slice of lime"@en ;
+	dbp:sourcelink	"iba-cocktail/mojito/"@en .
+<http://dbpedia.org/resource/Old_fashioned_(cocktail)>	rdfs:label	"Old fashioned"@fr ,
+		"Old fashioned (cocktail)"@en ;
+	dbp:name	"Old fashioned"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Smokin\u0027_Steve_Old_Fashioned.png> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Smoked_Old_Fashioned,_Restaurant_R\u0027Evolution,_the_French_Quarter,_New_Orleans,_Louisiana.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Whiskey_Old_Fashioned1.jpg> ;
+	dbo:description	"Cocktail \u00E0 base de whisky et bitter"@fr ,
+		"cocktail made of sugar with bitters and alcohol"@en ;
+	dbo:wikiPageWikiLink	<http://dbpedia.org/resource/It\u0027s_a_Mad,_Mad,_Mad,_Mad_World> ,
+		<http://dbpedia.org/resource/Jerry_Thomas_(bartender)> ,
+		dbr:Cocktail_cherry ,
+		dbr:IBA_Official_Cocktail ,
+		dbr:Pendennis_Club ,
+		dbr:Jim_Backus ,
+		dbr:Liqueur ,
+		dbr:Muddler ,
+		<http://dbpedia.org/resource/Archer_(2009_TV_series)> ,
+		dbr:Bourbon_whiskey ,
+		<http://dbpedia.org/resource/Dash_(cooking)> ,
+		<http://dbpedia.org/resource/Hudson,_New_York> ,
+		dbr:Wisconsin ,
+		<http://dbpedia.org/resource/Zest_(ingredient)> ,
+		<http://dbpedia.org/resource/History_of_Louisville,_Kentucky> ,
+		<http://dbpedia.org/resource/Slate_(magazine)> ,
+		dbr:Brandy ,
+		<http://dbpedia.org/resource/Louisville,_Kentucky> ,
+		dbr:Waldorf-Astoria_Hotel ,
+		dbr:Cuisine_of_Kentucky ,
+		dbr:Rye_whiskey ,
+		dbr:Angostura_bitters ,
+		dbr:Old_fashioned_glass ,
+		dbr:Sazerac ,
+		dbr:The_New_York_Times ,
+		dbr:List_of_cocktails ,
+		<http://dbpedia.org/resource/James_E._Pepper> ,
+		dbr:Don_Draper ,
+		dbr:Mad_Men ,
+		dbr:Bitters ,
+		dbr:Absinthe ,
+		dbr:Maraschino_cherry ,
+		dbr:Blood_orange_soda ,
+		dbr:Cocktail ,
+		dbr:Whiskey ,
+		dbr:The_Fine_Art_of_Mixing_Drinks ,
+		<http://dbpedia.org/resource/David_A._Embury> ,
+		dbr:Chicago_Daily_Tribune ,
+		<http://dbpedia.org/resource/Jigger_(unit)> ,
+		dbr:Buddy_Hackett ,
+		<http://dbpedia.org/resource/Orange_cura\u00E7ao> ;
+	dct:subject	<http://dbpedia.org/resource/Category:History_of_Louisville,_Kentucky> ,
+		dbc:Cocktails_with_whisky ,
+		<http://dbpedia.org/resource/Category:Cuisine_of_Louisville,_Kentucky> ,
+		dbc:Cocktails_with_Angostura_bitters ,
+		dbc:Ancestral_cocktails ;
+	dbp:ingredients	"* 45 ml bourbon or rye whiskey\n* 1 sugar cube\n* Few dashes Angostura bitters\n* Few dashes plain water"@en ;
+	dbp:prep	"Place sugar cube in old fashioned glass and saturate with bitter, add few dashes of plain water. Muddle until dissolved. Fill the glass with ice cubes and add whiskey. Stir gently. Garnish with orange slice or zest, and a cocktail cherry."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"Orange slice or zest, and cocktail cherry"@en ;
+	dbp:sourcelink	"old-fashioned"@en .
+dbr:Black_Russian	rdfs:label	"Black Russian"@fr ,
+		"Black Russian"@en ;
+	dbp:name	"Black Russian"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Black_Russian.jpg> ;
+	dbo:description	"cocktail bruxellois de vodka et liqueur de caf\u00E9"@fr ,
+		"Brussels cocktail of vodka and coffee liqueur"@en ;
+	dbo:wikiPageWikiLink	dbr:Lemon ,
+		dbr:Highball_glass ,
+		<http://dbpedia.org/resource/Hotel_Metropole,_Brussels> ,
+		dbr:Cream ,
+		dbr:Brussels ,
+		dbr:Cola ,
+		dbr:Cocktail ,
+		dbr:Bartender ,
+		dbr:Highball ,
+		dbr:Ginger_ale ,
+		dbr:Ice_cube ,
+		dbr:List_of_cocktails ,
+		dbr:Old-fashioned_glass ,
+		dbr:Guinness ,
+		dbr:Coffee_liqueur ,
+		dbr:Lemon_twist ,
+		dbr:Milk ,
+		dbr:Belgians ,
+		dbr:List_of_liqueurs ,
+		<http://dbpedia.org/resource/White_Russian_(cocktail)> ,
+		dbr:United_States_Ambassador_to_Luxembourg ,
+		dbr:Perle_Mesta ,
+		dbr:Irish_cream ,
+		dbr:IBA_Official_Cocktail ,
+		dbr:Vodka ;
+	dct:subject	dbc:Two-ingredient_cocktails ,
+		dbc:Coffee_drinks ,
+		dbc:Alcoholic_coffee_drinks ,
+		dbc:Cocktails_with_coffee_liqueur ,
+		dbc:Coffee_culture ,
+		dbc:Cocktails_with_vodka ;
+	dbp:ingredients	"* 50 ml Vodka\n* 20 ml Coffee liqueur"@en ;
+	dbp:prep	"Pour the ingredients into the old fashioned glass filled with ice cubes. Stir gently."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:sourcelink	"black-russian"@en .
+dbr:Whiskey_sour	rdfs:label	"Whiskey sour"@en ,
+		"Whiskey sour"@fr ;
+	dbp:name	"Whiskey sour"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Whiskey_Sour.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Whiskey_Sour_Served_Up.jpg> ;
+	dbo:description	"mixed drink containing whiskey"@en ;
+	dbo:wikiPageWikiLink	<http://dbpedia.org/resource/Orange_(fruit)> ,
+		dbr:Scotch_whisky ,
+		dbr:Cocktail_shaker ,
+		dbr:Iquique ,
+		dbr:New_York_Sour ,
+		dbr:Maraschino_cherry ,
+		dbr:Egg_white ,
+		dbr:Newspaper ,
+		<http://dbpedia.org/resource/Straight_up_(bartending)> ,
+		dbr:Rye_whiskey ,
+		dbr:Grenadine ,
+		<http://dbpedia.org/resource/Ward_8_(cocktail)> ,
+		<http://dbpedia.org/resource/Sour_(cocktail)> ,
+		dbr:Peru ,
+		dbr:Syrup ,
+		dbr:Bar_spoon ,
+		dbr:Pisco_Sour ,
+		dbr:Universidad_del_Cuyo ,
+		dbr:Mixed_drink ,
+		dbr:Cocktail_garnish ,
+		dbr:Lemon_juice ,
+		<http://dbpedia.org/resource/Lim\u00F3n_de_Pica> ,
+		dbr:Orange_juice ,
+		dbr:Bourbon_whiskey ,
+		dbr:Wisconsin ,
+		dbr:Whiskey ;
+	dct:subject	dbc:Sour_cocktails ,
+		dbc:Cocktails_with_eggs ,
+		dbc:Cocktails_with_whisky ,
+		dbc:Three-ingredient_cocktails ,
+		dbc:Cocktails_with_lemon_juice ,
+		dbc:Cocktails_with_Scotch_whisky ;
+	dbp:ingredients	"* 4.5 cl  bourbon whiskey\n* 3 cl  fresh lemon juice\n* 1.5 cl  simple syrup"@en ;
+	dbp:prep	"Shake with ice. Strain into chilled glass, garnish and serve."@en ;
+	dbp:served	"On the rocks or straight up"@en ;
+	dbp:garnish	"Maraschino cherry and half orange slice"@en .
+<http://dbpedia.org/resource/Cosmopolitan_(cocktail)>	rdfs:label	"Cosmopolitan (cocktail)"@fr ,
+		"Cosmopolitan (cocktail)"@en ;
+	dbp:name	"Cosmopolitan"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Cosmopolitan_(5076906532).jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Cosmopolitan.jpg> ;
+	dbo:description	"cocktail made with vodka"@en ,
+		"cocktail alcoolis\u00E9, de couleur rose"@fr ;
+	dbo:wikiPageWikiLink	dbr:Flavored_vodka ,
+		dbr:San_Francisco ,
+		dbr:Gary_Regan ,
+		dbr:Kimbal_Musk ,
+		dbr:Kathy_Wakile ,
+		<http://dbpedia.org/resource/Gordon\u0027s_Gin> ,
+		dbr:Gay ,
+		dbr:Dale_DeGroff ,
+		dbr:Minneapolis ,
+		dbr:List_of_cocktails ,
+		dbr:Cointreau ,
+		<http://dbpedia.org/resource/Provincetown,_Massachusetts> ,
+		<http://dbpedia.org/resource/Martini_(cocktail)> ,
+		<http://dbpedia.org/resource/Cape_Codder_(cocktail)> ,
+		dbr:Brandy_Daisy ,
+		dbr:Carrie_Bradshaw ,
+		dbr:Real_Housewives_of_New_Jersey ,
+		dbr:Miranda_Hobbes ,
+		dbr:Red_velvet_cake ,
+		<http://dbpedia.org/resource/Kamikaze_(cocktail)> ,
+		dbr:Prune_juice ,
+		dbr:Cocktail_garnish ,
+		dbr:South_Beach ,
+		dbr:Cocktail ,
+		dbr:International_Bartenders_Association ,
+		dbr:Triple_sec ,
+		dbr:Fern_bar ,
+		dbr:Lime_juice ,
+		dbr:Cranberry_juice ,
+		<http://dbpedia.org/resource/Rose\u0027s_lime> ,
+		dbr:Cocktail_glass ,
+		dbr:Cocktail_shaker ,
+		dbr:Sarah_Jessica_Parker ,
+		dbr:Vodka ,
+		dbr:Absolut ,
+		dbr:Sex_and_the_City ,
+		dbr:French_Martini ;
+	dct:subject	dbc:Cocktails_with_vodka ,
+		<http://dbpedia.org/resource/Category:Cocktails_with_triple_sec_or_cura\u00E7ao> ,
+		dbc:Cocktails_with_cranberry_juice ,
+		dbc:Food_and_drink_in_the_San_Francisco_Bay_Area ;
+	dbp:ingredients	"* 40 ml Vodka Citron\n* 15 ml Cointreau\n* 15 ml Fresh lime juice\n* 30 ml cranberry juice"@en ;
+	dbp:prep	"Shake all ingredients in cocktail shaker filled with ice. Strain into a large cocktail glass. Garnish with lime slice."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"lime slice"@en ;
+	dbp:sourcelink	"cosmopolitan"@en .
+<http://dbpedia.org/resource/Paradise_(cocktail)>	rdfs:label	"Paradise (cocktail)"@en ,
+		"Paradise (cocktail)"@fr ;
+	dbp:name	"Paradise"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Paradise_cocktail.jpg> ;
+	dbo:description	"cocktail"@fr ,
+		"\\pre-dinner\\ cocktail, an ap\u00E9ritif"@en ;
+	dbo:wikiPageWikiLink	<http://dbpedia.org/resource/Warner_Bros.> ,
+		dbr:Snoop_Dogg ,
+		dbr:List_of_cocktails ,
+		dbr:Harry_Craddock ,
+		dbr:Kay_Francis ,
+		dbr:Orange_juice ,
+		dbr:One_Way_Passage ,
+		dbr:William_Powell ,
+		dbr:Gin ,
+		dbr:IBA_official_cocktail ,
+		<http://dbpedia.org/resource/Ap\u00E9ritif> ,
+		dbr:Apricot_brandy ,
+		dbr:Brandy ;
+	dct:subject	dbc:Cocktails_with_gin ,
+		dbc:Three-ingredient_cocktails ;
+	dbp:ingredients	"*3.5 cl  gin\n*2 cl  apricot brandy\n*1.5 cl  orange juice"@en ;
+	dbp:prep	"Shake together over ice.  Strain into cocktail glass and serve chilled."@en ;
+	dbp:served	"straight"@en ;
+	dbp:sourcelink	"paradise"@en .
+<http://dbpedia.org/resource/Manhattan_(cocktail)>	rdfs:label	"Manhattan (cocktail)"@fr ,
+		"Manhattan (cocktail)"@en ;
+	dbp:name	"Manhattan"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Manhattan_cocktail.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/A_Manhattan.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Manhattan_Cocktail2.jpg> ;
+	dbo:description	"cocktail made with whiskey, sweet vermouth, and bitters"@en ,
+		"cocktail alcolis\u00E9"@fr ;
+	dbo:wikiPageWikiLink	dbr:New_York_City ,
+		<http://dbpedia.org/resource/Houston_Street_(Manhattan)> ,
+		dbr:Rum ,
+		<http://dbpedia.org/resource/Vesper_(cocktail)> ,
+		dbr:Cocktail_glass ,
+		dbr:Cocktail_shaker ,
+		dbr:Minnesota ,
+		dbr:List_of_cocktails ,
+		<http://dbpedia.org/resource/F\u00F6hr> ,
+		dbr:Blended_whiskey ,
+		dbr:Sweet_vermouth ,
+		dbr:Winston_Churchill ,
+		dbr:The_Fine_Art_of_Mixing_Drinks ,
+		dbr:Maraschino_cherry ,
+		dbr:Sirop_de_Picon ,
+		dbr:Lemon_peel ,
+		dbr:Rye_whisky ,
+		dbr:Syrup ,
+		<http://dbpedia.org/resource/David_A._Embury> ,
+		dbr:Maraschino ,
+		dbr:Tennessee_whiskey ,
+		<http://dbpedia.org/resource/Broadway_(Manhattan)> ,
+		dbr:Rob_Roy_cocktail ,
+		dbr:Scotch_whisky ,
+		dbr:Brandy ,
+		<http://dbpedia.org/resource/Manhattan_Club_(social_club)> ,
+		dbr:Rye_whiskey ,
+		dbr:Canadian_whisky ,
+		dbr:Ice_cube ,
+		dbr:Fernet-Branca ,
+		<http://dbpedia.org/resource/Sling_(drink)> ,
+		dbr:Courtney_Lyder ,
+		<http://dbpedia.org/resource/Brooklyn_(cocktail)> ,
+		dbr:Prohibition_in_the_United_States ,
+		<http://dbpedia.org/resource/Zest_(ingredient)> ,
+		dbr:Amaro_Averna ,
+		dbr:Manhattan ,
+		dbr:Jennie_Jerome ,
+		dbr:Bourbon_whiskey ,
+		dbr:Liqueur ,
+		dbr:Bitters ,
+		<http://dbpedia.org/resource/Martini_(cocktail)> ,
+		dbr:Digestif ,
+		dbr:Wisconsin ,
+		dbr:Cocktail ,
+		dbr:Dry_vermouth ,
+		dbr:Old_fashioned_glass ,
+		dbr:Whiskey ,
+		<http://dbpedia.org/resource/Peychaud\u0027s_Bitters> ,
+		dbr:Vermouth ,
+		dbr:Whisky ,
+		dbr:List_of_cocktails_named_after_New_York_City_boroughs ,
+		dbr:Simple_syrup ,
+		<http://dbpedia.org/resource/Samuel_J._Tilden> ,
+		dbr:Orange_bitters ,
+		dbr:North_Frisian_islands ,
+		dbr:Mixed_drink ,
+		dbr:Absinthe ,
+		<http://dbpedia.org/resource/Twist_(cocktail_garnish)> ,
+		dbr:Angostura_bitters ,
+		dbr:Cocktail_cherry ;
+	dct:subject	dbc:Spirit-forward_cocktails ,
+		dbc:Cocktails_with_Angostura_bitters ,
+		dbc:Cuisine_of_New_York_City ,
+		dbc:Cocktails_with_whisky ,
+		dbc:Three-ingredient_cocktails ,
+		dbc:Cocktails_with_vermouth ;
+	dbp:ingredients	"* 50 ml Rye whiskey\n* 20 ml Sweet red vermouth\n* 1 dash Angostura bitters"@en ;
+	dbp:prep	"Pour all ingredients into mixing glass with ice cubes. Stir well. Strain into a chilled cocktail glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"Maraschino cherry"@en ;
+	dbp:sourcelink	"manhattan"@en .
+dbr:Negroni	rdfs:label	"Negroni (cocktail)"@fr ,
+		"Negroni"@en ;
+	dbp:name	"Negroni"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/C\u00F3ctel_Negroni_Campari.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Negroni_sbagliato.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Negroni_served_in_Vancouver_BC.jpg> ;
+	dbo:description	"cocktail made of gin, Campari, and vermouth"@en ,
+		"cocktail \u00E0 base de gin, de vermouth rouge et de Campari"@fr ;
+	dbo:wikiPageWikiLink	<http://dbpedia.org/resource/Pimm\u0027s> ,
+		dbr:Jenever ,
+		dbr:Orson_Welles ,
+		dbr:Lillet ,
+		dbr:Prosecco ,
+		<http://dbpedia.org/resource/Ap\u00E9ritif> ,
+		<http://dbpedia.org/resource/Boulevardier_(cocktail)> ,
+		dbr:Campari ,
+		dbr:Giorgio_Armani ,
+		dbr:Corse-Matin ,
+		dbr:Old_Pal ,
+		dbr:Old_fashioned_glass ,
+		<http://dbpedia.org/resource/Exchange_Square_(London)> ,
+		<http://dbpedia.org/resource/Suze_(drink)> ,
+		dbr:Bartender ,
+		dbr:Gin ,
+		dbr:Akvavit ,
+		dbr:List_of_cocktails ,
+		dbr:Pascal_Olivier_Count_de_Negroni ,
+		dbr:New_Hampshire_Union_Leader ,
+		dbr:Senegal ,
+		dbr:Cocktail ,
+		dbr:Coshocton_Tribune ,
+		dbr:Florence ,
+		<http://dbpedia.org/resource/Americano_(cocktail)> ,
+		dbr:Vermouth ,
+		dbr:Tequila ,
+		<http://dbpedia.org/resource/Black_Magic_(1949_film)> ,
+		dbr:Imbibe ,
+		<http://dbpedia.org/resource/Via_de\u0027_Tornabuoni> ,
+		dbr:Traditional_method ,
+		dbr:Treviso ;
+	dct:subject	dbc:Cocktails_with_gin ,
+		dbc:Cocktails_with_vermouth ,
+		dbc:Three-ingredient_cocktails ,
+		dbc:Spirit-forward_cocktails ,
+		dbc:Cocktails_with_Campari ;
+	dbp:ingredients	"* 30 mL gin\n* 30 mL sweet red vermouth\n* 30 mL Campari"@en ;
+	dbp:prep	"Build in glass over ice, garnish and serve."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"Orange slice"@en ;
+	dbp:sourcelink	"negr"@en .
+<http://dbpedia.org/resource/Grasshopper_(cocktail)>	rdfs:label	"Grasshopper (cocktail)"@en ,
+		"Grasshopper (cocktail)"@fr ;
+	dbp:name	"Grasshopper"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Grasshopper_cocktail.jpg> ;
+	dbo:description	"sweet, mint-flavored, after-dinner drink"@en ;
+	dbo:wikiPageWikiLink	dbr:Southern_United_States ,
+		dbr:Hostess_Brands ,
+		dbr:Twinkie ,
+		dbr:Peppermint_schnapps ,
+		dbr:Ice_cream ,
+		dbr:List_of_cocktails ,
+		dbr:Milk ,
+		dbr:Cream ,
+		dbr:Vodka ,
+		dbr:Cocktail_shaker ,
+		<http://dbpedia.org/resource/Cr\u00E8me_de_menthe> ,
+		dbr:Girl_Scout ,
+		dbr:French_Quarter ,
+		dbr:Sandwich_cookie ,
+		<http://dbpedia.org/resource/Cr\u00E8me_de_cacao> ,
+		dbr:Mint_chocolate_chip ,
+		dbr:Louisiana ,
+		dbr:New_Orleans ,
+		dbr:Milkshake ;
+	dct:subject	dbc:Cocktails_with_chocolate_liqueur ,
+		dbc:Cocktails_with_liqueur ,
+		dbc:Mint_drinks ,
+		dbc:New_Orleans_cocktails ,
+		dbc:Creamy_cocktails ,
+		dbc:Cocktails_with_ice_cream ,
+		dbc:Three-ingredient_cocktails ;
+	dbp:ingredients	"*3 cl cr\u00E8me de menthe \n*3 cl cr\u00E8me de cacao \n*3 cl cream"@en ;
+	dbp:prep	"Pour ingredients into a cocktail shaker with ice. Shake briskly and then strain into a chilled cocktail glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:sourcelink	"grasshopper"@en .
+dbr:Irish_coffee	rdfs:label	"Irish coffee"@en ,
+		"Irish coffee"@fr ;
+	dbp:name	"Irish Coffee"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Preparing_Irish_Coffee.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Irish_coffee_glass.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Making_of_Irish_coffee_on_Coffee_Right_in_Brno,_Czech_Republic.jpg> ;
+	dbo:description	"cocktail of hot coffee, Irish whiskey and sugar"@en ,
+		"cocktail \u00E0 base de caf\u00E9 et de whiskey irlandais"@fr ;
+	dbo:wikiPageWikiLink	dbr:Distilled_spirit ,
+		dbr:Viennese_coffee_house ,
+		dbr:Coffee ,
+		dbr:Spain ,
+		dbr:National_Standards_Authority_of_Ireland ,
+		dbr:Scotch_whisky ,
+		dbr:California ,
+		dbr:Baileys_Irish_Cream ,
+		dbr:Espresso ,
+		dbr:Cream ,
+		dbr:San_Francisco ,
+		dbr:Liqueur_coffee ,
+		dbr:Cream_liqueur ,
+		dbr:Irish_whiskey ,
+		dbr:Irish_cream ,
+		dbr:Chef ,
+		dbr:Germany ,
+		dbr:United_States_of_America ,
+		dbr:Denmark ,
+		dbr:Stanton_Delaplane ,
+		dbr:Coffee_capsule ,
+		<http://dbpedia.org/resource/R\u00FCdesheimer_Kaffee> ,
+		dbr:Shannon_Airport ,
+		dbr:Caffeinated_alcoholic_drink ,
+		<http://dbpedia.org/resource/Caff\u00E8_Americano> ,
+		dbr:San_Francisco_Chronicle ,
+		dbr:Buena_Vista_Cafe ,
+		dbr:County_Clare ,
+		dbr:Sugar ,
+		dbr:List_of_hot_beverages ,
+		dbr:Whiskey ,
+		dbr:Brown_sugar ,
+		dbr:Flying_boat ,
+		dbr:List_of_coffee_drinks ,
+		dbr:Rum ,
+		dbr:Foynes ,
+		dbr:Southeast_Asia ;
+	dct:subject	dbc:Alcoholic_coffee_drinks ,
+		dbc:Irish_alcoholic_drinks ,
+		dbc:Cocktails_with_whisky ;
+	dbp:prep	"Pour the coffee into a preheated glass, add whiskey and sugar, and stir until dissolved. Pour cream slowly to form a distinct layer."@en ;
+	dbp:served	"Hot"@en ;
+	dbp:sourcelink	"irish-coffee"@en .
+dbr:Mint_julep	rdfs:label	"Mint julep"@fr ,
+		"Mint julep"@en ;
+	dbp:name	"Mint julep"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Mint_Julep_im_Silberbecher.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Mint_Julep_at_the_Round_Robin_Bar_-_Stierch.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Mint_Julep_-_Round_Robin_Bar_-_2018_-_Stierch_02.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Silver_mint_julep_cup.jpg> ;
+	dbo:description	"Cocktail originating in the southern United States"@en ,
+		"coctail alcoolis\u00E9"@fr ;
+	dbo:wikiPageWikiLink	dbr:Moselle_wine ,
+		dbr:Whiskey ,
+		dbr:Spearmint ,
+		<http://dbpedia.org/resource/Richmond,_Virginia> ,
+		dbr:Frederick_Marryat ,
+		dbr:Kentucky_Oaks ,
+		dbr:Cuisine_of_the_Southern_United_States ,
+		dbr:Bavarian_Alps ,
+		<http://dbpedia.org/resource/Jerry_Thomas_(bartender)> ,
+		dbr:Virginia ,
+		<http://dbpedia.org/resource/Old_fashioned_(cocktail)> ,
+		<http://dbpedia.org/resource/Williamsburg,_Virginia> ,
+		dbr:The_Greenbrier ,
+		dbr:Rosewater ,
+		<http://dbpedia.org/resource/Washington,_D.C.> ,
+		dbr:Old-fashioned_glass ,
+		<http://dbpedia.org/resource/Dram_(unit)> ,
+		dbr:Persian_language ,
+		dbr:Free_Person_Of_Color ,
+		dbr:Brown-Forman_Corporation ,
+		dbr:Early_Times ,
+		dbr:Bourbon_whiskey ,
+		dbr:Old_Forester ,
+		<http://dbpedia.org/resource/Hunter_S._Thompson> ,
+		dbr:Ireland ,
+		dbr:Essential_oil ,
+		dbr:Henry_Clay ,
+		dbr:Genever ,
+		dbr:Willard_Hotel ,
+		dbr:Cocktail ,
+		dbr:Camphor ,
+		dbr:Southern_United_States ,
+		dbr:Mojito ,
+		dbr:Kentucky_Derby ,
+		dbr:Pewter ,
+		dbr:Syrup ,
+		dbr:Ice_cube ,
+		dbr:Woodford_Reserve ,
+		dbr:Muddler ,
+		dbr:Kentucky ,
+		dbr:One_Mint_Julep ,
+		dbr:List_of_cocktails ,
+		dbr:Gin ,
+		dbr:Collins_glass ,
+		dbr:Australia ,
+		dbr:Churchill_Downs ,
+		dbr:Alcoholic_beverage ,
+		dbr:Highball_glass ,
+		dbr:United_States ,
+		dbr:Mentha ,
+		<http://dbpedia.org/resource/Norfolk,_Virginia> ;
+	dct:subject	dbc:Kentucky_cuisine ,
+		dbc:Kentucky_Derby ,
+		dbc:Mint_drinks ,
+		dbc:Food_and_drink_introduced_in_the_18th_century ,
+		dbc:Cold_drinks ,
+		dbc:Cuisine_of_the_Southern_United_States ,
+		dbc:Cocktails_with_whisky ;
+	dbp:ingredients	"*  bourbon whiskey\n* 4 mint sprigs\n* 1 teaspoon powdered sugar\n* 2 teaspoons water"@en ;
+	dbp:prep	"In Julep Stainless Steel Cup gently muddle the mint with sugar and water. Fill the glass with cracked ice, add the Bourbon and stir well until the cup frosts."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"Mint sprig"@en ;
+	dbp:sourcelink	"mint-julep"@en .
+<http://dbpedia.org/resource/Spritz_(cocktail)>	rdfs:label	"Spritz (cocktail)"@en ,
+		"Spritz"@fr ;
+	dbp:name	"Spritz"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Aperol_Spritz_at_Eataly_-_March_2022_-_Sarah_Stierch.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Aperol_Spritz_aboard_Viking_Mariella.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Spritz01.jpg> ;
+	dbo:description	"wine-based cocktail"@en ,
+		"cocktail"@fr ;
+	dbo:wikiPageWikiLink	dbr:Carbonated_water ,
+		<http://dbpedia.org/resource/Orange_(fruit)> ,
+		<http://dbpedia.org/resource/Pirlo_(aperitivo)> ,
+		dbr:Olive ,
+		<http://dbpedia.org/resource/Kingdom_of_Lombardy\u2013Venetia> ,
+		dbr:Northeast_Italy ,
+		dbr:Bergamot_orange ,
+		dbr:Club_soda ,
+		dbr:Prosecco ,
+		dbr:List_of_cocktails ,
+		dbr:International_Bartenders_Association ,
+		dbr:Friuli_Venezia_Giulia ,
+		dbr:Bitters ,
+		<http://dbpedia.org/resource/1920s> ,
+		<http://dbpedia.org/resource/1930s> ,
+		<http://dbpedia.org/resource/Select_(ap\u00E9ritif)> ,
+		dbr:Wine ,
+		dbr:Aperol ,
+		<http://dbpedia.org/resource/Italicus_(liqueur)> ,
+		dbr:Teran_grape ,
+		dbr:Veneto ,
+		dbr:Venice ,
+		<http://dbpedia.org/resource/1919> ,
+		<http://dbpedia.org/resource/1920> ,
+		dbr:Spritzer ,
+		dbr:Negroni_sbagliato ,
+		dbr:Padua ,
+		<http://dbpedia.org/resource/Select_(aperitif)> ,
+		<http://dbpedia.org/resource/1970s> ,
+		dbr:Aperitif ,
+		dbr:Cynar ,
+		dbr:Cocktail ,
+		dbr:Habsburg ,
+		dbr:Soda_water ,
+		<http://dbpedia.org/resource/Hugo_(cocktail)> ,
+		dbr:Campari ,
+		dbr:China_Martini ,
+		dbr:Habsburg_monarchy ,
+		dbr:Istria ;
+	dct:subject	dbc:Italian_alcoholic_drinks ,
+		dbc:Cuisine_of_Veneto ,
+		dbc:Cocktails_with_bitters ,
+		dbc:Cocktails_with_Aperol ,
+		dbc:Cocktails_with_Prosecco ,
+		dbc:Three-ingredient_cocktails ;
+	dbp:ingredients	"*9 cl Prosecco\n*6 cl Select/Aperol/Campari/Cynar\n*Splash of soda water"@en ;
+	dbp:prep	"Build all ingredients into a wine glass filled with ice. Stir gently."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"Slice of Orange"@en ;
+	dbp:sourcelink	"spritz"@en .
+<http://dbpedia.org/resource/Bellini_(cocktail)>	rdfs:label	"Bellini (cocktail)"@en ,
+		"Bellini (cocktail)"@fr ;
+	dbp:name	"Bellini"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Bellini_Cipriani,_Macaroni_Grill,_Dunwoody_GA.jpg> ;
+	dbo:description	"cocktail"@fr ,
+		"cocktail of Prosecco sparkling wine and peach pur\u00E9e"@en ;
+	dbo:wikiPageWikiLink	dbr:Mandarin_orange ,
+		dbr:Carbonated_water ,
+		dbr:Peach ,
+		dbr:Schnapps ,
+		dbr:Liqueur ,
+		<http://dbpedia.org/resource/Rossini_(cocktail)> ,
+		dbr:Venice ,
+		<http://dbpedia.org/resource/Giuseppe_Cipriani_(chef)> ,
+		dbr:Italian_cuisine ,
+		dbr:Pomegranate ,
+		dbr:List_of_cocktails ,
+		dbr:Cocktail ,
+		dbr:Cherry_juice ,
+		dbr:Cuba ,
+		dbr:Sparkling_wine ,
+		<http://dbpedia.org/resource/Nectar_(drink)> ,
+		dbr:Prosecco ,
+		dbr:Giovanni_Bellini ,
+		dbr:IBA_Official_Cocktail ,
+		<http://dbpedia.org/resource/Harry\u0027s_Bar_(Venice)> ,
+		<http://dbpedia.org/resource/Pur\u00E9e> ,
+		dbr:Strawberry ;
+	dct:subject	dbc:Cocktails_with_Prosecco ,
+		dbc:Two-ingredient_cocktails ,
+		dbc:Italian_alcoholic_drinks ,
+		dbc:Brunch ,
+		dbc:Cocktails_with_peach ;
+	dbp:ingredients	"* 10 cl  Prosecco\n* 5 cl  fresh peach pur\u00E9e"@en ;
+	dbp:prep	"Pour peach pur\u00E9e into chilled glass, add sparkling wine. Stir gently."@en ;
+	dbp:served	"straight"@en ;
+	dbp:sourcelink	"bellini"@en .
+dbr:Porto_flip	rdfs:label	"Porto flip"@en ,
+		"Porto flip"@fr ;
+	dbp:name	"Porto Flip"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Porto_Flip.jpg> ;
+	dbo:description	"cocktail with brandy, ruby port and one egg yolk"@en ;
+	dbo:wikiPageWikiLink	dbr:Egg_yolk ,
+		dbr:Nutmeg ,
+		<http://dbpedia.org/resource/Jerry_Thomas_(bartender)> ,
+		dbr:Port_wine ,
+		dbr:Ruby_port ,
+		dbr:Brandy ,
+		dbr:Cocktail_shaker ;
+	dct:subject	dbc:Cocktails_with_brandy ,
+		dbc:Three-ingredient_cocktails ,
+		dbc:Cocktails_with_wine ;
+	dbp:ingredients	"*1.5 cl  brandy\n*4.5 cl  port\n*1 cl  egg yolk"@en ;
+	dbp:prep	"Shake ingredients together in a mixer with ice.  Strain into glass, garnish and serve"@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"Grated nutmeg"@en ;
+	dbp:sourcelink	"porto"@en .
+dbr:List_of_IBA_official_cocktails	dbo:wikiPageWikiLink	<http://dbpedia.org/resource/Old_fashioned_(cocktail)> ,
+		<http://dbpedia.org/resource/Tuxedo_(cocktail)> ,
+		<http://dbpedia.org/resource/Martinez_(cocktail)> ,
+		<http://dbpedia.org/resource/Paradise_(cocktail)> ,
+		<http://dbpedia.org/resource/Kir_(cocktail)> ,
+		dbr:Sazerac ,
+		dbr:Mojito ,
+		<http://dbpedia.org/resource/Ve.n.to> ,
+		<http://dbpedia.org/resource/Grasshopper_(cocktail)> ,
+		<http://dbpedia.org/resource/Spritz_(cocktail)> ,
+		dbr:Mint_julep ,
+		<http://dbpedia.org/resource/Boulevardier_(cocktail)> ,
+		dbr:Caipirinha ,
+		dbr:Margarita ,
+		<http://dbpedia.org/resource/French_75_(cocktail)> ,
+		<http://dbpedia.org/resource/French_Connection_(cocktail)> ,
+		<http://dbpedia.org/resource/Mimosa_(cocktail)> ,
+		<http://dbpedia.org/resource/Illegal_(cocktail)> ,
+		<http://dbpedia.org/resource/Bloody_Mary_(cocktail)> ,
+		dbr:Daiquiri ,
+		<http://dbpedia.org/resource/Casino_(cocktail)> ,
+		<http://dbpedia.org/resource/Tipperary_(cocktail)> ,
+		<http://dbpedia.org/resource/Americano_(cocktail)> ,
+		dbr:French_martini ,
+		<http://dbpedia.org/resource/Stinger_(cocktail)> ,
+		<http://dbpedia.org/resource/Mary_Pickford_(cocktail)> ,
+		<http://dbpedia.org/resource/Penicillin_(cocktail)> ,
+		dbr:Moscow_mule ,
+		<http://dbpedia.org/resource/Planter\u0027s_punch> ,
+		<http://dbpedia.org/resource/Aviation_(cocktail)> ,
+		<http://dbpedia.org/resource/Last_Word_(cocktail)> ,
+		dbr:Black_Russian ,
+		<http://dbpedia.org/resource/Paloma_(cocktail)> ,
+		<http://dbpedia.org/resource/Bellini_(cocktail)> ,
+		<http://dbpedia.org/resource/Martini_(cocktail)> ,
+		<http://dbpedia.org/resource/Fizz_(cocktail)> ,
+		dbr:Canchanchara ,
+		dbr:Irish_coffee ,
+		dbr:Espresso_martini ,
+		<http://dbpedia.org/resource/Zombie_(cocktail)> ,
+		dbr:Whiskey_sour ,
+		dbr:Champagne_cocktail ,
+		dbr:Mai_Tai ,
+		dbr:Negroni ,
+		<http://dbpedia.org/resource/Cosmopolitan_(cocktail)> ,
+		<http://dbpedia.org/resource/Vieux_Carr\u00E9_(cocktail)> ,
+		dbr:Old_Cuban ,
+		<http://dbpedia.org/resource/Manhattan_(cocktail)> ,
+		<http://dbpedia.org/resource/Tommy\u0027s_margarita> ,
+		dbr:Long_Island_iced_tea ,
+		<http://dbpedia.org/resource/Sidecar_(cocktail)> ,
+		<http://dbpedia.org/resource/Vesper_(cocktail)> ,
+		<http://dbpedia.org/resource/John_Collins_(cocktail)> ,
+		dbr:Porto_flip ,
+		<http://dbpedia.org/resource/Bramble_(cocktail)> .
+<http://dbpedia.org/resource/Mimosa_(cocktail)>	rdfs:label	"Mimosa (cocktail)"@fr ,
+		"Mimosa (cocktail)"@en ;
+	dbp:name	"Mimosa"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Pool-side_Mimosas_at_The_Standard_Hotel.jpg> ;
+	dbo:description	"drink composed of sparkling wine and citrus fruit juice"@en ,
+		"cocktail"@fr ;
+	dbo:wikiPageWikiLink	dbr:Sparkling_wine ,
+		<http://dbpedia.org/resource/Champagne_(wine)> ,
+		dbr:Acacia_dealbata ,
+		dbr:First_class_travel ,
+		dbr:Queen_Elizabeth_II ,
+		dbr:Paris_Ritz ,
+		<http://dbpedia.org/resource/Buck\u0027s_Fizz_(cocktail)> ,
+		dbr:Champagne_flute ,
+		<http://dbpedia.org/resource/Poinsettia_(cocktail)> ,
+		dbr:Southern_France ,
+		dbr:Sydney_Morning_Herald ,
+		dbr:Cocktail ,
+		dbr:Earl_Mountbatten_of_Burma ,
+		dbr:Vodka ,
+		dbr:Cointreau ,
+		dbr:Brunch ,
+		<http://dbpedia.org/resource/Buck\u0027s_Fizz> ,
+		dbr:Orange_juice ,
+		dbr:Champagne ;
+	dct:subject	dbc:Brunch ,
+		dbc:Cocktails_with_Champagne ,
+		dbc:Two-ingredient_cocktails ,
+		dbc:Cocktails_with_orange_juice ,
+		dbc:Cocktails_with_Prosecco ;
+	dbp:ingredients	"* 75 ml champagne\n* 75 ml orange juice"@en ;
+	dbp:prep	"Ensure both ingredients are well chilled, then mix into the glass. Serve cold."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"Orange twist"@en ;
+	dbp:sourcelink	"mimosa"@en .
+<http://dbpedia.org/resource/Boulevardier_(cocktail)>	rdfs:label	"Boulevardier (cocktail)"@en ,
+		"Boulevardier"@fr ;
+	dbp:name	"Boulevardier"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/VTR_Happy_Hour_-_Boulevardier.jpg> ;
+	dbo:description	"cocktail similar to the Negroni"@en ,
+		"cocktail alcoolis\u00E9"@fr ;
+	dbo:wikiPageWikiLink	dbr:Whiskey ,
+		dbr:Vermouth ,
+		dbr:Campari ,
+		dbr:Harry_MacElhone ,
+		dbr:Serious_Eats ,
+		dbr:Bourbon_whiskey ,
+		dbr:Negroni ,
+		dbr:Rye_whiskey ,
+		dbr:Erskine_Gwynne ,
+		dbr:Cocktail ,
+		<http://dbpedia.org/resource/Orange_(fruit)> ,
+		<http://dbpedia.org/resource/Old_pal_(cocktail)> ;
+	dct:subject	dbc:Cocktails_with_Campari ,
+		dbc:Cocktails_with_whisky ,
+		dbc:Cocktails_with_vermouth ,
+		dbc:Three-ingredient_cocktails ;
+	dbp:ingredients	"* 45 ml bourbon or rye whiskey\n* 30 ml bitter Campari\n* 30 ml sweet red vermouth"@en ;
+	dbp:prep	"Pour all ingredients into mixing glass with ice cubes. Stir well. Strain into a chilled cocktail glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"Orange zest, optionally a lemon zest"@en ;
+	dbp:sourcelink	"boulevardier"@en .
+<http://dbpedia.org/resource/Mary_Pickford_(cocktail)>	rdfs:label	"Mary Pickford (cocktail)"@en ,
+		"Mary Pickford (cocktail)"@fr ;
+	dbp:name	"Mary Pickford"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Mary_Pickford_Cocktail.jpg> ;
+	dbo:description	"cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:Pineapple_juice ,
+		<http://dbpedia.org/resource/Bloody_Mary_(cocktail)> ,
+		<http://dbpedia.org/resource/Queen_Mary_(beer_cocktail)> ,
+		dbr:White_rum ,
+		dbr:Mary_Pickford ,
+		dbr:Hotel_Nacional_de_Cuba ,
+		dbr:Prohibition_in_the_United_States ,
+		dbr:Cocktail ,
+		dbr:Maraschino_cherry ,
+		dbr:Grenadine ,
+		dbr:Maraschino ,
+		dbr:Douglas_Fairbanks ,
+		dbr:Charlie_Chaplin ;
+	dct:subject	dbc:Tiki_drinks ,
+		dbc:Cocktails_with_fruit_liqueur ,
+		dbc:Cocktails_with_grenadine ,
+		dbc:Cocktails_with_pineapple_juice ,
+		dbc:Sweet_cocktails ,
+		dbc:Cuban_cocktails ,
+		dbc:Cocktails_with_light_rum ;
+	dbp:ingredients	"* 4.5 cl white rum\n* 4.5 cl fresh pineapple juice\n* 0.5 cl Grenadine\n* 0.75 cl Maraschino"@en ;
+	dbp:prep	"Shake and strain into a chilled large cocktail glass"@en ;
+	dbp:served	"straight"@en ;
+	dbp:sourcelink	"mary-pickford"@en .
+<http://dbpedia.org/resource/Bloody_Mary_(cocktail)>	rdfs:label	"Bloody Mary (cocktail)"@en ,
+		"Bloody Mary"@fr ;
+	dbp:name	"Bloody Mary"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Bloody_Mary_Coctail_with_celery_stalk_-_Evan_Swigart.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Bloodymary.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Bloody_mary.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Bloody_Margaret.jpg> ;
+	dbo:description	"cocktail, principalement \u00E0 base de vodka et de jus de tomate, piment\u00E9 et \u00E9pic\u00E9"@fr ,
+		"cocktail containing vodka and tomato juice"@en ;
+	dbo:wikiPageWikiLink	<http://dbpedia.org/resource/Caesar_(cocktail)> ,
+		dbr:List_of_cocktails ,
+		dbr:Highball_glass ,
+		<http://dbpedia.org/resource/George_Jessel_(actor)> ,
+		<http://dbpedia.org/resource/Queen_Mary_(beer_cocktail)> ,
+		dbr:Michelada ,
+		dbr:Mary_Pickford ,
+		dbr:Vodka ,
+		dbr:Lime_juice ,
+		dbr:Horseradish ,
+		dbr:Worcestershire_sauce ,
+		dbr:Floridita ,
+		dbr:Hot_sauce ,
+		<http://dbpedia.org/resource/Life_(magazine)> ,
+		dbr:Hurricane_glass ,
+		dbr:Clam_juice ,
+		<http://dbpedia.org/resource/Bloody_Mary_(folklore)> ,
+		dbr:King_Cole_Bar ,
+		dbr:Ernest_Hemingway ,
+		dbr:Celery_salt ,
+		dbr:Cayenne_pepper ,
+		<http://dbpedia.org/resource/Hearst\u0027s_International_Combined_with_Cosmopolitan> ,
+		dbr:Shrimp_and_prawn_as_food ,
+		dbr:Tomato_juice ,
+		dbr:Mary_I_of_England ,
+		dbr:Sashimi ,
+		dbr:Worcestershire_Sauce ,
+		dbr:Shrimp_cocktail ,
+		<http://dbpedia.org/resource/White_Lady_(cocktail)> ,
+		dbr:Tabasco_sauce ,
+		dbr:Hangover_cure ,
+		dbr:Bitters ,
+		dbr:Hair_of_the_dog ,
+		<http://dbpedia.org/resource/21_Club> ,
+		dbr:Non-alcoholic_mixed_drink ,
+		dbr:Fernand_Petiot ,
+		dbr:Lucius_Beebe ,
+		<http://dbpedia.org/resource/St._Regis_Hotel> ,
+		<http://dbpedia.org/resource/Vampiro_(cocktail)> ,
+		dbr:Smirnoff ,
+		dbr:The_New_Yorker ,
+		dbr:Cocktail ,
+		dbr:Placebo_effect ,
+		dbr:Catholic_Church ,
+		dbr:Cocktail_shaker ,
+		dbr:Celery ,
+		dbr:Hangover ,
+		dbr:Brunch ,
+		<http://dbpedia.org/resource/Virgin_Mary_(cocktail)> ,
+		<http://dbpedia.org/resource/Harry\u0027s_New_York_Bar> ,
+		dbr:Bacon ,
+		dbr:Ice_cube ,
+		<http://dbpedia.org/resource/Sidecar_(cocktail)> ,
+		dbr:Non-alcoholic_beverage ,
+		dbr:Absinthe ,
+		dbr:Sausage ,
+		dbr:Pickled_vegetables ,
+		dbr:Black_pepper ,
+		dbr:Lemon_juice ,
+		dbr:Olive ,
+		dbr:Bloody_Margaret ,
+		dbr:Cocktail_garnish ,
+		dbr:Pint_glass ,
+		<http://dbpedia.org/resource/French\u0027s> ,
+		<http://dbpedia.org/resource/Foxe\u0027s_Book_of_Martyrs> ;
+	dct:subject	dbc:Cocktails_with_lime_juice ,
+		dbc:Cocktails ,
+		dbc:Cocktails_with_lemon_juice ,
+		dbc:Celery ,
+		dbc:Brunch ,
+		dbc:Citrus_cocktails ,
+		dbc:Spicy_cocktails ,
+		dbc:Cocktails_with_tomato_juice ,
+		dbc:Cocktails_with_vodka ;
+	dbp:ingredients	"* 45 ml vodka\n* 90 ml tomato juice\n* 15 ml fresh lemon juice\n* 2 dashes of Worcestershire sauce\n* Tabasco sauce\n* Celery salt\n* Black pepper"@en ;
+	dbp:prep	"Stir gently all the ingredients in a mixing glass with ice, pour into rocks glass."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"Celery and lemon wedge"@en ;
+	dbp:sourcelink	"iba-cocktail/bloody-mary/"@en .
+<http://dbpedia.org/resource/Tuxedo_(cocktail)>	rdfs:label	"Tuxedo (cocktail)"@fr ,
+		"Tuxedo (cocktail)"@en ;
+	dbp:name	"Tuxedo"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Tuxedo_No._2_cocktail.jpg> ;
+	dbo:description	"cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:List_of_cocktails ,
+		dbr:Gin ,
+		<http://dbpedia.org/resource/Orange_County,_New_York> ,
+		dbr:IBA_Official_Cocktail ,
+		dbr:Tuxedo_Club ,
+		dbr:Absinthe ,
+		dbr:Bitters ,
+		dbr:Vermouth ,
+		dbr:Maraschino ,
+		<http://dbpedia.org/resource/Tuxedo_Park,_New_York> ,
+		dbr:Lemon_zest ,
+		dbr:Lenape ,
+		dbr:Cherry ;
+	dct:subject	dbc:Cocktails_with_absinthe ,
+		dbc:Cocktails_with_gin ;
+	dbp:ingredients	"* 3 cl gin \n* 3 cl dry Vermouth\n* 1/2 barspoon Maraschino\n* 1/4 barspoon Absinthe\n* 3 dashes orange bitters"@en ;
+	dbp:prep	"Stir all ingredients with ice and strain into a cocktail glass.  Garnish with a cherry and a twist of lemon zest."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	dbr:Cherry ,
+		<http://dbpedia.org/resource/Zest_(ingredient)> ;
+	dbp:sourcelink	"tuxedo"@en .
+<http://dbpedia.org/resource/Americano_(cocktail)>	rdfs:label	"Americano (cocktail)"@en ,
+		"Americano (cocktail)"@fr ;
+	dbp:name	"Americano"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Americano_cocktail_at_Nightwood_Restaurant.jpg> ;
+	dbo:description	"un cocktail \u00E0 base de campari, de vermouth rouge doux et de club soda"@fr ,
+		"cocktail composed of Campari, sweet vermouth, and club soda"@en ;
+	dbo:wikiPageWikiLink	<http://dbpedia.org/resource/The_Tourist_(2010_film)> ,
+		dbr:Debut_novel ,
+		<http://dbpedia.org/resource/Orange_(fruit)> ,
+		dbr:Gaspare_Campari ,
+		dbr:Negroni ,
+		dbr:Milan ,
+		dbr:James_Bond ,
+		<http://dbpedia.org/resource/Casino_Royale_(novel)> ,
+		dbr:Vermouth ,
+		<http://dbpedia.org/resource/List_of_cocktails_(alphabetical)> ,
+		dbr:Campari ,
+		dbr:Club_soda ,
+		dbr:Perrier ,
+		<http://dbpedia.org/resource/From_Russia,_with_Love_(novel)> ,
+		dbr:From_a_View_to_a_Kill ,
+		dbr:List_of_IBA_official_cocktails ,
+		dbr:Turin ,
+		dbr:Lemon ,
+		dbr:Sweet_vermouth ,
+		dbr:List_of_cocktails ,
+		dbr:Punt_e_Mes ,
+		dbr:Soda_water ,
+		dbr:Ian_Fleming ;
+	dct:subject	dbc:Cocktails_with_Campari ,
+		dbc:Cocktails_with_club_soda ,
+		dbc:Cocktails ,
+		dbc:Cocktails_with_vermouth ;
+	dbp:ingredients	"* 3 cl Campari\n* 3 cl sweet red vermouth\n* A splash of soda water"@en ;
+	dbp:prep	"Pour the Campari and vermouth over ice into an old fashioned glass, add a splash of soda water and garnish with half an orange slice and a lemon twist."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"half an orange slice, lemon twist"@en ;
+	dbp:sourcelink	"americano"@en .
+dbr:Margarita	rdfs:label	"Margarita"@en ,
+		"Margarita (cocktail)"@fr ;
+	dbp:name	"Margarita"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Balinese-room.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Memorial_Day_margaritas.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/MargaritaReal.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Blended_Margarita.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Glas43_(cropped).jpg> ;
+	dbo:description	"Cocktail \u00E0 base de tequila"@fr ,
+		"Mexican cocktail of tequila and orange liqueur"@en ;
+	dbo:wikiPageWikiLink	dbr:Orange_juice ,
+		dbr:Beer_cocktail ,
+		dbr:Jose_Cuervo ,
+		<http://dbpedia.org/resource/Lime_(fruit)> ,
+		dbr:Old_fashioned_glass ,
+		dbr:Syracuse_Herald ,
+		dbr:Key_lime ,
+		<http://dbpedia.org/resource/Kamikaze_(cocktail)> ,
+		dbr:Salt ,
+		<http://dbpedia.org/resource/Chihuahua_(state)> ,
+		dbr:Carrots ,
+		dbr:Tequila ,
+		dbr:Lime_juice ,
+		dbr:Frozen_alcoholic_drink ,
+		dbr:Celery ,
+		<http://dbpedia.org/resource/Status_Quo_(band)> ,
+		dbr:Peggy_Lee ,
+		dbr:Cocktail ,
+		dbr:Ziegfeld_Follies ,
+		<http://dbpedia.org/resource/Cura\u00E7ao_(liqueur)> ,
+		<http://dbpedia.org/resource/Esquire_(magazine)> ,
+		dbr:Cointreau ,
+		dbr:Limeade ,
+		dbr:Diet_food ,
+		dbr:Beet ,
+		dbr:Tijuana ,
+		dbr:Jimmy_Buffett ,
+		dbr:Artificial_sweeteners ,
+		dbr:Folklore ,
+		<http://dbpedia.org/resource/Pi\u00F1a_colada> ,
+		dbr:Gatorade ,
+		dbr:Lemonade ,
+		<http://dbpedia.org/resource/Ensenada,_Baja_California> ,
+		dbr:Shrimp_cocktail ,
+		dbr:Liqueur ,
+		dbr:Strawberry ,
+		dbr:Margaritaville ,
+		dbr:Guacamole ,
+		dbr:Apple-cinnamon ,
+		dbr:Coconut_cream ,
+		dbr:Jarritos ,
+		<http://dbpedia.org/resource/Sidecar_(cocktail)> ,
+		dbr:Persian_lime ,
+		dbr:Pomegranate_juice ,
+		dbr:Debunker ,
+		dbr:Cafe_Royal_Cocktail_Book ,
+		dbr:Balinese_Room ,
+		dbr:IBA_Official_Cocktail ,
+		<http://dbpedia.org/resource/Hussong\u0027s_Cantina> ,
+		<http://dbpedia.org/resource/Slush_(beverage)> ,
+		dbr:Orange_soda ,
+		dbr:Sports_drink ,
+		dbr:Banana ,
+		<http://dbpedia.org/resource/Hurricane_(cocktail)> ,
+		dbr:Guerrero ,
+		dbr:Peach ,
+		dbr:Pint_glass ,
+		dbr:Drink_mixer ,
+		dbr:Rosarito ,
+		dbr:List_of_cocktails ,
+		dbr:Champagne_coupe ,
+		dbr:Baja_California ,
+		dbr:Mexican_martini ,
+		dbr:Blender ,
+		dbr:Melon ,
+		dbr:Controy ,
+		dbr:Mango ,
+		dbr:Cocktail_glass ,
+		dbr:Triple_sec ,
+		<http://dbpedia.org/resource/La_Jolla,_San_Diego> ,
+		dbr:Coconut_water ,
+		dbr:Avocado ,
+		dbr:Corona_beer ,
+		dbr:Coconut_milk ,
+		dbr:Acapulco ,
+		dbr:Pineapple_juice ,
+		dbr:Hilton_Hotels ,
+		dbr:Fruit_punch_soda ,
+		dbr:Brandy_daisy ,
+		dbr:Agave ,
+		<http://dbpedia.org/resource/Paloma_(cocktail)> ,
+		dbr:Cucumber ,
+		dbr:Raspberry ,
+		dbr:Grapefruit_soda ,
+		<http://dbpedia.org/resource/Ciudad_Ju\u00E1rez> ,
+		dbr:San_Diego_Reader ,
+		dbr:International_Bartenders_Association ,
+		dbr:Wine_glass ,
+		<http://dbpedia.org/resource/Tommy\u0027s_margarita> ,
+		dbr:Top-shelf_liquor ,
+		dbr:Cranberry_juice ,
+		<http://dbpedia.org/resource/Schooner_(glass)> ,
+		dbr:Grand_Marnier ;
+	dct:subject	dbc:Cocktails_served_with_a_salty_rim ,
+		dbc:Cocktails_with_tequila ,
+		dbc:Frozen_drinks ,
+		dbc:Citrus_cocktails ,
+		dbc:Sour_cocktails ,
+		<http://dbpedia.org/resource/Category:Cocktails_with_triple_sec_or_cura\u00E7ao> ,
+		dbc:Three-ingredient_cocktails ,
+		dbc:Mexican_alcoholic_drinks ;
+	dbp:ingredients	"* 50 ml tequila 100% agave\n* 20 ml triple sec\n* 15 ml freshly squeezed lime juice"@en ;
+	dbp:prep	"Add all ingredients into a shaker with ice. Shake and strain into a chilled cocktail glass."@en ;
+	dbp:served	"Rocks, straight up, frozen"@en ;
+	dbp:garnish	"Half salt rim"@en ;
+	dbp:sourcelink	"margarita"@en .
+<http://dbpedia.org/resource/Kir_(cocktail)>	rdfs:label	"Kir"@fr ,
+		"Kir (cocktail)"@en ;
+	dbp:name	"Kir"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Kir_cocktail.jpg> ;
+	dbo:description	"French cocktail with cr\u00E8me de cassis and white wine"@en ,
+		"cocktail"@fr ;
+	dbo:wikiPageWikiLink	dbr:Raspberry ,
+		dbr:Dijon ,
+		dbr:Cider ,
+		<http://dbpedia.org/resource/Chambord_(liqueur)> ,
+		dbr:Cocktail ,
+		<http://dbpedia.org/resource/Champagne_(wine)> ,
+		dbr:Vermouth ,
+		dbr:International_Bartenders_Association ,
+		dbr:Burgundy_wine ,
+		dbr:Brittany ,
+		dbr:White_wine ,
+		<http://dbpedia.org/resource/Chablis_(wine)> ,
+		dbr:Chardonnay ,
+		dbr:Normandy ,
+		<http://dbpedia.org/resource/Cr\u00E8me_de_cassis> ,
+		dbr:Second_World_War ,
+		<http://dbpedia.org/resource/Ap\u00E9ritif> ,
+		dbr:Kir_Royal ,
+		<http://dbpedia.org/resource/Burgundy_(region)> ,
+		dbr:Town_twinning ,
+		<http://dbpedia.org/resource/F\u00E9lix_Kir> ,
+		<http://dbpedia.org/resource/Calvados_(spirit)> ,
+		dbr:Wine ,
+		<http://dbpedia.org/resource/Bourgogne_Aligot\u00E9> ,
+		dbr:France ;
+	dct:subject	dbc:Two-ingredient_cocktails ,
+		dbc:Cocktails_with_wine ,
+		dbc:Cocktails_with_liqueur ;
+	dbp:ingredients	"*9 cl  white wine\n*1 cl  cr\u00E8me de cassis"@en ;
+	dbp:prep	"Add the cr\u00E8me de cassis to the bottom of the glass, then top up with wine."@en ;
+	dbp:served	"straight"@en ;
+	dbp:sourcelink	"kir"@en .
+<http://dbpedia.org/resource/Stinger_(cocktail)>	rdfs:label	"Stinger (cocktail)"@en ,
+		"Stinger (cocktail)"@fr ;
+	dbp:name	"Stinger"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Stinger_Cocktail.jpg> ;
+	dbo:description	"cocktail compos\u00E9 de cognac et de cr\u00E8me de menthe"@fr ,
+		"duo cocktail made by adding cr\u00E8me de menthe to a spirit"@en ;
+	dbo:wikiPageWikiLink	dbr:List_of_cocktails ,
+		dbr:Rita_Johnson ,
+		dbr:Prohibition_in_the_United_States ,
+		dbr:Tony_Bill ,
+		dbr:Stephen_Sondheim ,
+		dbr:Upper_class ,
+		<http://dbpedia.org/resource/High_society_(social_class)> ,
+		dbr:Goldie_Hawn ,
+		dbr:Amaretto ,
+		<http://dbpedia.org/resource/High_Society_(1956_film)> ,
+		dbr:Warren_Beatty ,
+		dbr:Gloria_Grahame ,
+		dbr:Old_Fashioned_glass ,
+		<http://dbpedia.org/resource/The_Ladies_Who_Lunch_(song)> ,
+		dbr:Syrup ,
+		dbr:Mad_Men ,
+		dbr:Tequila ,
+		<http://dbpedia.org/resource/Shampoo_(film)> ,
+		<http://dbpedia.org/resource/The_Bishop\u0027s_Wife> ,
+		<http://dbpedia.org/resource/John_le_Carr\u00E9> ,
+		dbr:Jayne_Mansfield ,
+		<http://dbpedia.org/resource/Kiss_Them_for_Me_(film)> ,
+		dbr:Cocktail ,
+		dbr:Ian_Fleming ,
+		dbr:List_of_duo_and_trio_cocktails ,
+		dbr:Don_Marquis ,
+		dbr:Broadway_theatre ,
+		dbr:Cognac ,
+		dbr:William_Hurt ,
+		dbr:Peppermint_schnapps ,
+		dbr:Urban_legend ,
+		dbr:In_a_Lonely_Place ,
+		dbr:Brian_Dennehy ,
+		dbr:Humphrey_Bogart ,
+		<http://dbpedia.org/resource/Mad_Men_(season_1)> ,
+		dbr:Busybody ,
+		dbr:Frank_Sinatra ,
+		dbr:Reginald_Claypoole_Vanderbilt ,
+		dbr:Bacardi ,
+		dbr:Bourbon_whiskey ,
+		<http://dbpedia.org/resource/Ap\u00E9ritif_and_digestif> ,
+		dbr:Ray_Milland ,
+		dbr:Straight_up ,
+		dbr:Lord_Love_a_Duck ,
+		<http://dbpedia.org/resource/Cr\u00E8me_de_menthe> ,
+		<http://dbpedia.org/resource/The_Big_Clock_(film)> ,
+		dbr:The_Spy_Who_Came_in_from_the_Cold ,
+		dbr:Bing_Crosby ,
+		<http://dbpedia.org/resource/William_%22Cocktail%22_Boothby> ,
+		dbr:The_Burglar_Who_Dropped_In_On_Elvis ,
+		dbr:The_Burglar_in_the_Closet ,
+		dbr:Roddy_McDowall ,
+		<http://dbpedia.org/resource/Gorky_Park_(film)> ,
+		dbr:The_Apartment ,
+		<http://dbpedia.org/resource/Diamonds_Are_Forever_(novel)> ,
+		dbr:New_York_City ,
+		dbr:Distilled_beverage ,
+		dbr:Marilyn_Monroe ,
+		dbr:Irish_cream ,
+		dbr:Brandy ,
+		dbr:Joyce_Jameson ,
+		dbr:Liqueur ,
+		dbr:Ruth_Gordon ,
+		dbr:Jack_Lemmon ,
+		dbr:Ray_Walston ,
+		<http://dbpedia.org/resource/Duo_(cocktail)> ,
+		<http://dbpedia.org/resource/Company_(musical)> ,
+		dbr:Gin ;
+	dct:subject	dbc:Cocktails_with_liqueur ,
+		dbc:Cocktails_with_brandy ,
+		dbc:Two-ingredient_cocktails ;
+	dbp:ingredients	"* 50 ml cognac\n* 20 ml white cr\u00E8me de menthe"@en ;
+	dbp:prep	"Pour all ingredients into mixing glass with ice cubes. Stir well. Strain into chilled martini cocktail glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"Optional mint leave"@en ;
+	dbp:sourcelink	"stinger"@en .
+<http://dbpedia.org/resource/French_75_(cocktail)>	rdfs:label	"French 75 (cocktail)"@fr ,
+		"French 75 (cocktail)"@en ;
+	dbp:name	"French 75"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/French_75.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Canon_de_75_front.jpg> ;
+	dbo:description	"cocktail made from gin, Champagne, lemon juice, and sugar"@en ,
+		"cocktail"@fr ;
+	dbo:wikiPageWikiLink	dbr:John_Wayne ,
+		<http://dbpedia.org/resource/Gourmet_(magazine)> ,
+		dbr:Highball_glass ,
+		dbr:Stork_Club ,
+		<http://dbpedia.org/resource/Esquire_(magazine)> ,
+		dbr:Cocktail ,
+		dbr:Simple_syrup ,
+		<http://dbpedia.org/resource/Mr._Selfridge> ,
+		<http://dbpedia.org/resource/A_Man_Betrayed_(1941_film)> ,
+		<http://dbpedia.org/resource/Harry\u0027s_New_York_Bar> ,
+		dbr:The_Fine_Art_of_Mixing_Drinks ,
+		dbr:Calvados ,
+		dbr:Jean_Shepherd ,
+		dbr:Gin ,
+		dbr:Tom_Collins ,
+		<http://dbpedia.org/resource/Canon_de_75_mod\u00E8le_1897> ,
+		dbr:Carbonated_water ,
+		dbr:Lemon ,
+		dbr:Cognac ,
+		<http://dbpedia.org/resource/Casablanca_(movie)> ,
+		<http://dbpedia.org/resource/David_A._Embury> ,
+		dbr:The_Savoy_Cocktail_Book ,
+		dbr:Champagne ,
+		dbr:Harry_MacElhone ,
+		dbr:World_War_I ,
+		dbr:Gervais_Raoul_Lufbery ,
+		dbr:Epicurious ,
+		<http://dbpedia.org/resource/Jet_Pilot_(film)> ;
+	dct:subject	dbc:Cocktails_with_gin ,
+		dbc:Cocktails_with_Champagne ;
+	dbp:ingredients	"* gin\n* lemon juice\n* simple syrup\n* Champagne"@en ;
+	dbp:prep	"Pour all the ingredients, except Champagne, into a shaker. Shake well and strain into a Champagne flute. Top up with Champagne. Stir gently."@en ;
+	dbp:served	"straight"@en ;
+	dbp:sourcelink	"french-75"@en .
+<http://dbpedia.org/resource/French_Connection_(cocktail)>	rdfs:label	"French Connection (cocktail)"@en ,
+		"French Connection (cocktail)"@fr ;
+	dbp:name	"French Connection"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/French_Connection_(cocktail).jpg> ;
+	dbo:description	"cocktail made of Cognac and Amaretto liqueur"@en ;
+	dbo:wikiPageWikiLink	<http://dbpedia.org/resource/Cognac_(drink)> ,
+		dbr:Gene_Hackman ,
+		dbr:List_of_cocktails ,
+		dbr:Amaretto ,
+		<http://dbpedia.org/resource/The_French_Connection_(film)> ;
+	dct:subject	dbc:Cocktails_with_brandy ,
+		dbc:Two-ingredient_cocktails ,
+		dbc:Cocktails_with_liqueur ;
+	dbp:ingredients	"*3.5cl Cognac\n*3.5cl Amaretto liqueur"@en ;
+	dbp:prep	"Pour all ingredients directly into old fashioned glass filled with ice cubes. Stir gently."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:sourcelink	"french-connection"@en .
+dbr:Mai_Tai	rdfs:label	"Mai Tai"@en ,
+		"Mai Tai"@fr ;
+	dbp:name	"Mai Tai"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Mai_Tai_at_Trader_Vic\u0027s_Emeryville.jpg> ;
+	dbo:description	"Cocktail \u00E0 base de Cura\u00E7ao"@fr ,
+		"cocktail based on rum, Cura\u00E7ao liqueur and lime juice"@en ;
+	dbo:wikiPageWikiLink	dbr:Simple_syrup ,
+		dbr:Tahitian_language ,
+		dbr:Grenadine ,
+		dbr:Lime_juice ,
+		dbr:Bitters ,
+		dbr:Elvis_Presley ,
+		dbr:Orgeat_syrup ,
+		<http://dbpedia.org/resource/Q.B._Cooler> ,
+		<http://dbpedia.org/resource/Orange_cura\u00E7ao> ,
+		<http://dbpedia.org/resource/Cura\u00E7ao_(liqueur)> ,
+		dbr:Amaretto ,
+		dbr:Rum ,
+		dbr:Blue_Hawaii ,
+		dbr:Tiki_culture ,
+		dbr:Cocktail ,
+		dbr:Falernum ,
+		<http://dbpedia.org/resource/Trader_Vic\u0027s> ,
+		dbr:Orange_liqueur ,
+		dbr:Don_the_Beachcomber ,
+		dbr:Demerara ;
+	dct:subject	dbc:Cocktails_with_lime_juice ,
+		dbc:Cocktails_with_rum ,
+		dbc:Cocktails_with_fruit_liqueur ,
+		dbc:Californian_cuisine ,
+		<http://dbpedia.org/resource/Category:Cocktails_with_triple_sec_or_cura\u00E7ao> ,
+		dbc:Tiki_culture ,
+		dbc:Cuisine_of_the_Western_United_States ,
+		dbc:Hawaiian_alcoholic_drinks ,
+		dbc:Tiki_drinks ;
+	dbp:ingredients	"* 30 ml amber Jamaican rum\n* 30 ml Martinique molasses rhum\n* 15 ml orange cura\u00E7ao\n* 15 ml orgeat syrup \n* 30 ml fresh lime juice\n* 7.5 ml simple syrup"@en ;
+	dbp:prep	"Add all ingredients into a shaker with ice. Shake and pour into a double rocks glass or a highball glass."@en ;
+	dbp:served	"shaved or crushed ice"@en ;
+	dbp:garnish	"pineapple spear, mint leaves, and lime peel"@en ;
+	dbp:sourcelink	"mai-tai"@en .
+dbr:Daiquiri	rdfs:label	"Daiquiri"@en ,
+		"Da\u00EFquiri"@fr ;
+	dbp:name	"Daiquiri"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Daiquiri_de_fresa.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Classic_Daiquiri_in_Cocktail_Glass.jpg> ;
+	dbo:description	"cocktail originaire de Cuba"@fr ,
+		"family of cocktails with with rum, citrus and some sweetener"@en ;
+	dbo:wikiPageWikiLink	dbr:Santiago_de_Cuba ,
+		dbr:French_West_Indies ,
+		<http://dbpedia.org/resource/Daiquir\u00ED,_Cuba> ,
+		<http://dbpedia.org/resource/David_A._Embury> ,
+		dbr:Spoon ,
+		dbr:Blender ,
+		<http://dbpedia.org/resource/John_F._Kennedy> ,
+		dbr:Whiskey ,
+		dbr:Cocktails ,
+		dbr:Limeade ,
+		dbr:Hemingway_Special ,
+		dbr:Coupe_glass ,
+		dbr:Tall_glass ,
+		<http://dbpedia.org/resource/William_A._Chanler> ,
+		dbr:Maraschino ,
+		dbr:Mojito ,
+		dbr:Lime_juice ,
+		dbr:Cocktail_shaker ,
+		dbr:Bar_spoon ,
+		dbr:New_York_City ,
+		<http://dbpedia.org/resource/Spanish\u2013American_War> ,
+		dbr:Rum ,
+		dbr:Captaincy_General_of_Cuba ,
+		dbr:Smoothie ,
+		dbr:Jennings_Cox ,
+		dbr:World_War_II ,
+		dbr:Scurvy ,
+		dbr:Ernest_Hemingway ,
+		<http://dbpedia.org/resource/Washington,_D.C.> ,
+		dbr:Pulverisation ,
+		<http://dbpedia.org/resource/Franklin_D._Roosevelt> ,
+		dbr:Mining ,
+		dbr:Royal_Navy ,
+		<http://dbpedia.org/resource/Ti\u0027_Punch> ,
+		dbr:Good_Neighbor_policy ,
+		dbr:Sugar ,
+		dbr:Vodka ,
+		dbr:Grog ,
+		<http://dbpedia.org/resource/Ta\u00EDno_people> ,
+		dbr:The_Fine_Art_of_Mixing_Drinks ,
+		<http://dbpedia.org/resource/Army_and_Navy_Club_(Washington,_D.C.)> ,
+		dbr:List_of_cocktails ,
+		dbr:Caipirinha ,
+		dbr:Rear_Admiral ,
+		dbr:United_States_Navy ,
+		dbr:United_States_House_of_Representatives ;
+	dct:subject	dbc:Frozen_drinks ,
+		<http://dbpedia.org/resource/Category:Limes_(fruit)> ,
+		dbc:Caribbean_drinks ,
+		dbc:Sour_cocktails ,
+		dbc:Cuban_cocktails ,
+		dbc:Mixed_drinks ,
+		dbc:Cocktails_with_light_rum ,
+		dbc:Good_Neighbor_policy ;
+	dbp:ingredients	"* 60 ml white Cuban rum\n* 20 ml fresh lime juice\n* 2 bar spoons superfine sugar"@en ;
+	dbp:prep	"In a cocktail shaker add all ingredients. Stir well to dissolve the sugar. Add ice and shake. Strain into chilled cocktail glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:sourcelink	"daiquiri"@en .
+dbr:Sazerac	rdfs:label	"Sazerac"@fr ,
+		"Sazerac"@en ;
+	dbp:name	"Sazerac"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/SazeracCocktail.jpg> ;
+	dbo:description	"cocktail alcoolis\u00E9e a base de whisky"@fr ,
+		"cognac or whiskey cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:Anthony_Bourdain ,
+		dbr:Bitters ,
+		dbr:Absinthe ,
+		dbr:Anise ,
+		dbr:Cocktail ,
+		dbr:Rye_whiskey ,
+		dbr:Bourbon_whiskey ,
+		dbr:New_Orleans ,
+		dbr:The_Roosevelt_New_Orleans_Hotel ,
+		dbr:Zazarac ,
+		dbr:Cognac ,
+		dbr:List_of_cocktails ,
+		dbr:Pastis ,
+		dbr:Old-fashioned_glass ,
+		dbr:Hurricane_Katrina ,
+		dbr:Anisette ,
+		<http://dbpedia.org/resource/Old_fashioned_(cocktail)> ,
+		dbr:Kim_Dickens ,
+		dbr:Louisiana_Legislature ,
+		dbr:Whiskey ,
+		dbr:Pernod_Ricard ,
+		dbr:Lemon ,
+		dbr:French_Quarter ,
+		<http://dbpedia.org/resource/Treme_(TV_series)> ,
+		dbr:HBO ,
+		dbr:Herbsaint ,
+		dbr:Apothecary ,
+		dbr:History_of_Louisiana ,
+		<http://dbpedia.org/resource/Peychaud\u0027s_Bitters> ,
+		dbr:Alan_Richman ,
+		dbr:GQ ,
+		dbr:Phylloxera ,
+		dbr:Sugar ,
+		dbr:Sazerac_Company ,
+		<http://dbpedia.org/resource/Edwin_R._Murray> ;
+	dct:subject	dbc:Cocktails_with_whisky ,
+		dbc:Ancestral_cocktails ,
+		<http://dbpedia.org/resource/Category:Cocktails_with_Peychaud\u0027s_bitters> ,
+		dbc:Cocktails_with_absinthe ,
+		dbc:New_Orleans_cocktails ,
+		dbc:Cocktails_with_brandy ;
+	dbp:ingredients	"*50 ml cognac\n* 10 ml absinthe\n*One sugar cube\n*Two dashes Peychaud's Bitters"@en ;
+	dbp:prep	"Rinse a chilled old-fashioned glass with absinthe or anisette, and add crushed ice. Stir the other ingredients, with ice in a different glass. Discard ice and excess absinthe from the first glass, and strain the mixture into that glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	<http://dbpedia.org/resource/Zest_(ingredient)> ;
+	dbp:sourcelink	"sazerac"@en .
+dbr:Moscow_mule	rdfs:label	"Moscow mule"@en ,
+		"Mule de Moscou"@fr ;
+	dbp:name	"Moscow mule"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Cocktail_Moscow_Mule_im_Kupferbecher_mit_Minze.jpg> ;
+	dbo:description	"cocktail"@fr ,
+		"mule cocktail with vodka, ginger beer and lime"@en ;
+	dbo:wikiPageWikiLink	dbr:Tennessee_whiskey ,
+		dbr:Mayo_Methot ,
+		dbr:Scotch_whisky ,
+		dbr:Reno_Gazette-Journal ,
+		dbr:Southern_Comfort ,
+		dbr:PH ,
+		dbr:Calamansi ,
+		dbr:Kyiv ,
+		dbr:Tequila ,
+		dbr:Poire_Williams ,
+		dbr:Lake_Tahoe ,
+		dbr:Broderick_Crawford ,
+		dbr:Copper_toxicity ,
+		dbr:Highball_glass ,
+		dbr:Cognac ,
+		dbr:Ginger_beer ,
+		<http://dbpedia.org/resource/St-Germain_(liqueur)> ,
+		dbr:Smirnoff_vodka ,
+		dbr:Absinthe ,
+		dbr:Lambanog ,
+		dbr:Card_counting ,
+		dbr:Vodka ,
+		<http://dbpedia.org/resource/Edward_O._Thorp> ,
+		<http://dbpedia.org/resource/Korn_(liquor)> ,
+		dbr:Tuaca ,
+		dbr:Mountain_Dew ,
+		dbr:Akvavit ,
+		dbr:Manhattan ,
+		dbr:Schnapps ,
+		<http://dbpedia.org/resource/J\u00E4germeister> ,
+		dbr:Highball ,
+		dbr:Carrot_juice ,
+		dbr:Irish_whiskey ,
+		dbr:Angostura_bitters ,
+		dbr:Gin ,
+		dbr:Spiced_rum ,
+		<http://dbpedia.org/resource/Pingu\u00E7a> ,
+		dbr:Mezcal ,
+		dbr:Lime_juice ,
+		<http://dbpedia.org/resource/William_F._Harrah> ,
+		dbr:Jaloviina ,
+		<http://dbpedia.org/resource/Lime_(fruit)> ,
+		dbr:United_States_West_Coast ,
+		<http://dbpedia.org/resource/Harrah\u0027s_Lake_Tahoe> ,
+		<http://dbpedia.org/resource/Buck_(cocktail)> ,
+		dbr:Bourbon_whiskey ,
+		<http://dbpedia.org/resource/Reno,_Nevada> ,
+		dbr:Food_and_Drug_Administration ,
+		dbr:Iowa_Alcoholic_Beverages_Division ,
+		dbr:Bundaberg_Rum ,
+		dbr:San_Francisco ,
+		dbr:The_Wall_Street_Journal ,
+		<http://dbpedia.org/resource/2022_Russian_invasion_of_Ukraine> ,
+		dbr:New_York_Herald_Tribune ,
+		dbr:Coffee_liqueur ;
+	dct:subject	dbc:Cocktails_with_vodka ,
+		dbc:Food_and_drink_introduced_in_1941 ,
+		dbc:Three-ingredient_cocktails ,
+		dbc:Cocktails_with_ginger_beer ,
+		dbc:Sweet_cocktails ,
+		dbc:Articles_containing_video_clips ;
+	dbp:ingredients	"*45 ml vodka\n* 10 ml lime juice\n* 120 ml ginger beer"@en ;
+	dbp:prep	"In an Mule Cup or rocks glass, combine the vodka and ginger beer. Add lime juice and gently stir to involve all ingredients."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"Lime Slice"@en ;
+	dbp:sourcelink	"moscow-mule"@en .
+<http://dbpedia.org/resource/Sidecar_(cocktail)>	rdfs:label	"Sidecar (cocktail)"@en ,
+		"Sidecar (cocktail)"@fr ;
+	dbp:name	"Sidecar"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Sidecar-cocktail.jpg> ;
+	dbo:description	"cocktail traditionally made with cognac, orange liqueur and lemon"@en ,
+		"cocktail originaire du Royaume-Uni"@fr ;
+	dbo:wikiPageWikiLink	<http://dbpedia.org/resource/White_Lady_(cocktail)> ,
+		dbr:Brandy_Crusta ,
+		dbr:Daiquiri ,
+		dbr:Margarita ,
+		dbr:List_of_cocktails ,
+		dbr:The_Fine_Art_of_Mixing_Drinks ,
+		<http://dbpedia.org/resource/Cura\u00E7ao_(liqueur)> ,
+		dbr:Grand_Marnier ,
+		dbr:Cointreau ,
+		dbr:World_War_I ,
+		dbr:Epicurious ,
+		<http://dbpedia.org/resource/Sour_(cocktail)> ,
+		<http://dbpedia.org/resource/H\u00F4tel_Ritz_Paris> ,
+		dbr:Triple_sec ,
+		dbr:Basil_Woon ,
+		<http://dbpedia.org/resource/Buck\u0027s_Club> ,
+		dbr:Sidecar ,
+		dbr:Cocktail ,
+		dbr:Lemon ,
+		<http://dbpedia.org/resource/David_A._Embury> ,
+		dbr:Cognac ;
+	dct:subject	dbc:Sour_cocktails ,
+		<http://dbpedia.org/resource/Category:Cocktails_with_triple_sec_or_cura\u00E7ao> ,
+		dbc:Three-ingredient_cocktails ,
+		dbc:Cocktails_with_brandy ;
+	dbp:ingredients	"* 50 ml cognac\n* 20 ml triple sec\n* 20 ml fresh lemon juice"@en ;
+	dbp:prep	"Pour all ingredients into a cocktail shaker, shake well with ice, strain into a chilled cocktail glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:sourcelink	"sidecar"@en .
+<http://dbpedia.org/resource/Bramble_(cocktail)>	rdfs:label	"Bramble (cocktail)"@en ,
+		"Bramble (cocktail)"@fr ;
+	dbp:name	"Bramble"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Bramble_Cocktail1.jpg> ;
+	dbo:description	"cocktail with gin"@en ,
+		"Cocktail \u00E0 base de gin"@fr ;
+	dbo:wikiPageWikiLink	dbr:Gin ,
+		dbr:Blackberry ,
+		dbr:Lemon ,
+		dbr:London ,
+		dbr:Soho ,
+		dbr:Dick_Bradsell ,
+		dbr:List_of_cocktails ,
+		<http://dbpedia.org/resource/Cr\u00E8me_liqueur> ,
+		dbr:Cranberry ,
+		dbr:Bramble ;
+	dct:subject	dbc:Cocktails_with_gin ,
+		dbc:Cocktails_with_liqueur ;
+	dbp:ingredients	"* 50 ml Gin\n* 25 ml Fresh Lemon Juice\n* 12.5 ml Sugar Syrup\n* 15 ml Cr\u00E8me de M\u00FBre"@en ;
+	dbp:prep	"Pour all ingredients into a cocktail shaker except the Cr\u00E8me de M\u00FBre, shake well with ice, strain into chilled old fashioned glass filled with crushed ice, then pour the blackberry liqueur  over the top of the drink, in a circular motion."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"Blackberry, lemon slice"@en ;
+	dbp:sourcelink	"bramble"@en .
+dbr:Canchanchara	rdfs:label	"Canch\u00E1nchara"@fr ,
+		"Canchanchara"@en ;
+	dbp:name	"Canchanchara"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Canchanchara.jpg> ;
+	dbo:description	"IBA official cocktail made with Cuban aguardiente, honey, and fresh lime juice"@en ;
+	dbo:wikiPageWikiLink	dbr:Rum ,
+		dbr:IBA_official_cocktail ,
+		dbr:List_of_cocktails ,
+		<http://dbpedia.org/resource/Lime_(fruit)> ,
+		dbr:Aguardiente ,
+		dbr:Honey ;
+	dct:subject	dbc:Cocktails_with_lime_juice ,
+		dbc:Cocktails_with_rum ;
+	dbp:ingredients	"* 60 ml Cuban aguardiente\n* 15 ml fresh lime juice\n* 15 ml raw honey\n* 50 ml water"@en ;
+	dbp:prep	"Mix honey with water and lime juice and spread the mixture on the bottom and sides of the glass. Add cracked ice, and then the rum. End by energetically stirring from bottom to top."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"Lime wedge"@en ;
+	dbp:sourcelink	"canchanchara"@en .
+<http://dbpedia.org/resource/Tommy\u0027s_margarita>	rdfs:label	"Tommy's margarita"@en ;
+	dbp:name	"Tommy's margarita"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/TommysMargarita.jpg> ;
+	dbo:description	"cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:List_of_cocktails ,
+		dbr:Agave_nectar ,
+		dbr:Agave ,
+		dbr:San_Francisco ,
+		dbr:Orange_liqueur ,
+		dbr:Agave_syrup ,
+		dbr:Tequila ,
+		dbr:Margarita ,
+		dbr:IBA_Official_Cocktail ,
+		dbr:Triple_sec ,
+		dbr:Simple_syrup ,
+		dbr:List_of_IBA_official_cocktails ,
+		dbr:Lime_juice ,
+		<http://dbpedia.org/resource/Ju\u00E1rez,_Mexico> ,
+		dbr:Cocktail_glass ;
+	dct:subject	dbc:Cocktails_with_tequila ,
+		dbc:Three-ingredient_cocktails ;
+	dbp:ingredients	"* 60 ml Tequila 100% agave\n* 30 ml Fresh lime juice\n* 30 ml Agave syrup"@en ;
+	dbp:prep	"Pour all ingredients into a cocktail shaker, shake well with ice, strain into a chilled rocks glass filled with ice."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"Lime slice"@en ;
+	dbp:sourcelink	"tommys-margarita"@en .
+<http://dbpedia.org/resource/Penicillin_(cocktail)>	rdfs:label	"Penicillin (cocktail)"@en ;
+	dbp:name	"Penicillin"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/The_Spotted_Owl_-_Penicillin.jpg> ;
+	dbo:description	"IBA official Cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:Influenza ,
+		dbr:Whisky ,
+		dbr:Lemon ,
+		dbr:Common_cold ,
+		dbr:Honey ,
+		dbr:List_of_cocktails ,
+		dbr:Penicillin ,
+		dbr:Scotch_whisky ,
+		dbr:IBA_official_cocktail ,
+		dbr:Hot_toddy ,
+		dbr:Alexander_Fleming ,
+		<http://dbpedia.org/resource/Milk_&_Honey_(bar)> ,
+		dbr:Islay_whisky ,
+		dbr:Ginger ,
+		dbr:Australia ;
+	dct:subject	dbc:Sweet_cocktails ,
+		dbc:Cocktails_with_lemon_juice ,
+		dbc:Cocktails_with_Scotch_whisky .
+@prefix dbd:	<http://dbpedia.org/datatype/> .
+<http://dbpedia.org/resource/Penicillin_(cocktail)>	dbp:ingredients	"5.049216E8"^^dbd:second ;
+	dbp:prep	"Muddle fresh ginger in a shaker and add the remaining ingredients, except for the Islay single malt whisky. Fill the shaker with ice and shake. Double-strain into a chilled old fashioned glass with ice. Float the single malt whisky on top."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"Candied ginger"@en ;
+	dbp:sourcelink	"penicillin"@en .
+<http://dbpedia.org/resource/Tipperary_(cocktail)>	rdfs:label	"Tipperary (cocktail)"@en ;
+	dbp:name	"Tipperary"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Tipperary.jpg> ;
+	dbo:description	"Cocktail"@en ;
+	dbo:wikiPageWikiLink	<http://dbpedia.org/resource/Orange_(fruit)> ,
+		dbr:Angostura_bitters ,
+		dbr:Whiskey ,
+		dbr:Vermouth ,
+		dbr:List_of_cocktails ,
+		dbr:Irish_whiskey ,
+		<http://dbpedia.org/resource/Chartreuse_(liqueur)> ,
+		dbr:IBA_official_cocktail ;
+	dct:subject	dbc:Cocktails_with_liqueur ,
+		dbc:Cocktails_with_chartreuse ,
+		dbc:Cocktails_with_vermouth ,
+		dbc:Cocktails_with_Angostura_bitters ,
+		dbc:Cocktails_with_whisky ;
+	dbp:ingredients	"* 5 cl Irish whiskey\n* 2.5 cl sweet red vermouth\n* 1.5 cl green Chartreuse\n* 2 dashes Angostura bitters"@en ;
+	dbp:prep	"Pour all ingredients into mixing glass with ice cubes. Stir well. Strain into chilled cocktail glass. Garnish with a slice of orange."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"Orange slice"@en ;
+	dbp:sourcelink	"Tipperary"@en .
+<http://dbpedia.org/resource/Ve.n.to>	rdfs:label	"Ve.n.to"@en ;
+	dbp:name	"Ve.n.to"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Ve.n.to_cocktail.jpg> ;
+	dbo:description	"IBA official cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:IBA_official_cocktail ,
+		dbr:Grape ,
+		dbr:Grappa ,
+		dbr:Lemon ,
+		dbr:List_of_cocktails ;
+	dct:subject	dbc:Cocktails ;
+	dbp:ingredients	"* 4.5 cl white smooth grappa\n* 2.25 cl fresh lemon juice\n* 1.5 cl honey mix \n* 1.5 cl chamomile cordial\n* 1 cl egg white"@en ;
+	dbp:prep	"Pour all ingredients into the shaker. Shake vigorously with ice. Strain into a chilled small tumbler glass filled with ice."@en ;
+	dbp:served	"rocks"@en ;
+	dbp:garnish	"Lemon zest and white grapes"@en ;
+	dbp:sourcelink	"ve-n-to"@en .
+<http://dbpedia.org/resource/Vieux_Carr\u00E9_(cocktail)>	rdfs:label	"Vieux Carr\u00E9 (cocktail)"@fr ,
+		"Vieux Carr\u00E9 (cocktail)"@en ;
+	dbp:name	"Vieux Carr\u00E9"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Vieux_Carre_Cocktail.jpg> ;
+	dbo:description	"type of cocktail"@en ,
+		"Cocktail \u00E0 base de whiskey, de brandy et de B\u00E9n\u00E9dictine"@fr ;
+	dbo:wikiPageWikiLink	dbr:List_of_cocktails ,
+		dbr:Cognac ,
+		dbr:Rye_whiskey ,
+		dbr:French_Quarter ,
+		dbr:Bar_spoon ,
+		<http://dbpedia.org/resource/B\u00E9n\u00E9dictine> ,
+		<http://dbpedia.org/resource/Peychaud\u0027s_bitters> ,
+		dbr:Sweet_vermouth ,
+		dbr:IBA_official_cocktail ,
+		<http://dbpedia.org/resource/Dash_(cooking)> ,
+		dbr:Vermouth ,
+		<http://dbpedia.org/resource/Orange_(fruit)> ,
+		dbr:List_of_IBA_official_cocktails ,
+		<http://dbpedia.org/resource/Zest_(ingredient)> ,
+		dbr:Maraschino_cherry ,
+		<http://dbpedia.org/resource/Carousel_Piano_Bar_&_Lounge> ;
+	dct:subject	dbc:Cocktails_with_vermouth ,
+		dbc:Cocktails_with_brandy ,
+		dbc:Cocktails_with_rye_whisky ,
+		dbc:Cocktails_with_liqueur ,
+		<http://dbpedia.org/resource/Category:Cocktails_with_Peychaud\u0027s_bitters> ;
+	dbp:ingredients	"* 30 ml rye whiskey\n* 30 ml cognac\n* 30 ml sweet vermouth\n* 1 bar spoon B\u00E9n\u00E9dictine\n* 2 dashes Peychaud's bitters"@en ;
+	dbp:prep	"Pour all ingredients into mixing glass with ice cubes. Stir well. Strain into a chilled cocktail glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"Orange zest and maraschino cherry"@en ;
+	dbp:sourcelink	"vieux-carre"@en .
+<http://dbpedia.org/resource/Martinez_(cocktail)>	rdfs:label	"Martinez (cocktail)"@fr ,
+		"Martinez (cocktail)"@en ;
+	dbp:name	"Martinez"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Martinez_Cocktail.jpg> ;
+	dbo:description	"cocktail made with Old Tom gin and vermouth"@en ;
+	dbo:wikiPageWikiLink	<http://dbpedia.org/resource/Boker\u0027s_Bitters> ,
+		<http://dbpedia.org/resource/Trader_Vic\u0027s> ,
+		<http://dbpedia.org/resource/Cura\u00E7ao_(liqueur)> ,
+		<http://dbpedia.org/resource/Jerry_Thomas_(bartender)> ,
+		<http://dbpedia.org/resource/Martinez,_California> ,
+		dbr:Old_Tom_gin ,
+		<http://dbpedia.org/resource/Martini_(cocktail)> ,
+		dbr:Vermouth ,
+		dbr:Maraschino ,
+		dbr:List_of_cocktails ;
+	dct:subject	dbc:Cocktails_with_gin ;
+	dbp:ingredients	"* 45 ml London Dry Gin\n* 45 ml Sweet Red Vermouth\n* 1 Bar Spoon Maraschino Liqueur\n* 2 Dashes Orange Bitters"@en ;
+	dbp:prep	"Stirred over ice, strained into a chilled glass, garnished, and served up."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"lemon zest"@en ;
+	dbp:sourcelink	"martinez"@en .
+<http://dbpedia.org/resource/Casino_(cocktail)>	rdfs:label	"Casino (cocktail)"@en ,
+		"Casino (cocktail)"@fr ;
+	dbp:name	"Casino"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Casino_Cocktail_(9120690108).jpg> ;
+	dbo:description	"Cocktail"@fr ,
+		"cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:List_of_cocktails ,
+		dbr:Orange_bitters ,
+		dbr:Gin ,
+		dbr:Maraschino_cherry ,
+		dbr:Lemon ,
+		dbr:Maraschino ,
+		dbr:IBA_official_cocktail ;
+	dct:subject	dbc:Cocktails_with_liqueur ,
+		dbc:Cocktails_with_gin ,
+		dbc:Cocktails_with_bitters ;
+	dbp:ingredients	"* 4 cl gin \n* 1 cl Maraschino\n* 1 cl fresh lemon juice\n* 2 dashes orange bitters"@en ;
+	dbp:prep	"Pour all ingredients into shaker with ice cubes. Shake well. Strain into chilled cocktail glass. Garnish with a lemon twist and a maraschino cherry. Serve without a straw."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"Lemon twist and maraschino cherry"@en ;
+	dbp:sourcelink	"casino"@en .
+dbr:Espresso_martini	rdfs:label	"Espresso Martini"@fr ,
+		"Espresso martini"@en ;
+	dbp:name	"Espresso martini"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Bistrot_Bruno_Loubet,_Clerkenwell,_London_(4574785649).jpg> ;
+	dbo:description	"coffee-flavored cocktail"@en ,
+		"cocktail"@fr ;
+	dbo:wikiPageWikiLink	dbr:List_of_drinks_that_that_use_the_word_martini ,
+		dbr:Sugar_syrup ,
+		<http://dbpedia.org/resource/Kahl\u00FAa> ,
+		dbr:Cocktail_glass ,
+		dbr:Espresso ,
+		<http://dbpedia.org/resource/Martini_(cocktail)> ,
+		dbr:Coffee_liqueur ,
+		dbr:Vodka ,
+		dbr:Tia_Maria ,
+		dbr:Vermouth ,
+		dbr:Caffeinated_alcoholic_drink ,
+		dbr:Dick_Bradsell ,
+		dbr:Gin ,
+		dbr:London ;
+	dct:subject	dbc:Cocktails_with_coffee_liqueur ,
+		dbc:Cocktails_with_vodka ,
+		dbc:Mixed_drinks ,
+		dbc:Alcoholic_coffee_drinks ;
+	dbp:ingredients	"* 50 ml vodka\n* 30 ml Kahl\u00FAa\n* 10 ml sugar syrup\n* 1 strong espresso"@en ;
+	dbp:prep	"Pour all ingredients into cocktail shaker, shake well with ice, strain into chilled cocktail glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	3 ;
+	dbp:sourcelink	"espresso-martini"@en .
+dbr:French_martini	rdfs:label	"French martini"@en ,
+		"French Martini"@fr ;
+	dbp:name	"French martini"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/French_Martini.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/Absinthe-cappiello.jpg> ,
+		<http://commons.wikimedia.org/wiki/Special:FilePath/A_French_martini_(2664064759).jpg> ;
+	dbo:description	"cocktail"@fr ,
+		"cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:Keith_McNally ,
+		dbr:France ,
+		<http://dbpedia.org/resource/SoHo,_Manhattan> ,
+		dbr:Cocktail ,
+		dbr:Pineapple_juice ,
+		dbr:Liqueur ,
+		dbr:List_of_drinks_that_that_use_the_word_martini ,
+		dbr:List_of_cocktails ,
+		<http://dbpedia.org/resource/Balthazar_(restaurant)> ,
+		dbr:Vodka ,
+		dbr:New_York_City ,
+		dbr:Chambord_Raspberry_Liqueur ,
+		<http://dbpedia.org/resource/Martini_(cocktail)> ,
+		<http://dbpedia.org/resource/Chambord_(liqueur)> ;
+	dct:subject	dbc:Cocktails_with_vodka ,
+		dbc:Three-ingredient_cocktails ;
+	dbp:ingredients	"*45 ml vodka\n*15 ml raspberry liqueur\n*15 ml fresh pineapple juice"@en ;
+	dbp:prep	"Pour all ingredients into cocktail shaker, shake well with ice, strain into chilled cocktail glass."@en ;
+	dbp:served	"straight"@en ;
+	dbp:garnish	"Squeeze oil from lemon peel onto the drink."@en ;
+	dbp:sourcelink	"french-martini"@en .
+<http://dbpedia.org/resource/Illegal_(cocktail)>	rdfs:label	"Illegal (cocktail)"@en ;
+	dbp:name	"Illegal"@en ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Illegal_cocktail.jpg> ;
+	dbo:description	"cocktail"@en ;
+	dbo:wikiPageWikiLink	dbr:Falernum ,
+		<http://dbpedia.org/resource/Lime_(fruit)> ,
+		dbr:Mezcal ,
+		dbr:List_of_cocktails ,
+		dbr:IBA_official_cocktail ,
+		dbr:Rum ,
+		dbr:Syrup ,
+		dbr:Maraschino ;
+	dct:subject	dbc:Cocktails_with_mezcal ,
+		dbc:Cocktails_with_light_rum ,
+		dbc:Cocktails_with_liqueur ;
+	dbp:ingredients	"* 3 cl Mezcal \n* 1.5 cl Jamaica overproof white rum\n* 1.5 cl Falernum\n* 1 barspoon maraschino Luxardo\n* 2.25 cl fresh lime juice\n* 1.5 cl simple syrup\n* Few drops of egg white"@en ;
+	dbp:prep	"Pour all ingredients into shaker with ice cubes. Shake vigorously. Strain into chilled cocktail glass, or \"on the rocks\" into a traditional clay or terracotta mug."@en ;
+	dbp:served	"Served in one of two ways:\n* Straight up  in a chilled cocktail glass\n* On the rocks  in a traditional clay or terracotta mug"@en ;
+	dbp:sourcelink	"ILLEGAL"@en .

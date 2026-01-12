@@ -1,4 +1,4 @@
-from .cocktails import router as cocktails
-from .ingredients import router as ingredients
-from .planner import router as planner
-from .insights import router as insights
+from routes.cocktails import router as cocktails
+from routes.ingredients import router as ingredients
+from routes.planner import router as planner
+from routes.insights import router as insights
