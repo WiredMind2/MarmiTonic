@@ -4,9 +4,15 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 from rdflib import Graph
 from rdflib.term import URIRef
 from typing import Optional
+import sys
+from pathlib import Path
+
+# Importer le parser IBA
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from data.ttl_parser import IBADataParser
 
 class SparqlService:
-    _shared_graph = None
+    _shared_parser = None
     _shared_graph_path = None
 
     def __init__(self, local_graph_path: Optional[str] = None):
@@ -17,26 +23,21 @@ class SparqlService:
         if local_graph_path:
             self.local_graph_path = local_graph_path
         else:
-            self.local_graph_path = "backend/data/data.ttl"
+            self.local_graph_path = "data.ttl"
 
-        # Load shared graph if not already loaded or path changed
-        if SparqlService._shared_graph_path != self.local_graph_path or SparqlService._shared_graph is None:
+        # Load shared parser if not already loaded or path changed
+        if SparqlService._shared_graph_path != self.local_graph_path or SparqlService._shared_parser is None:
             SparqlService._shared_graph_path = self.local_graph_path
             try:
-                # Calculate correct path relative to this file
-                # File is in backend/services/sparql_service.py
-                # Data is in backend/data/data.ttl
-                # So we go up 1 level to backend/, then down to data/
-                absolute_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", self.local_graph_path))
-                print(f"DEBUG: Loading shared local graph from {absolute_path}")
-                SparqlService._shared_graph = Graph()
-                SparqlService._shared_graph.parse(absolute_path, format="turtle")
-                print(f"DEBUG: Shared local graph loaded successfully")
+                print(f"DEBUG: Loading IBA data parser with file: {self.local_graph_path}")
+                SparqlService._shared_parser = IBADataParser(self.local_graph_path)
+                print(f"DEBUG: Parser loaded successfully with {len(SparqlService._shared_parser.graph)} triples")
             except Exception as e:
-                print(f"DEBUG: Error loading shared local graph: {e}")
-                SparqlService._shared_graph = None
+                print(f"DEBUG: Error loading parser: {e}")
+                SparqlService._shared_parser = None
 
-        self.local_graph = SparqlService._shared_graph
+        self.parser = SparqlService._shared_parser
+        self.local_graph = SparqlService._shared_parser.graph if SparqlService._shared_parser else None
 
     def execute_query(self, query: str):
         """Execute SPARQL query on DBpedia using requests"""
