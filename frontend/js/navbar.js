@@ -183,14 +183,17 @@
         
         dropdown.innerHTML = limitedResults.map((cocktail, index) => {
             const highlightedName = highlightMatches(cocktail.name, query);
+            // Utiliser l'image du cocktail ou une image par défaut
+            const imageUrl = cocktail.image || `https://images.unsplash.com/photo-1536935338788-846bb9981813?w=200&h=200&fit=crop`;
+            
             return `
             <div class="search-result-item" data-index="${index}">
                 <div class="search-result-image">
-                    <img src="https://via.placeholder.com/40x40?text=${encodeURIComponent(cocktail.name)}" alt="${cocktail.name}" onerror="this.src='https://images.unsplash.com/photo-1536935338788-846bb9981813?w=40&h=40&fit=crop'">
+                    <img src="${imageUrl}" alt="${cocktail.name}" onerror="this.src='https://images.unsplash.com/photo-1536935338788-846bb9981813?w=200&h=200&fit=crop'">
                 </div>
                 <div class="search-result-info">
                     <div class="search-result-name">${highlightedName}</div>
-                    <div class="search-result-category">${cocktail.description ? cocktail.description.substring(0, 50) : 'Cocktail classique'}</div>
+                    <div class="search-result-category">${cocktail.description ? cocktail.description.substring(0, 60) : 'Cocktail classique'}</div>
                 </div>
             </div>
         `
