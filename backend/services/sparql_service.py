@@ -16,7 +16,7 @@ class SparqlService:
         if local_graph_path:
             self.local_graph_path = local_graph_path
         else:
-            self.local_graph_path = "data/data.ttl"
+            self.local_graph_path = "backend/data/data.ttl"
 
         # Load shared graph if not already loaded or path changed
         if SparqlService._shared_graph_path != self.local_graph_path or SparqlService._shared_graph is None:
@@ -35,13 +35,16 @@ class SparqlService:
 
     def execute_query(self, query: str):
         """Execute SPARQL query on DBpedia using requests"""
-        endpoint = f"https://dbpedia.org/sparql?query={query}&format=application/sparql-results+json"
+        params = {
+            'query': query,
+            'format': 'application/sparql-results+json'
+        }
         headers = {
             'Accept': 'application/sparql-results+json'
         }
         
         try:
-            response = requests.get(endpoint, headers=headers, timeout=30)
+            response = requests.get("https://dbpedia.org/sparql", params=params, headers=headers, timeout=30)
             if response.status_code >= 400:
                 return None
             return response.json()
