@@ -3,7 +3,8 @@ from typing import List, Optional, Dict
 
 
 class Cocktail(BaseModel):
-    id: str = Field(..., description="DBpedia resource URI for the cocktail")
+    uri: str = Field(..., description="DBpedia resource URI for the cocktail")
+    id: str = Field(..., description="URL-friendly slug generated from name")
     name: str = Field(..., min_length=1, description="Name of the cocktail")
     alternative_names: Optional[List[str]] = Field(None, description="Alternative names for the cocktail")
     description: Optional[str] = Field(None, description="Description of the cocktail")

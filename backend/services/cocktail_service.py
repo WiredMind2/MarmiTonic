@@ -21,6 +21,19 @@ class CocktailService:
         self.graph = None
         self._load_local_data()
 
+    @staticmethod
+    def generate_slug(name: str) -> str:
+        """Generate a slug from cocktail name"""
+        # Convert to lowercase
+        slug = name.lower()
+        # Remove parentheses and their content
+        slug = re.sub(r'\([^)]*\)', '', slug)
+        # Replace non-alphanumeric characters with hyphens
+        slug = re.sub(r'[^a-z0-9]+', '-', slug)
+        # Remove leading/trailing hyphens
+        slug = slug.strip('-')
+        return slug
+
     def _load_local_data(self):
         """Load the local TTL data into an RDF graph"""
         try:
@@ -76,9 +89,11 @@ class CocktailService:
             if isinstance(alt_name, Literal) and alt_name != name:
                 alt_names.append(str(alt_name))
 
+        cocktail_name = name or "Unknown Cocktail"
         return Cocktail(
-            id=str(cocktail_uri),
-            name=name or "Unknown Cocktail",
+            uri=str(cocktail_uri),
+            id=self.generate_slug(cocktail_name),
+            name=cocktail_name,
             alternative_names=alt_names if alt_names else None,
             description=descriptions.get("en") or None,
             image=image,
@@ -145,7 +160,8 @@ class CocktailService:
             ingredient_uris = self._extract_ingredient_uris(cocktail_uri) if self.graph else None
 
             cocktail = Cocktail(
-                id=cocktail_uri,
+                uri=cocktail_uri,
+                id=self.generate_slug(name),
                 name=name,
                 description=description,
                 ingredients=ingredients,
