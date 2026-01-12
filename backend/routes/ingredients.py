@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
 from typing import List
-from ..services.ingredient_service import IngredientService
+from services.ingredient_service import IngredientService
 
 router = APIRouter()
 

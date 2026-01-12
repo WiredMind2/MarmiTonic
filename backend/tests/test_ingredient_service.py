@@ -1,11 +1,17 @@
 import pytest
 from unittest.mock import Mock, patch
-from backend.services.ingredient_service import IngredientService
+import sys
+from pathlib import Path
+
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from services.ingredient_service import IngredientService
 
 
 @pytest.fixture
 def ingredient_service():
-    with patch('backend.services.ingredient_service.SparqlService'):
+    with patch('services.ingredient_service.SparqlService'):
         service = IngredientService()
         return service
 

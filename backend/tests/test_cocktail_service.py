@@ -1,7 +1,13 @@
 import pytest
 from unittest.mock import Mock, patch, MagicMock
-from backend.services.cocktail_service import CocktailService
-from backend.models.cocktail import Cocktail
+import sys
+from pathlib import Path
+
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from services.cocktail_service import CocktailService
+from models.cocktail import Cocktail
 from rdflib import URIRef, Literal, Graph
 from rdflib.namespace import RDFS, RDF
 import rdflib
@@ -21,8 +27,13 @@ def mock_ingredient_service():
 
 @pytest.fixture
 def cocktail_service(mock_sparql_service, mock_ingredient_service):
+<<<<<<< HEAD
     with patch('backend.services.cocktail_service.SparqlService', return_value=mock_sparql_service), \
          patch('backend.services.cocktail_service.IngredientService', return_value=mock_ingredient_service):
+=======
+    with patch('services.cocktail_service.SparqlService', return_value=mock_sparql_service), \
+         patch('services.cocktail_service.IngredientService', return_value=mock_ingredient_service):
+>>>>>>> worktree-2026-01-11T22-34-57
         service = CocktailService()
         return service
 
@@ -30,14 +41,20 @@ def cocktail_service(mock_sparql_service, mock_ingredient_service):
 class TestCocktailService:
 
     def test_init(self, mock_sparql_service, mock_ingredient_service):
+<<<<<<< HEAD
         with patch('backend.services.cocktail_service.SparqlService', return_value=mock_sparql_service), \
              patch('backend.services.cocktail_service.IngredientService', return_value=mock_ingredient_service):
+=======
+        with patch('services.cocktail_service.SparqlService', return_value=mock_sparql_service), \
+             patch('services.cocktail_service.IngredientService', return_value=mock_ingredient_service):
+>>>>>>> worktree-2026-01-11T22-34-57
             service = CocktailService()
             assert service.sparql_service == mock_sparql_service
             assert service.ingredient_service == mock_ingredient_service
             assert service.graph is not None  # Assuming _load_local_data sets it
 
     def test_load_local_data_success(self, cocktail_service, mock_sparql_service):
+<<<<<<< HEAD
         mock_graph = Mock()
         with patch('rdflib.Graph') as mock_graph_class:
             mock_graph_class.return_value = mock_graph
@@ -51,6 +68,15 @@ class TestCocktailService:
             mock_graph_class.side_effect = Exception("Parse error")
             cocktail_service._load_local_data()
             assert cocktail_service.graph is None
+=======
+        cocktail_service._load_local_data()
+        assert cocktail_service.graph == mock_sparql_service.local_graph
+
+    def test_load_local_data_failure(self, cocktail_service, mock_sparql_service):
+        mock_sparql_service.local_graph = None
+        cocktail_service._load_local_data()
+        assert cocktail_service.graph is None
+>>>>>>> worktree-2026-01-11T22-34-57
 
     def test_parse_cocktail_from_graph(self, cocktail_service):
         mock_graph = Mock()
@@ -143,6 +169,10 @@ class TestCocktailService:
 
     def test_get_all_cocktails_sparql_error(self, cocktail_service, mock_sparql_service):
         mock_sparql_service.execute_local_query.side_effect = Exception("Query failed")
+<<<<<<< HEAD
+=======
+        cocktail_service.graph.subjects.return_value = []
+>>>>>>> worktree-2026-01-11T22-34-57
         cocktails = cocktail_service.get_all_cocktails()
         assert cocktails == []
 
@@ -211,9 +241,17 @@ class TestCocktailService:
         cocktail_service._parse_ingredient_names = Mock(side_effect=[["Rum", "Lime", "Mint"], ["Vodka", "Orange", "Cranberry", "Lime"]])
 
         almost_feasible = cocktail_service.get_almost_feasible_cocktails("user1")
+<<<<<<< HEAD
         assert len(almost_feasible) == 1
         assert almost_feasible[0]["cocktail"] == mock_cocktail1
         assert almost_feasible[0]["missing"] == ["Mint"]
+=======
+        assert len(almost_feasible) == 2
+        assert almost_feasible[0]["cocktail"] == mock_cocktail1
+        assert almost_feasible[0]["missing"] == ["Mint"]
+        assert almost_feasible[1]["cocktail"] == mock_cocktail2
+        assert almost_feasible[1]["missing"] == ["Cranberry"]
+>>>>>>> worktree-2026-01-11T22-34-57
 
     def test_parse_ingredient_names(self, cocktail_service):
         ingredients_text = "* 45 ml White Rum\n* 20 ml Fresh Lime Juice\n• 15 ml Sugar Syrup"
@@ -251,7 +289,11 @@ class TestCocktailService:
         mock_cocktail2.ingredients = "* Vodka\n* Orange"
 
         cocktail_service.get_all_cocktails = Mock(return_value=[mock_cocktail1, mock_cocktail2])
+<<<<<<< HEAD
         cocktail_service._parse_ingredient_names = Mock(side_effect=[["Rum", "Lime"], ["Vodka", "Orange"]])
+=======
+        cocktail_service._parse_ingredient_names = Mock(side_effect=lambda x: ["Rum", "Lime"] if "Rum" in x else ["Vodka", "Orange"])
+>>>>>>> worktree-2026-01-11T22-34-57
 
         results = cocktail_service.get_cocktails_by_ingredients(["Rum"])
         assert len(results) == 1
@@ -298,9 +340,17 @@ class TestCocktailService:
         cocktail_service.get_all_cocktails = Mock(return_value=[mock_target, mock_similar, mock_different])
 
         results = cocktail_service.get_similar_cocktails("target_id", limit=5)
+<<<<<<< HEAD
         assert len(results) == 1
         assert results[0]["cocktail"] == mock_similar
         assert results[0]["similarity_score"] == 2/4  # intersection 2, union 4
+=======
+        assert len(results) == 2
+        assert results[0]["cocktail"] == mock_similar
+        assert results[0]["similarity_score"] == 2/4  # intersection 2, union 4
+        assert results[1]["cocktail"] == mock_different
+        assert results[1]["similarity_score"] == 0.0
+>>>>>>> worktree-2026-01-11T22-34-57
 
         # No target
         results = cocktail_service.get_similar_cocktails("nonexistent")
@@ -322,7 +372,11 @@ class TestCocktailService:
 
         cocktail_service.get_all_cocktails = Mock(return_value=[mock_target, mock_same_vibe])
 
+<<<<<<< HEAD
         with patch('backend.services.cocktail_service.GraphService') as mock_graph_service_class:
+=======
+        with patch('services.cocktail_service.GraphService') as mock_graph_service_class:
+>>>>>>> worktree-2026-01-11T22-34-57
             mock_graph_service = Mock()
             mock_graph_service_class.return_value = mock_graph_service
             mock_graph_service.analyze_graph.return_value = {
@@ -351,7 +405,11 @@ class TestCocktailService:
 
         cocktail_service.get_all_cocktails = Mock(return_value=[mock_bridge, mock_non_bridge])
 
+<<<<<<< HEAD
         with patch('backend.services.cocktail_service.GraphService') as mock_graph_service_class:
+=======
+        with patch('services.cocktail_service.GraphService') as mock_graph_service_class:
+>>>>>>> worktree-2026-01-11T22-34-57
             mock_graph_service = Mock()
             mock_graph_service_class.return_value = mock_graph_service
             mock_graph_service.analyze_graph.return_value = {
@@ -372,7 +430,11 @@ class TestCocktailService:
 
         cocktail_service.get_all_cocktails = Mock(return_value=[mock_cocktail])
 
+<<<<<<< HEAD
         with patch('backend.services.cocktail_service.GraphService') as mock_graph_service_class:
+=======
+        with patch('services.cocktail_service.GraphService') as mock_graph_service_class:
+>>>>>>> worktree-2026-01-11T22-34-57
             mock_graph_service = Mock()
             mock_graph_service_class.return_value = mock_graph_service
             mock_graph_service.analyze_graph.return_value = {"communities": {}}

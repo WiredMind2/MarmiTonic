@@ -7,19 +7,17 @@ from rdflib import Graph
 from pathlib import Path
 
 start_frontend_server_once()
+
 app = FastAPI()
 
 # Load RDF graph once at startup
 RDF_GRAPH = Graph()
-data_folder = Path(__file__).parent.parent / "data"
+data_folder = Path(__file__).parent / "data"
 rdf_file = data_folder / "iba_export.ttl"
 print(f"Loading RDF data from {rdf_file}...")
 try:
-    # Use file:// URI format to avoid parsing issues
-    import urllib.parse
-    file_uri = rdf_file.as_uri()
-    print(f"Using file URI: {file_uri}")
-    RDF_GRAPH.parse(file_uri, format="turtle")
+    # Use file path directly
+    RDF_GRAPH.parse(str(rdf_file), format="turtle")
     print(f"✓ Loaded {len(RDF_GRAPH)} triples")
 except Exception as e:
     print(f"✗ Error loading RDF data: {e}")
@@ -27,8 +25,7 @@ except Exception as e:
     try:
         fallback_file = data_folder / "data.ttl"
         print(f"Trying fallback file: {fallback_file}")
-        fallback_uri = fallback_file.as_uri()
-        RDF_GRAPH.parse(fallback_uri, format="turtle")
+        RDF_GRAPH.parse(str(fallback_file), format="turtle")
         print(f"✓ Loaded {len(RDF_GRAPH)} triples from fallback")
     except Exception as fallback_e:
         print(f"✗ Error loading fallback RDF data: {fallback_e}")

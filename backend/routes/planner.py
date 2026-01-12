@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List
-from ..services.planner_service import PlannerService
+from services.planner_service import PlannerService
 
 router = APIRouter()
 

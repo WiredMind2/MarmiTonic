@@ -1,5 +1,5 @@
-from .sparql_service import SparqlService
-from ..models.ingredient import Ingredient
+from services.sparql_service import SparqlService
+from models.ingredient import Ingredient
 from typing import List, Dict
 from ..data.ttl_parser import get_all_ingredients as get_local_ingredients
 

@@ -1,11 +1,17 @@
 import pytest
 from unittest.mock import Mock, patch
-from backend.services.graph_service import GraphService
+import sys
+from pathlib import Path
+
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from services.graph_service import GraphService
 
 
 @pytest.fixture
 def graph_service():
-    with patch('backend.services.sparql_service.SparqlService'):
+    with patch('services.graph_service.SparqlService'):
         service = GraphService()
         return service
 

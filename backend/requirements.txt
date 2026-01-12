@@ -8,3 +8,6 @@ uvicorn
 openai
 python-dotenv
 pytest
+pytest-cov
+httpx
+rdflib

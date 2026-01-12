@@ -1,14 +1,20 @@
 import pytest
 from unittest.mock import Mock, patch, MagicMock
-from backend.services.planner_service import PlannerService
-from backend.models.cocktail import Cocktail
-from backend.models.ingredient import Ingredient
+import sys
+from pathlib import Path
+
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
+from services.planner_service import PlannerService
+from models.cocktail import Cocktail
+from models.ingredient import Ingredient
 
 
 @pytest.fixture
 def planner_service():
-    with patch('backend.services.planner_service.SparqlService'):
-        with patch('backend.services.planner_service.CocktailService'):
+    with patch('services.planner_service.SparqlService'):
+        with patch('services.planner_service.CocktailService'):
             service = PlannerService()
             # Set up mock cocktail ingredients
             service.cocktail_ingredients = {

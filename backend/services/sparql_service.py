@@ -11,6 +11,7 @@ class SparqlService:
 
     def __init__(self, local_graph_path: Optional[str] = None):
         self.endpoint = "https://dbpedia.org/sparql"
+        self.local_endpoint = "http://localhost:3030/marmitonic"
 
         # Set local_graph_path based on parameter or default
         if local_graph_path:
@@ -22,7 +23,11 @@ class SparqlService:
         if SparqlService._shared_graph_path != self.local_graph_path or SparqlService._shared_graph is None:
             SparqlService._shared_graph_path = self.local_graph_path
             try:
-                absolute_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", self.local_graph_path))
+                # Calculate correct path relative to this file
+                # File is in backend/services/sparql_service.py
+                # Data is in backend/data/data.ttl
+                # So we go up 1 level to backend/, then down to data/
+                absolute_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", self.local_graph_path))
                 print(f"DEBUG: Loading shared local graph from {absolute_path}")
                 SparqlService._shared_graph = Graph()
                 SparqlService._shared_graph.parse(absolute_path, format="turtle")
@@ -83,26 +88,34 @@ class SparqlService:
 
     def query_local_data(self, query_type: str, uri: str = None, additional_properties: list = None):
         """Query local data with optional parameters"""
+        prefixes = """
+            PREFIX : <http://dbpedia.org/resource/>
+            PREFIX dbo: <http://dbpedia.org/ontology/>
+            PREFIX dbp: <http://dbpedia.org/property/>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+        """
+        
         if query_type == "cocktails":
-            query = """
+            query = prefixes + """
             SELECT ?cocktail WHERE {
                 ?cocktail a :Cocktail .
             }
             """
         elif query_type == "cocktail":
-            query = f"""
+            query = prefixes + f"""
             SELECT ?property ?value WHERE {{
                 <{uri}> ?property ?value .
             }}
             """
         elif query_type == "ingredients":
-            query = """
+            query = prefixes + """
             SELECT ?ingredient WHERE {
                 ?ingredient a :Ingredient .
             }
             """
         else:
-            query = """
+            query = prefixes + """
             SELECT ?s ?p ?o WHERE {
                 ?s ?p ?o .
             }
