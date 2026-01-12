@@ -8,18 +8,20 @@ from rdflib.namespace import RDF, RDFS
 from collections import defaultdict
 import re
 
+from pathlib import Path
+from ..utils.graph_loader import get_shared_graph
+
 # Define namespaces
 DBO = rdflib.Namespace("http://dbpedia.org/ontology/")
 DBP = rdflib.Namespace("http://dbpedia.org/property/")
 DCT = rdflib.Namespace("http://purl.org/dc/terms/")
 
-
 class CocktailService:
     def __init__(self):
-        self.sparql_service = SparqlService()  # Use default "data.ttl"
+        # SparqlService now defaults to using the shared graph
+        self.sparql_service = SparqlService()
         self.ingredient_service = IngredientService()
-        self.graph = None
-        self._load_local_data()
+        self.graph = get_shared_graph()
 
     @staticmethod
     def generate_slug(name: str) -> str:
@@ -35,13 +37,7 @@ class CocktailService:
         return slug
 
     def _load_local_data(self):
-        """Load the local TTL data into an RDF graph"""
-        try:
-            self.graph = Graph()
-            self.graph.parse("backend/data/data.ttl", format="turtle")
-        except Exception as e:
-            print(f"Error loading local TTL data: {e}")
-            self.graph = None
+        pass
 
     def _parse_cocktail_from_graph(self, cocktail_uri: URIRef) -> Cocktail:
         """Parse a cocktail from the RDF graph"""

@@ -3,32 +3,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from .routes import cocktails, ingredients, planner, insights, llm
 from .routes.graphs import router as graphs
 from .utils.front_server import start_frontend_server_once
+from .utils.graph_loader import get_shared_graph
 from rdflib import Graph
 from pathlib import Path
 
+# Start frontend server
 start_frontend_server_once()
 
 app = FastAPI()
 
-# Load RDF graph once at startup
-RDF_GRAPH = Graph()
-data_folder = Path(__file__).parent / "data"
-rdf_file = data_folder / "data.ttl"
-print(f"Loading RDF data from {rdf_file}...")
-try:
-    # Use file path directly
-    RDF_GRAPH.parse(str(rdf_file), format="turtle")
-    print(f"✓ Loaded {len(RDF_GRAPH)} triples")
-except Exception as e:
-    print(f"✗ Error loading RDF data: {e}")
-    # Fallback: try with data.ttl if iba_export.ttl fails
-    try:
-        fallback_file = data_folder / "data.ttl"
-        print(f"Trying fallback file: {fallback_file}")
-        RDF_GRAPH.parse(str(fallback_file), format="turtle")
-        print(f"✓ Loaded {len(RDF_GRAPH)} triples from fallback")
-    except Exception as fallback_e:
-        print(f"✗ Error loading fallback RDF data: {fallback_e}")
+# Load RDF graph once at startup using shared loader
+RDF_GRAPH = get_shared_graph()
 
 
 # Enable CORS

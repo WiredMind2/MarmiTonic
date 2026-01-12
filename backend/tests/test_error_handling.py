@@ -624,7 +624,7 @@ class TestGraphServiceErrorHandling:
         """Test build_graph with cocktail having None parsed_ingredients"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=None
         )
@@ -648,7 +648,7 @@ class TestGraphServiceErrorHandling:
         """Test build_graph when ingredient node doesn't exist in graph"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime"]
         )
@@ -689,7 +689,7 @@ class TestGraphServiceErrorHandling:
         """Test analyze_graph when community detection fails"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=["Rum"]
         )
@@ -780,7 +780,7 @@ class TestGraphServiceErrorHandling:
         """Test export_graph when networkx write_gexf fails"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=["Rum"]
         )
@@ -837,7 +837,7 @@ class TestPlannerServiceErrorHandling:
         """Test initialization with cocktail having None parsed_ingredients"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=None
         )
@@ -879,7 +879,7 @@ class TestPlannerServiceErrorHandling:
         """Test optimize_party_mode requesting more ingredients than available"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime"]
         )
@@ -898,12 +898,12 @@ class TestPlannerServiceErrorHandling:
         """Test optimize_party_mode with cocktails having no ingredient overlap"""
         mock_cocktail_instance = Mock()
         cocktail1 = Cocktail(
-            id="http://example.com/cocktail1",
+            uri="http://example.com/cocktail1", id="cocktail1",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime"]
         )
         cocktail2 = Cocktail(
-            id="http://example.com/cocktail2",
+            uri="http://example.com/cocktail2", id="cocktail2",
             name="Martini",
             parsed_ingredients=["Gin", "Vermouth"]
         )
@@ -924,12 +924,12 @@ class TestPlannerServiceErrorHandling:
         """Test optimize_party_mode with all cocktails having same ingredients"""
         mock_cocktail_instance = Mock()
         cocktail1 = Cocktail(
-            id="http://example.com/cocktail1",
+            uri="http://example.com/cocktail1", id="cocktail1",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime", "Mint"]
         )
         cocktail2 = Cocktail(
-            id="http://example.com/cocktail2",
+            uri="http://example.com/cocktail2", id="cocktail2",
             name="Daiquiri",
             parsed_ingredients=["Rum", "Lime", "Sugar"]
         )
@@ -962,7 +962,7 @@ class TestPlannerServiceErrorHandling:
         """Test optimize_playlist_mode with non-existent cocktail names"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime"]
         )
@@ -980,12 +980,12 @@ class TestPlannerServiceErrorHandling:
         """Test optimize_playlist_mode with some cocktails existing and some not"""
         mock_cocktail_instance = Mock()
         cocktail1 = Cocktail(
-            id="http://example.com/cocktail1",
+            uri="http://example.com/cocktail1", id="cocktail1",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime"]
         )
         cocktail2 = Cocktail(
-            id="http://example.com/cocktail2",
+            uri="http://example.com/cocktail2", id="cocktail2",
             name="Martini",
             parsed_ingredients=["Gin", "Vermouth"]
         )
@@ -1005,7 +1005,7 @@ class TestPlannerServiceErrorHandling:
         """Test optimize_playlist_mode with a cocktail that cannot be fully covered"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Complex",
             parsed_ingredients=["Ing1", "Ing2", "Ing3", "Ing4", "Ing5"]
         )
@@ -1027,12 +1027,12 @@ class TestPlannerServiceErrorHandling:
         """Test optimize_playlist_mode where one ingredient covers multiple cocktails"""
         mock_cocktail_instance = Mock()
         cocktail1 = Cocktail(
-            id="http://example.com/cocktail1",
+            uri="http://example.com/cocktail1", id="cocktail1",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime"]
         )
         cocktail2 = Cocktail(
-            id="http://example.com/cocktail2",
+            uri="http://example.com/cocktail2", id="cocktail2",
             name="Daiquiri",
             parsed_ingredients=["Rum", "Sugar"]
         )
@@ -1052,12 +1052,12 @@ class TestPlannerServiceErrorHandling:
         """Test optimize_playlist_mode when no ingredient can cover remaining cocktails"""
         mock_cocktail_instance = Mock()
         cocktail1 = Cocktail(
-            id="http://example.com/cocktail1",
+            uri="http://example.com/cocktail1", id="cocktail1",
             name="Cocktail1",
             parsed_ingredients=["Ing1"]
         )
         cocktail2 = Cocktail(
-            id="http://example.com/cocktail2",
+            uri="http://example.com/cocktail2", id="cocktail2",
             name="Cocktail2",
             parsed_ingredients=["Ing2"]
         )

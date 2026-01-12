@@ -244,8 +244,9 @@ class GraphVisualizationPage {
         });
         
         // Add ingredient nodes and links
-        if (cocktail.ingredients && Array.isArray(cocktail.ingredients)) {
-            cocktail.ingredients.forEach(ingredientRef => {
+        const ingredients = cocktail.parsed_ingredients || cocktail.ingredients;
+        if (ingredients && Array.isArray(ingredients)) {
+            ingredients.forEach(ingredientRef => {
                 const ingredientName = typeof ingredientRef === 'string' ? ingredientRef : ingredientRef.name;
                 
                 // Add ingredient node if not exists
@@ -288,8 +289,9 @@ class GraphVisualizationPage {
         
         // Add all ingredients and their connections
         cocktails.forEach(cocktail => {
-            if (cocktail.ingredients && Array.isArray(cocktail.ingredients)) {
-                cocktail.ingredients.forEach(ingredientRef => {
+            const ingredients = cocktail.parsed_ingredients || cocktail.ingredients;
+            if (ingredients && Array.isArray(ingredients)) {
+                ingredients.forEach(ingredientRef => {
                     const ingredientName = typeof ingredientRef === 'string' ? ingredientRef : ingredientRef.name;
                     
                     // Add ingredient node

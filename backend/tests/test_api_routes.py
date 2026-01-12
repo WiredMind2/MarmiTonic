@@ -32,7 +32,7 @@ def client():
 def mock_cocktail():
     """Create a mock cocktail for testing"""
     return Cocktail(
-        id="http://example.com/Mojito",
+        uri="http://example.com/Mojito", id="mojito",
         name="Mojito",
         ingredients="* 45 ml White Rum\n* 20 ml Lime Juice\n* 15 ml Sugar Syrup\n* 90 ml Soda Water\n* 6 leaves Mint",
         parsed_ingredients=["White Rum", "Lime Juice", "Sugar Syrup", "Soda Water", "Mint"],

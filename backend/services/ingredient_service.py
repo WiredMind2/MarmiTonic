@@ -1,10 +1,13 @@
 from .sparql_service import SparqlService
 from ..models.ingredient import Ingredient
 from typing import List, Dict
+from pathlib import Path
+from ..utils.graph_loader import get_shared_graph
 from ..data.ttl_parser import get_all_ingredients as get_local_ingredients
 
 class IngredientService:
     def __init__(self):
+        # SparqlService now defaults to using the shared graph
         self.sparql_service = SparqlService()
         self.inventories: Dict[str, List[str]] = {}  # user_id -> list of ingredient names
 

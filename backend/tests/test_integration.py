@@ -30,7 +30,7 @@ def sample_cocktails():
     """Sample cocktails for testing"""
     return [
         Cocktail(
-            id="http://example.com/Mojito",
+            uri="http://example.com/Mojito", id="mojito",
             name="Mojito",
             ingredients="* White Rum\n* Lime Juice\n* Sugar Syrup\n* Soda Water\n* Mint",
             parsed_ingredients=["White Rum", "Lime Juice", "Sugar Syrup", "Soda Water", "Mint"],
@@ -38,7 +38,7 @@ def sample_cocktails():
             served="Highball glass"
         ),
         Cocktail(
-            id="http://example.com/Daiquiri",
+            uri="http://example.com/Daiquiri", id="daiquiri",
             name="Daiquiri",
             ingredients="* White Rum\n* Lime Juice\n* Sugar Syrup",
             parsed_ingredients=["White Rum", "Lime Juice", "Sugar Syrup"],
@@ -46,7 +46,7 @@ def sample_cocktails():
             served="Cocktail glass"
         ),
         Cocktail(
-            id="http://example.com/Margarita",
+            uri="http://example.com/Margarita", id="margarita",
             name="Margarita",
             ingredients="* Tequila\n* Lime Juice\n* Triple Sec",
             parsed_ingredients=["Tequila", "Lime Juice", "Triple Sec"],
