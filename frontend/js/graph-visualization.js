@@ -443,6 +443,12 @@ class GraphVisualizationPage {
         this.ginModeActive = true;
         console.log('Activating HORRIBLE GIN MODE!');
         
+        // Lancer la musique MP3
+        this.easterEggAudio = new Audio('/assets/easter-egg.mp3');
+        this.easterEggAudio.volume = 0.5;
+        this.easterEggAudio.loop = true;
+        this.easterEggAudio.play().catch(e => console.log('Audio play error:', e));
+        
         // Créer un effet horrible en modifiant directement les styles
         let isGreen = true;
         const interval = setInterval(() => {
@@ -477,6 +483,12 @@ class GraphVisualizationPage {
         // Arrêter après 10 secondes et restaurer
         setTimeout(() => {
             clearInterval(interval);
+            
+            // Arrêter la musique
+            if (this.easterEggAudio) {
+                this.easterEggAudio.pause();
+                this.easterEggAudio.currentTime = 0;
+            }
             
             // Restaurer les styles
             document.body.style.backgroundColor = '';
