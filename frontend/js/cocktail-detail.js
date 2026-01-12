@@ -1,6 +1,22 @@
 // Cocktail Detail Page JavaScript
 
+let marmitonicUserId = null;
+let currentCocktail = null;
+
+// User ID handling
+function getOrCreateUserId() {
+    const key = 'marmitonic_user_id';
+    let id = localStorage.getItem(key);
+    if (!id) {
+        if (window.crypto && crypto.randomUUID) id = crypto.randomUUID();
+        else id = 'u-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2,10);
+        localStorage.setItem(key, id);
+    }
+    return id;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    marmitonicUserId = getOrCreateUserId();
     initializeCocktailDetail();
 });
 
@@ -32,13 +48,7 @@ function initializeActionButtons() {
     if (favoriteBtn) {
         favoriteBtn.addEventListener('click', handleToggleFavorite);
         
-        // Check if already favorited
-        const isFavorited = checkIfFavorited();
-        if (isFavorited) {
-            favoriteBtn.classList.add('active');
-            favoriteBtn.querySelector('i').classList.remove('fa-heart-o');
-            favoriteBtn.querySelector('i').classList.add('fa-heart');
-        }
+        // Check if already favorited - will be set after cocktail loads
     }
 
     if (shareBtn) {
@@ -55,9 +65,8 @@ function handleAddToPlaylist(event) {
         btn.style.transform = '';
     }, 150);
 
-    // Get cocktail ID from URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const cocktailId = urlParams.get('id') || '1';
+    // Use id if available
+    const cocktailId = currentCocktail?.id;
     
     // Show playlist dropdown
     showPlaylistDropdown(cocktailId, btn);
@@ -71,13 +80,13 @@ function showPlaylistDropdown(cocktailId, buttonElement) {
         return;
     }
 
-    // Sample playlists - In production, fetch from API
+    // Load playlists from localStorage
+    const userPlaylists = JSON.parse(localStorage.getItem(`marmitonic_playlists_${marmitonicUserId}`) || '[]');
+    
+    // Build playlists array with liked first, then user playlists
     const playlists = [
         { id: 'liked', name: 'Cocktails Favoris', icon: 'fa-heart' },
-        { id: '1', name: "Soirée d'Été", icon: 'fa-list' },
-        { id: '2', name: 'Classiques', icon: 'fa-list' },
-        { id: '3', name: 'Cocktails Tropicaux', icon: 'fa-list' },
-        { id: '4', name: 'Apéritif', icon: 'fa-list' }
+        ...userPlaylists.map(p => ({ id: p.id, name: p.name, icon: 'fa-list' }))
     ];
 
     const dropdown = document.createElement('div');
@@ -146,25 +155,56 @@ function showPlaylistDropdown(cocktailId, buttonElement) {
 }
 
 function addCocktailToPlaylist(cocktailId, playlistId, playlistName) {
-    // TODO: Implement API call
-    console.log(`Adding cocktail ${cocktailId} to playlist ${playlistId}`);
-    showNotification(`Ajouté à "${playlistName}" !`, 'success');
+    if (playlistId === 'liked') {
+        const likedIds = JSON.parse(localStorage.getItem(`marmitonic_liked_${marmitonicUserId}`) || '[]');
+        if (!likedIds.includes(cocktailId)) {
+            likedIds.push(cocktailId);
+            localStorage.setItem(`marmitonic_liked_${marmitonicUserId}`, JSON.stringify(likedIds));
+            showNotification('Ajouté aux Cocktails Favoris !', 'success');
+        } else {
+            showNotification('Déjà dans les Cocktails Favoris', 'info');
+        }
+    } else {
+        const userPlaylists = JSON.parse(localStorage.getItem(`marmitonic_playlists_${marmitonicUserId}`) || '[]');
+        const playlist = userPlaylists.find(p => p.id === playlistId);
+        if (playlist) {
+            if (!playlist.cocktailIds) playlist.cocktailIds = [];
+            if (!playlist.cocktailIds.includes(cocktailId)) {
+                playlist.cocktailIds.push(cocktailId);
+                localStorage.setItem(`marmitonic_playlists_${marmitonicUserId}`, JSON.stringify(userPlaylists));
+                showNotification(`Ajouté à "${playlistName}" !`, 'success');
+            } else {
+                showNotification('Déjà dans cette playlist', 'info');
+            }
+        }
+    }
 }
 
 function handleToggleFavorite() {
     const btn = document.getElementById('favoriteBtn');
     const icon = btn.querySelector('i');
     const isActive = btn.classList.contains('active');
+    
+    // Use id if available
+    const cocktailId = currentCocktail?.id;
+    
+    const likedIds = JSON.parse(localStorage.getItem(`marmitonic_liked_${marmitonicUserId}`) || '[]');
 
     if (isActive) {
         btn.classList.remove('active');
         icon.classList.remove('fa-heart');
         icon.classList.add('fa-heart-o');
+        const filtered = likedIds.filter(id => id !== cocktailId);
+        localStorage.setItem(`marmitonic_liked_${marmitonicUserId}`, JSON.stringify(filtered));
         showNotification('Retiré des favoris', 'info');
     } else {
         btn.classList.add('active');
         icon.classList.remove('fa-heart-o');
         icon.classList.add('fa-heart');
+        if (!likedIds.includes(cocktailId)) {
+            likedIds.push(cocktailId);
+            localStorage.setItem(`marmitonic_liked_${marmitonicUserId}`, JSON.stringify(likedIds));
+        }
         showNotification('Ajouté aux favoris !', 'success');
         
         // Add heart animation
@@ -173,8 +213,6 @@ function handleToggleFavorite() {
             btn.style.transform = '';
         }, 200);
     }
-
-    // TODO: Persist to localStorage or backend
 }
 
 function handleShare() {
@@ -249,15 +287,20 @@ function initializeInstructionSteps() {
 // Load Cocktail Data
 async function loadCocktailData(cocktailId) {
     try {
-        // TODO: Replace with actual API call
-        // const response = await fetch(`/api/cocktails/${cocktailId}`);
-        // const data = await response.json();
+        // Fetch cocktail from backend
+        const cocktails = await fetchCocktails();
+        // Try to find by ID
+        const cocktail = cocktails.find(c => 
+            c.id === cocktailId
+        );
         
-        // For now, use placeholder data
-        console.log('Loading cocktail:', cocktailId);
-        
-        // You can populate the page dynamically here when you have the API
-        // populateCocktailData(data);
+        if (cocktail) {
+            currentCocktail = cocktail;
+            populateCocktailData(cocktail);
+        } else {
+            showNotification('Cocktail non trouvé', 'error');
+            setTimeout(() => window.location.href = 'discovery.html', 2000);
+        }
         
     } catch (error) {
         console.error('Error loading cocktail:', error);
@@ -267,52 +310,150 @@ async function loadCocktailData(cocktailId) {
 
 function populateCocktailData(data) {
     // Update title
-    document.getElementById('cocktailName').textContent = data.name;
+    const nameEl = document.getElementById('cocktailName');
+    if (nameEl) nameEl.textContent = data.name;
     
     // Update meta information
-    document.getElementById('servedType').textContent = data.servedType;
-    document.getElementById('garnishType').textContent = data.garnishType;
-    document.getElementById('category').textContent = data.category;
-    document.getElementById('difficulty').textContent = data.difficulty;
+    const servedEl = document.getElementById('servedType');
+    if (servedEl) servedEl.textContent = data.served || 'N/A';
+    
+    const garnishEl = document.getElementById('garnishType');
+    if (garnishEl) garnishEl.textContent = data.garnish || 'N/A';
     
     // Update image
-    document.getElementById('cocktailImage').src = data.image;
-    document.getElementById('cocktailImage').alt = data.name;
+    const imageEl = document.getElementById('cocktailImage');
+    if (imageEl && data.image) {
+        imageEl.src = data.image;
+        imageEl.alt = data.name;
+    }
     
     // Update description
-    document.getElementById('cocktailDescription').textContent = data.description;
+    const descEl = document.getElementById('cocktailDescription');
+    if (descEl) {
+        descEl.textContent = data.description || data.descriptions?.en || 'No description available';
+    }
     
     // Update ingredients
     const ingredientsList = document.getElementById('ingredientsList');
-    ingredientsList.innerHTML = '';
-    data.ingredients.forEach(ingredient => {
-        const item = createIngredientItem(ingredient);
-        ingredientsList.appendChild(item);
-    });
+    if (ingredientsList && data.parsed_ingredients) {
+        ingredientsList.innerHTML = '';
+        data.parsed_ingredients.forEach(ingredient => {
+            const item = createIngredientItem(ingredient);
+            ingredientsList.appendChild(item);
+        });
+    }
     
     // Update instructions
     const instructionsList = document.getElementById('instructionsList');
-    instructionsList.innerHTML = '';
-    data.instructions.forEach((instruction, index) => {
-        const step = createInstructionStep(instruction, index + 1);
-        instructionsList.appendChild(step);
-    });
+    if (instructionsList && data.preparation) {
+        instructionsList.innerHTML = '';
+        const steps = data.preparation.split(/\d+\./).filter(s => s.trim());
+        steps.forEach((instruction, index) => {
+            const step = createInstructionStep(instruction.trim(), index + 1);
+            instructionsList.appendChild(step);
+        });
+    }
+    
+    // Re-initialize interactive elements
+    initializeIngredientTracking();
+    initializeInstructionSteps();
+    
+    // Update favorite button state
+    const favoriteBtn = document.getElementById('favoriteBtn');
+    if (favoriteBtn && data.id) {
+        const cocktailId = data.id;
+        const likedIds = JSON.parse(localStorage.getItem(`marmitonic_liked_${marmitonicUserId}`) || '[]');
+        const isFavorited = likedIds.includes(cocktailId);
+        
+        if (isFavorited) {
+            favoriteBtn.classList.add('active');
+            favoriteBtn.querySelector('i').classList.remove('fa-heart-o');
+            favoriteBtn.querySelector('i').classList.add('fa-heart');
+        }
+    }
+    
+    // Load similar cocktails
+    loadSimilarCocktails(data);
+}
+
+async function loadSimilarCocktails(currentCocktail) {
+    try {
+        const allCocktails = await fetchCocktails();
+        
+        // Calculate similarity based on shared ingredients
+        const similarities = allCocktails
+            .filter(c => c.id !== currentCocktail.id) // Exclude current cocktail
+            .map(cocktail => {
+                const currentIngredients = new Set(currentCocktail.parsed_ingredients || []);
+                const otherIngredients = new Set(cocktail.parsed_ingredients || []);
+                
+                // Count shared ingredients
+                let sharedCount = 0;
+                currentIngredients.forEach(ing => {
+                    if (otherIngredients.has(ing)) sharedCount++;
+                });
+                
+                return {
+                    cocktail,
+                    sharedCount,
+                    totalIngredients: otherIngredients.size
+                };
+            })
+            .filter(item => item.sharedCount > 0) // Only keep cocktails with at least 1 shared ingredient
+            .sort((a, b) => b.sharedCount - a.sharedCount) // Sort by most shared ingredients
+            .slice(0, 3); // Take top 3
+        
+        if (similarities.length > 0) {
+            const similarSection = document.getElementById('similarSection');
+            const similarCocktails = document.getElementById('similarCocktails');
+            
+            if (similarSection && similarCocktails) {
+                similarCocktails.innerHTML = '';
+                
+                similarities.forEach(({ cocktail, sharedCount, totalIngredients }) => {
+                    const card = createSimilarCocktailCard(cocktail, sharedCount, totalIngredients);
+                    similarCocktails.appendChild(card);
+                });
+                
+                similarSection.style.display = 'block';
+            }
+        }
+    } catch (error) {
+        console.error('Error loading similar cocktails:', error);
+    }
+}
+
+function createSimilarCocktailCard(cocktail, sharedCount, totalIngredients) {
+    const a = document.createElement('a');
+    a.className = 'similar-card';
+    a.href = `cocktail-detail.html?id=${cocktail.id}`;
+    
+    const imageUrl = cocktail.image || 'https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=150&h=150&fit=crop';
+    
+    a.innerHTML = `
+        <img src="${imageUrl}" alt="${cocktail.name}">
+        <div class="similar-info">
+            <h4>${cocktail.name}</h4>
+            <span class="similar-meta">${sharedCount}/${totalIngredients} ingrédients</span>
+        </div>
+    `;
+    
+    return a;
 }
 
 function createIngredientItem(ingredient) {
     const div = document.createElement('div');
     div.className = 'ingredient-item';
     
-    const available = ingredient.available;
-    const iconClass = available ? 'fa-check-circle available' : 'fa-times-circle unavailable';
+    // ingredient is just a string (name) from parsed_ingredients
+    const ingredientName = typeof ingredient === 'string' ? ingredient : ingredient.name || ingredient;
     
     div.innerHTML = `
         <div class="ingredient-icon">
-            <i class="fa ${iconClass}"></i>
+            <i class="fa fa-flask"></i>
         </div>
         <div class="ingredient-info">
-            <span class="ingredient-name">${ingredient.name}</span>
-            <span class="ingredient-quantity">${ingredient.quantity}</span>
+            <span class="ingredient-name">${ingredientName}</span>
         </div>
     `;
     
@@ -335,7 +476,6 @@ function createInstructionStep(text, number) {
 
 // Utility Functions
 function checkIfFavorited() {
-    // TODO: Check localStorage or backend
     const favorites = JSON.parse(localStorage.getItem('favoriteCocktails') || '[]');
     const urlParams = new URLSearchParams(window.location.search);
     const cocktailId = urlParams.get('id');

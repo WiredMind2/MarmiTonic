@@ -11,8 +11,29 @@ async function fetchCocktails() {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Error fetching cocktails:', error);
+        console.error('Error executing SPARQL query:', error);
         return [];
+    }
+}
+
+// Planner API: Playlist Mode Optimization
+async function optimizePlaylistMode(cocktailNames) {
+    try {
+        const response = await fetch(`${API_BASE_URL}/planner/playlist-mode`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ cocktail_names: cocktailNames }),
+        });
+        if (!response.ok) {
+            throw new Error('Failed to optimize playlist mode');
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error optimizing playlist mode:', error);
+        throw error;
     }
 }
 

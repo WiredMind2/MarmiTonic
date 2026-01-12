@@ -107,54 +107,10 @@
                         <h2>Ingrédients</h2>
                     </div>
                     <div class="ingredients-list" id="ingredientsList">
-                        <div class="ingredient-item">
-                            <div class="ingredient-icon">
-                                <i class="fa fa-check-circle available"></i>
-                            </div>
-                            <div class="ingredient-info">
-                                <span class="ingredient-name">Rhum blanc</span>
-                                <span class="ingredient-quantity">60 ml</span>
-                            </div>
-                        </div>
-                        <div class="ingredient-item">
-                            <div class="ingredient-icon">
-                                <i class="fa fa-check-circle available"></i>
-                            </div>
-                            <div class="ingredient-info">
-                                <span class="ingredient-name">Jus de citron vert</span>
-                                <span class="ingredient-quantity">30 ml</span>
-                            </div>
-                        </div>
-                        <div class="ingredient-item">
-                            <div class="ingredient-icon">
-                                <i class="fa fa-times-circle unavailable"></i>
-                            </div>
-                            <div class="ingredient-info">
-                                <span class="ingredient-name">Menthe fraîche</span>
-                                <span class="ingredient-quantity">10 feuilles</span>
-                            </div>
-                        </div>
-                        <div class="ingredient-item">
-                            <div class="ingredient-icon">
-                                <i class="fa fa-check-circle available"></i>
-                            </div>
-                            <div class="ingredient-info">
-                                <span class="ingredient-name">Sucre de canne</span>
-                                <span class="ingredient-quantity">2 c. à café</span>
-                            </div>
-                        </div>
-                        <div class="ingredient-item">
-                            <div class="ingredient-icon">
-                                <i class="fa fa-check-circle available"></i>
-                            </div>
-                            <div class="ingredient-info">
-                                <span class="ingredient-name">Eau gazeuse</span>
-                                <span class="ingredient-quantity">Top</span>
-                            </div>
-                        </div>
+                        <!-- Ingredients will be loaded dynamically -->
                     </div>
-                    <div class="ingredients-status">
-                        <span class="status-text">Vous avez <strong>4/5</strong> ingrédients</span>
+                    <div class="ingredients-status" id="ingredientsStatus" style="display: none;">
+                        <span class="status-text">Vous avez <strong id="availableCount">0/0</strong> ingrédients</span>
                     </div>
                 </section>
 
@@ -165,42 +121,7 @@
                         <h2>Préparation</h2>
                     </div>
                     <div class="instructions-list" id="instructionsList">
-                        <div class="instruction-step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <p>Dans un verre highball, placez les feuilles de menthe et le sucre.</p>
-                            </div>
-                        </div>
-                        <div class="instruction-step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <p>Écrasez délicatement la menthe avec un pilon pour libérer les arômes.</p>
-                            </div>
-                        </div>
-                        <div class="instruction-step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <p>Ajoutez le jus de citron vert et mélangez pour dissoudre le sucre.</p>
-                            </div>
-                        </div>
-                        <div class="instruction-step">
-                            <div class="step-number">4</div>
-                            <div class="step-content">
-                                <p>Remplissez le verre de glace pilée.</p>
-                            </div>
-                        </div>
-                        <div class="instruction-step">
-                            <div class="step-number">5</div>
-                            <div class="step-content">
-                                <p>Versez le rhum blanc et complétez avec l'eau gazeuse.</p>
-                            </div>
-                        </div>
-                        <div class="instruction-step">
-                            <div class="step-number">6</div>
-                            <div class="step-content">
-                                <p>Mélangez doucement et décorez avec une branche de menthe et une rondelle de citron vert.</p>
-                            </div>
-                        </div>
+                        <!-- Instructions will be loaded dynamically -->
                     </div>
                 </section>
 
@@ -210,11 +131,9 @@
                         <i class="fa fa-info-circle"></i>
                         <h2>À propos</h2>
                     </div>
-                    <div class="description-tags">
-                        <span class="tag">Rafraîchissant</span>
-                        <span class="tag">Classique</span>
-                        <span class="tag">Cubain</span>
-                        <span class="tag">Été</span>
+                    <p id="cocktailDescription">Loading...</p>
+                    <div class="description-tags" id="cocktailTags" style="display: none;">
+                        <!-- Tags will be loaded dynamically if available -->
                     </div>
                 </section>
             </div>
@@ -222,47 +141,24 @@
             <!-- Right Column: Additional Info -->
             <aside class="sidebar-content">
                 <!-- Tips Section -->
-                <section class="detail-section tips-section">
+                <section class="detail-section tips-section" id="tipsSection" style="display: none;">
                     <div class="section-title">
                         <i class="fa fa-lightbulb-o"></i>
                         <h3>Informations</h3>
                     </div>
-                    <ul class="tips-list">
-                        <li>
-                            <i class="fa fa-info"></i>
-                            <span>cocktail made with gin, maraschino liqueur, crème de violette, and lemon juice</span>
-                        </li>
+                    <ul class="tips-list" id="tipsList">
+                        <!-- Tips will be loaded dynamically -->
                     </ul>
                 </section>
 
                 <!-- Similar Cocktails -->
-                <section class="detail-section similar-section">
+                <section class="detail-section similar-section" id="similarSection" style="display: none;">
                     <div class="section-title">
                         <i class="fa fa-refresh"></i>
                         <h3>Cocktails similaires</h3>
                     </div>
-                    <div class="similar-cocktails">
-                        <a href="#" class="similar-card">
-                            <img src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=150&h=150&fit=crop" alt="Caipirinha">
-                            <div class="similar-info">
-                                <h4>Caipirinha</h4>
-                                <span class="similar-meta">4/5 ingrédients</span>
-                            </div>
-                        </a>
-                        <a href="#" class="similar-card">
-                            <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=150&h=150&fit=crop" alt="Daiquiri">
-                            <div class="similar-info">
-                                <h4>Daiquiri</h4>
-                                <span class="similar-meta">3/3 ingrédients</span>
-                            </div>
-                        </a>
-                        <a href="#" class="similar-card">
-                            <img src="https://images.unsplash.com/photo-1541544181051-e46607bc22a4?w=150&h=150&fit=crop" alt="Mint Julep">
-                            <div class="similar-info">
-                                <h4>Mint Julep</h4>
-                                <span class="similar-meta">2/4 ingrédients</span>
-                            </div>
-                        </a>
+                    <div class="similar-cocktails" id="similarCocktails">
+                        <!-- Similar cocktails will be loaded dynamically -->
                     </div>
                 </section>
             </aside>
@@ -270,6 +166,7 @@
     </main>
 
     <!-- Navbar Script -->
+    <script src="../js/api.js"></script>
     <script src="../js/navbar.js"></script>
     <script src="../js/cocktail-detail.js"></script>
 </body>

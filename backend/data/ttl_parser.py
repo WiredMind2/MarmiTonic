@@ -43,6 +43,15 @@ class IBADataParser:
         self._cocktails_cache = None     # Cache pour les cocktails
         self._load_data()
     
+    @staticmethod
+    def generate_slug(name: str) -> str:
+        """Generate a URL-friendly slug from cocktail name"""
+        slug = name.lower()
+        slug = re.sub(r'\([^)]*\)', '', slug)
+        slug = re.sub(r'[^a-z0-9]+', '-', slug)
+        slug = slug.strip('-')
+        return slug
+    
     def _load_data(self):
         """Charge le fichier TTL dans le graph RDFLib"""
         file_path = os.path.join(os.path.dirname(__file__), self.ttl_file_path)
@@ -288,10 +297,14 @@ class IBADataParser:
             # Récupérer les catégories
             categories = [str(cat) for cat in self.graph.objects(URIRef(cocktail_uri), DCT.subject)]
             
+            # Générer le nom du cocktail
+            cocktail_name = str(row.label) if row.label else cocktail_uri.split("/")[-1].replace("_", " ")
+            
             # Créer l'instance Cocktail
             cocktail = Cocktail(
-                id=cocktail_uri,
-                name=str(row.label) if row.label else cocktail_uri.split("/")[-1].replace("_", " "),
+                uri=cocktail_uri,
+                id=self.generate_slug(cocktail_name),
+                name=cocktail_name,
                 alternative_names=[str(row.labelFr)] if row.labelFr else None,
                 description=str(row.desc) if row.desc else None,
                 image=str(row.img) if row.img else None,
