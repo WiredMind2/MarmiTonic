@@ -66,8 +66,6 @@ class SimilarityService:
         
         print(f"Index construit avec {self.index.ntotal} cocktails")
         
-        print(self.embeddings)
-        
         self.save_index()
     
     def save_index(self) -> None:
@@ -103,25 +101,25 @@ class SimilarityService:
         if self.index is None or not self.cocktails:
             return []
         
-        cocktail_idx = None
+        original_cocktail_idx = None
         for idx, cocktail in enumerate(self.cocktails):
             if cocktail.id == cocktail_id:
-                cocktail_idx = idx
+                original_cocktail_idx = idx
                 break
-        if cocktail_idx is None:
+        if original_cocktail_idx is None:
             return []
         
-        query_embedding = self.embeddings[cocktail_idx:cocktail_idx+1]
+        query_embedding = self.embeddings[original_cocktail_idx:original_cocktail_idx+1]
         k = top_k + 1 if exclude_self else top_k
         distances, indices = self.index.search(query_embedding, k)
         
         results = []
-        for idx, (distance, cocktail_idx) in enumerate(zip(distances[0], indices[0])):
-            if exclude_self and cocktail_idx == cocktail_idx:
+        for idx, (distance, result_idx) in enumerate(zip(distances[0], indices[0])):
+            if exclude_self and result_idx == original_cocktail_idx:
                 continue
             if len(results) >= top_k:
                 break
-            cocktail = self.cocktails[cocktail_idx]
+            cocktail = self.cocktails[result_idx]
             results.append({"cocktail": cocktail, "similarity_score": float(distance), "rank": len(results) + 1})
         return results
     

@@ -79,6 +79,7 @@ WHERE {
     ?cocktail dbo:wikiPageWikiLink ?outLink .
     FILTER(!CONTAINS(STR(?outLink), "File:"))
     FILTER(!CONTAINS(STR(?outLink), "Category:"))
+
   }
 }
 """

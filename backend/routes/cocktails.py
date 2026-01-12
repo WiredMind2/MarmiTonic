@@ -51,7 +51,6 @@ async def get_similar_cocktails(cocktail_id: str, top_k: int = Query(5, ge=1, le
 async def search_cocktails_semantic(query: str = Query(...), top_k: int = Query(5, ge=1, le=20)):
     try:
         results = similarity_service.find_similar_by_text(query, top_k=top_k)
-        print(f"Résultats de la recherche sémantique pour la requête '{query}': {results}")
         return {"query": query, "results": results}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error in semantic search: {str(e)}")

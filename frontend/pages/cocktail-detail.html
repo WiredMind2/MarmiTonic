@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <!-- Page Specific Styles -->
+    <link rel="stylesheet" href="../css/cocktail-detail.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Cocktail - MarmiTonic</title>
+</head>
+<body>
+    <header>
+        <nav id="navbar" class="navbar">
+            <div class="navbar-left">
+                <a href="discovery.html" class="link-main">
+                    <div h="full" class="hover-underline-animation">                        
+                        Explorer
+                    </div>
+                </a>
+                <a href="my-bar.html" class="link-main">
+                    <div h="full" class="hover-underline-animation">                        
+                        Mon Bar
+                    </div>
+                </a>
+                <a href="planner.html" class="link-main">
+                    <div h="full" class="hover-underline-animation">                        
+                        Planificateur
+                    </div>
+                </a>
+            </div>
+            <div class="navbar-center">
+                <img src="../assets/logo.png" alt="MarmiTonic Logo">
+                <a href="../index.html" class="link-main">
+                    <span>MarmiTonic</span>
+                </a>
+            </div>
+            <div class="navbar-right">
+                <input type="text" placeholder="Recherche">
+                <img src="../assets/account.png" alt="">
+            </div>
+        </nav>
+        
+        <div id="no-navbar-menu" class="no-navbar-menu">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+            <p>Menu</p>
+        </div>
+    </header>
+
+    <main class="cocktail-detail-page">
+        <!-- Back Navigation -->
+        <div class="back-nav">
+            <a href="discovery.html" class="back-link">
+                <i class="fa fa-arrow-left"></i>
+                <span>Retour à l'exploration</span>
+            </a>
+        </div>
+
+        <!-- Hero Section with Image -->
+        <section class="cocktail-hero">
+            <div class="hero-image-container">
+                <img id="cocktailImage" src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=800&h=600&fit=crop" alt="Cocktail">
+                <div class="hero-overlay"></div>
+                <div class="hero-badge">
+                    <i class="fa fa-star"></i>
+                    <span id="difficulty">Facile</span>
+                </div>
+            </div>
+            <div class="hero-content">
+                <div class="cocktail-header">
+                    <h1 id="cocktailName" class="cocktail-title">Mojito</h1>
+                    <div class="cocktail-meta">
+                        <div class="meta-item">
+                            <i class="fa fa-clock-o"></i>
+                            <span id="servedType">Rocks</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fa fa-glass"></i>
+                            <span id="garnishType">Lemon slice and maraschino cherry</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn-primary" id="addToPlaylistBtn">
+                        <i class="fa fa-plus-circle"></i> Ajouter à une liste
+                    </button>
+                    <button class="btn-secondary" id="favoriteBtn">
+                        <i class="fa fa-heart-o"></i>
+                    </button>
+                    <button class="btn-secondary" id="shareBtn">
+                        <i class="fa fa-share-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <div class="detail-container">
+            <!-- Left Column: Ingredients & Instructions -->
+            <div class="main-content">
+                <!-- Ingredients Section -->
+                <section class="detail-section ingredients-section">
+                    <div class="section-title">
+                        <i class="fa fa-list-ul"></i>
+                        <h2>Ingrédients</h2>
+                    </div>
+                    <div class="ingredients-list" id="ingredientsList">
+                        <!-- Ingredients will be loaded dynamically -->
+                    </div>
+                    <div class="ingredients-status" id="ingredientsStatus" style="display: none;">
+                        <span class="status-text">Vous avez <strong id="availableCount">0/0</strong> ingrédients</span>
+                    </div>
+                </section>
+
+                <!-- Instructions Section -->
+                <section class="detail-section instructions-section">
+                    <div class="section-title">
+                        <i class="fa fa-book"></i>
+                        <h2>Préparation</h2>
+                    </div>
+                    <div class="instructions-list" id="instructionsList">
+                        <!-- Instructions will be loaded dynamically -->
+                    </div>
+                </section>
+
+                <!-- Description Section -->
+                <section class="detail-section description-section">
+                    <div class="section-title">
+                        <i class="fa fa-info-circle"></i>
+                        <h2>À propos</h2>
+                    </div>
+                    <p id="cocktailDescription">Loading...</p>
+                    <div class="description-tags" id="cocktailTags" style="display: none;">
+                        <!-- Tags will be loaded dynamically if available -->
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column: Additional Info -->
+            <aside class="sidebar-content">
+                <!-- Tips Section -->
+                <section class="detail-section tips-section" id="tipsSection" style="display: none;">
+                    <div class="section-title">
+                        <i class="fa fa-lightbulb-o"></i>
+                        <h3>Informations</h3>
+                    </div>
+                    <ul class="tips-list" id="tipsList">
+                        <!-- Tips will be loaded dynamically -->
+                    </ul>
+                </section>
+
+                <!-- Similar Cocktails -->
+                <section class="detail-section similar-section" id="similarSection" style="display: none;">
+                    <div class="section-title">
+                        <i class="fa fa-refresh"></i>
+                        <h3>Cocktails similaires</h3>
+                    </div>
+                    <div class="similar-cocktails" id="similarCocktails">
+                        <!-- Similar cocktails will be loaded dynamically -->
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Navbar Script -->
+    <script src="../js/api.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/cocktail-detail.js"></script>
+</body>
+</html>

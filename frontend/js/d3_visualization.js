@@ -27,7 +27,7 @@ class D3DisjointForceGraph {
             .attr('width', this.width)
             .attr('height', this.height)
             .attr('viewBox', [-this.width / 2, -this.height / 2, this.width, this.height])
-            .style('background-color', '#f0f0f0');
+            .style('background-color', '#fff8e7');
 
         // Add zoom and pan functionality
         const zoom = d3.zoom()
@@ -105,9 +105,6 @@ class D3DisjointForceGraph {
             .attr('dx', 15)
             .attr('dy', '.35em')
             .attr('fill', '#333');
-
-        // Add legend
-        this.addLegend();
     }
 
     ticked() {
@@ -158,35 +155,6 @@ class D3DisjointForceGraph {
             'default': '#76b7b2'
         };
         return colors[type] || colors.default;
-    }
-
-    addLegend() {
-        const legendData = [
-            {type: 'cocktail', color: '#4e79a7'},
-            {type: 'ingredient', color: '#f28e2b'}
-        ];
-
-        const legend = this.graphGroup.append('g')
-            .attr('class', 'legend')
-            .attr('transform', `translate(${this.width/2 - 100}, ${this.height/2 - 50})`);
-
-        legend.selectAll('rect')
-            .data(legendData)
-            .enter().append('rect')
-            .attr('x', 0)
-            .attr('y', (d, i) => i * 20)
-            .attr('width', 15)
-            .attr('height', 15)
-            .attr('fill', d => d.color);
-
-        legend.selectAll('text')
-            .data(legendData)
-            .enter().append('text')
-            .attr('x', 20)
-            .attr('y', (d, i) => i * 20 + 12)
-            .text(d => d.type)
-            .attr('font-size', '12px')
-            .attr('fill', '#333');
     }
 
     // Disjoint graph specific methods
