@@ -1,8 +1,52 @@
-from fastapi import APIRouter, HTTPException, Query
-from typing import Optional
-from services.graph_service import GraphService
+from fastapi import APIRouter, HTTPException, Query, Body
+from typing import Optional, Dict, Any, List
+from pydantic import BaseModel
+from ..services.graph_service import GraphService
 
 router = APIRouter()
+
+class SparqlGraphRequest(BaseModel):
+    query: str
+
+@router.post("/sparql", response_model=Dict[str, Any])
+async def get_sparql_graph_post(request: SparqlGraphRequest):
+    """
+    Return graph data directly from SPARQL query results.
+    Accepts a custom SPARQL query in the body.
+    """
+    service = GraphService()
+    try:
+        # Pass the query to GraphService which now supports flexible parsing
+        graph_data = service.get_graph_data(request.query)
+        if not graph_data:
+            return {"nodes": [], "links": []}
+        
+        # Convert to D3.js compatible format
+        d3_format = {
+            'nodes': [],
+            'links': []
+        }
+        
+        # Process nodes
+        for node in graph_data['nodes']:
+            d3_format['nodes'].append({
+                'id': node['id'],
+                'name': node['name'],
+                'type': node['type']
+            })
+        
+        # Process edges as links
+        # Note: edges in service were dicts with source, target
+        for edge in graph_data['edges']:
+            d3_format['links'].append({
+                'source': edge['source'],
+                'target': edge['target'],
+                'value': 1  # Default weight
+            })
+        
+        return d3_format
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to get SPARQL graph: {str(e)}")
 
 @router.get("/basic")
 async def get_basic_graph():
@@ -63,42 +107,8 @@ async def get_force_directed_graph():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get force-directed graph: {str(e)}")
 
-@router.get("/sparql")
-async def get_sparql_graph():
-    """
-    Return graph data directly from SPARQL query results.
-    """
-    service = GraphService()
-    try:
-        graph_data = service.get_graph_data()
-        if not graph_data:
-            raise HTTPException(status_code=404, detail="No SPARQL graph data available")
-        
-        # Convert to D3.js compatible format
-        d3_format = {
-            'nodes': [],
-            'links': []
-        }
-        
-        # Process nodes
-        for node in graph_data['nodes']:
-            d3_format['nodes'].append({
-                'id': node['id'],
-                'name': node['id'],  # Use URI as name for SPARQL results
-                'type': 'unknown'  # Type unknown from basic SPARQL query
-            })
-        
-        # Process edges as links
-        for edge in graph_data['edges']:
-            d3_format['links'].append({
-                'source': edge['source'],
-                'target': edge['target'],
-                'value': 1  # Default weight
-            })
-        
-        return d3_format
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get SPARQL graph: {str(e)}")
+# Removed duplicate GET /sparql as we now support POST /sparql above
+# If backward compatibility is needed, we could keep it calling service.get_graph_data(None)
 
 @router.get("/centrality")
 async def get_centrality_graph():

@@ -28,7 +28,13 @@ class GraphVisualizationPage {
             // API-based data buttons
             apiMargarita: document.getElementById('api-margarita'),
             apiMartini: document.getElementById('api-martini'),
-            apiAllCocktails: document.getElementById('api-all-cocktails')
+            apiAllCocktails: document.getElementById('api-all-cocktails'),
+            
+            // NL & SPARQL controls
+            nlInput: document.getElementById('nl-query-input'),
+            nlToSparqlBtn: document.getElementById('nl-to-sparql-btn'),
+            sparqlOutput: document.getElementById('sparql-output'),
+            executeSparqlBtn: document.getElementById('execute-sparql-btn')
         };
         
         this.init();
@@ -69,6 +75,95 @@ class GraphVisualizationPage {
         }
         if (this.elements.apiAllCocktails) {
             this.elements.apiAllCocktails.addEventListener('click', () => this.loadAllCocktails());
+        }
+
+        // NL & SPARQL listeners
+        if (this.elements.nlToSparqlBtn) {
+            this.elements.nlToSparqlBtn.addEventListener('click', () => this.convertNlToSparql());
+        }
+        if (this.elements.executeSparqlBtn) {
+            this.elements.executeSparqlBtn.addEventListener('click', () => this.executeSparqlGraph());
+        }
+    }
+    
+    async convertNlToSparql() {
+        const prompt = this.elements.nlInput.value.trim();
+        if (!prompt) {
+            alert('Veuillez entrer une question.');
+            return;
+        }
+
+        this.elements.nlToSparqlBtn.disabled = true;
+        this.elements.nlToSparqlBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Conversion...';
+
+        try {
+            const response = await fetch('http://localhost:8000/llm/nl2sparql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ prompt: prompt })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.detail || 'Erreur lors de la conversion');
+            }
+
+            const data = await response.json();
+            this.elements.sparqlOutput.value = data.sparql_query;
+            this.elements.executeSparqlBtn.disabled = false;
+        } catch (error) {
+            console.error('Error converting to SPARQL:', error);
+            alert(`Erreur: ${error.message}`);
+        } finally {
+            this.elements.nlToSparqlBtn.disabled = false;
+            this.elements.nlToSparqlBtn.innerHTML = '<i class="fa fa-magic"></i> NL -> SPARQL';
+        }
+    }
+
+    async executeSparqlGraph() {
+        const query = this.elements.sparqlOutput.value.trim();
+        if (!query) {
+            alert('Aucune requête SPARQL à exécuter.');
+            return;
+        }
+
+        this.elements.executeSparqlBtn.disabled = true;
+        this.elements.executeSparqlBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Exécution...';
+        this.showLoadingState();
+
+        try {
+            const response = await fetch('http://localhost:8000/graphs/sparql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ query: query })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.detail || 'Erreur lors de l\'exécution');
+            }
+
+            const data = await response.json();
+            
+            if (data && data.nodes && data.nodes.length > 0) {
+                this.loadData(data);
+                console.log(`Loaded ${data.nodes.length} nodes from SPARQL`);
+            } else {
+                alert('Aucun résultat trouvé pour cette requête (ou format incompatible avec le graphe).');
+                this.clearGraph();
+            }
+
+        } catch (error) {
+            console.error('Error executing SPARQL graph:', error);
+            alert(`Erreur: ${error.message}`);
+        } finally {
+            this.elements.executeSparqlBtn.disabled = false;
+            this.elements.executeSparqlBtn.innerHTML = '<i class="fa fa-play"></i> Exécuter SPARQL';
+            this.hideLoadingState();
         }
     }
     

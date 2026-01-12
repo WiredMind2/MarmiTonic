@@ -71,42 +71,65 @@ class GraphService:
             print(f"Error building graph: {e}")
             raise Exception("Failed to build graph")
 
-    def get_graph_data(self) -> Optional[Dict[str, Any]]:
+    def get_graph_data(self, query: Optional[str] = None) -> Optional[Dict[str, Any]]:
         """
-        Get graph data from SPARQL service and convert to graph format
+        Get graph data from SPARQL service and convert to graph format.
+        If query is provided, execute it. Otherwise use default query.
         """
         try:
             # Query data from SPARQL service
-            query_results = self.sparql_service.query_local_data("""
+            if query:
+                final_results = self.sparql_service.execute_local_query(query)
+            else:
+                # Default behavior: generic query for cocktails and ingredients
+                default_query = """
+                PREFIX dbo: <http://dbpedia.org/ontology/>
+                PREFIX dbp: <http://dbpedia.org/property/>
+                
                 SELECT ?cocktail ?ingredient WHERE {
-                    ?cocktail a :Cocktail .
-                    ?cocktail :hasIngredient ?ingredient .
-                }
-            """)
+                    ?cocktail a dbo:Cocktail .
+                    ?cocktail dbp:ingredients ?ingredient .
+                } LIMIT 100
+                """
+                final_results = self.sparql_service.execute_local_query(default_query)
             
-            if not query_results or 'results' not in query_results or 'bindings' not in query_results['results']:
+            if not final_results or 'results' not in final_results or 'bindings' not in final_results['results']:
                 return None
             
-            # Build graph from query results
-            graph_data = {
-                'nodes': set(),
-                'edges': []
-            }
+            # Build graph from query results (Flexible parsing)
+            nodes = {}
+            edges = []
             
-            for binding in query_results['results']['bindings']:
-                cocktail_uri = binding['cocktail']['value']
-                ingredient_uri = binding['ingredient']['value']
+            bindings = final_results['results']['bindings']
+            
+            for row in bindings:
+                # Extract all URIs/Literals as nodes
+                row_values = []
+                for var_name, value_obj in row.items():
+                    val = value_obj['value']
+                    type_ = value_obj['type']
+                    
+                    if val not in nodes:
+                         nodes[val] = {
+                             'id': val, 
+                             'name': val.split('/')[-1] if type_ == 'uri' else val,
+                             'type': 'resource' if type_ == 'uri' else 'literal'
+                         }
+                    row_values.append(val)
                 
-                graph_data['nodes'].add(cocktail_uri)
-                graph_data['nodes'].add(ingredient_uri)
-                graph_data['edges'].append({
-                    'source': cocktail_uri,
-                    'target': ingredient_uri
-                })
-            
+                # Create links (Star topology or pairwise)
+                if len(row_values) > 1:
+                    source = row_values[0]
+                    for target in row_values[1:]:
+                        if source != target:
+                            edges.append({
+                                'source': source,
+                                'target': target
+                            })
+                            
             return {
-                'nodes': [{'id': node} for node in graph_data['nodes']],
-                'edges': graph_data['edges']
+                'nodes': list(nodes.values()),
+                'edges': edges
             }
             
         except Exception as e:
