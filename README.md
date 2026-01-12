@@ -17,16 +17,24 @@ A semantic web application for intelligent cocktail discovery and management, de
 - Python 3.8 or higher
 - Git
 
-### Backend Setup
-1. Clone the repository and navigate to the backend directory:
+### Setup Instructions
+
+1. Clone the repository and navigate to the project root directory:
    ```bash
-   cd backend
+   git clone <repository-url>
+   cd MarmiTonic
    ```
 
-2. Create and activate a virtual environment:
+2. Create and activate a virtual environment (from backend directory):
    ```bash
+   cd backend
    python -m venv venv
-   venv\Scripts\activate  # On Windows
+   
+   # On Windows:
+   venv\Scripts\activate
+   
+   # On Linux/Mac:
+   source venv/bin/activate
    ```
 
 3. Install dependencies:
@@ -34,14 +42,24 @@ A semantic web application for intelligent cocktail discovery and management, de
    pip install -r requirements.txt
    ```
 
-4. Run the backend server:
+4. Return to project root:
    ```bash
-   uvicorn backend.main:app --reload
+   cd ..
    ```
-   The API will be available at `http://localhost:8000`.
 
-### Frontend Setup
-The frontend is a static web application. Simply open `frontend/index.html` in your web browser. Ensure the backend is running for API functionality.
+### Running the Application
+
+**Start Backend Server** (from project root with venv activated):
+```bash
+# Make sure you're in the project root directory (MarmiTonic/)
+# and the virtual environment is activated
+uvicorn backend.main:app --reload --host 0.0.0.0
+```
+The backend API will be available at `http://localhost:8000`
+
+**Frontend Access:**
+The frontend server starts automatically with the backend and is available at `http://localhost:8080`
+You can also directly open `frontend/index.html` in your web browser.
 
 ## Usage
 
@@ -67,14 +85,14 @@ MarmiTonic includes a comprehensive test suite covering all main features:
 ### Running Tests
 
 ```bash
-cd backend
+# From project root directory
 
 # Run all working tests
-python -m pytest tests/test_cocktail_service.py tests/test_ingredient_service.py tests/test_planner_service.py tests/test_graph_service.py tests/test_sparql_service.py tests/test_models.py tests/test_api_simple.py -v
+python -m pytest backend/tests/test_cocktail_service.py backend/tests/test_ingredient_service.py backend/tests/test_planner_service.py backend/tests/test_graph_service.py backend/tests/test_sparql_service.py backend/tests/test_models.py backend/tests/test_api_simple.py -v
 
 # Or use the script
-run_tests.bat  # Windows
-./run_tests.sh # Linux/Mac
+backend/run_tests.bat  # Windows
+backend/run_tests.sh   # Linux/Mac
 ```
 
 ### Test Coverage
@@ -96,12 +114,14 @@ For detailed testing documentation, see [TESTS_FIXED.md](TESTS_FIXED.md).
 ### Quick Test Commands
 
 ```bash
+# From project root directory
+
 # Run all tests
-cd backend && python -m pytest tests/test_*service.py tests/test_models.py tests/test_api_simple.py -v
+python -m pytest backend/tests/test_*service.py backend/tests/test_models.py backend/tests/test_api_simple.py -v
 
 # Run specific feature tests
-python -m pytest tests/test_cocktail_service.py -v
-python -m pytest tests/test_planner_service.py -v
+python -m pytest backend/tests/test_cocktail_service.py -v
+python -m pytest backend/tests/test_planner_service.py -v
 ```
 
 ## License

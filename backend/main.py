@@ -13,7 +13,7 @@ app = FastAPI()
 # Load RDF graph once at startup
 RDF_GRAPH = Graph()
 data_folder = Path(__file__).parent / "data"
-rdf_file = data_folder / "iba_export.ttl"
+rdf_file = data_folder / "data.ttl"
 print(f"Loading RDF data from {rdf_file}...")
 try:
     # Use file path directly

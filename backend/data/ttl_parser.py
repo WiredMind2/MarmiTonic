@@ -37,6 +37,7 @@ class IBADataParser:
         Args:
             ttl_file_path: Chemin vers le fichier TTL (relatif au répertoire data/)
         """
+        print(f"DEBUG: IBADataParser init with ttl_file_path: '{ttl_file_path}'")
         self.graph = Graph()
         self.ttl_file_path = ttl_file_path
         self._ingredients_cache = None  # Cache pour les ingrédients dédupliqués
@@ -54,11 +55,13 @@ class IBADataParser:
     
     def _load_data(self):
         """Charge le fichier TTL dans le graph RDFLib"""
-        file_path = os.path.join(os.path.dirname(__file__), self.ttl_file_path)
+        # Utiliser un chemin absolu basé sur la racine du projet
+        project_root = Path(__file__).parent.parent.parent  # Remonte de data/ vers backend/ vers racine
+        file_path = project_root / "backend" / "data" / self.ttl_file_path
         
         try:
             print(f"Chargement du fichier TTL: {file_path}")
-            self.graph.parse(file_path, format="turtle")
+            self.graph.parse(str(file_path), format="turtle")
             print(f"✅ Chargé {len(self.graph)} triples")
         except FileNotFoundError:
             print(f"❌ Fichier non trouvé: {file_path}")

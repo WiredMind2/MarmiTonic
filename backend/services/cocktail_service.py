@@ -16,7 +16,7 @@ DCT = rdflib.Namespace("http://purl.org/dc/terms/")
 
 class CocktailService:
     def __init__(self):
-        self.sparql_service = SparqlService(local_graph_path="backend/data/data.ttl")
+        self.sparql_service = SparqlService()  # Use default "data.ttl"
         self.ingredient_service = IngredientService()
         self.graph = None
         self._load_local_data()
