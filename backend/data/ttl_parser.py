@@ -164,7 +164,7 @@ class IBADataParser:
             'squeezed ': '',
             'simple ': '',
             ' syrup': ' syrup',  # Garder tel quel
-            'sweet red ': '',
+            'sweet red ': 'sweet ',
             'dry ': '',
         }
         
@@ -282,7 +282,8 @@ class IBADataParser:
             if row.ingredients:
                 ingredients_raw = str(row.ingredients)
                 raw_ingredients = self._parse_ingredients_text(ingredients_raw)
-                parsed_ingredients = [self._normalize_ingredient_name(ing) for ing in raw_ingredients]
+                # Normalize and Title Case for consistency
+                parsed_ingredients = [self._normalize_ingredient_name(ing).title() for ing in raw_ingredients]
             
             # Construire les labels multilingues
             labels = {}
@@ -382,7 +383,7 @@ class IBADataParser:
             details["ingredients_raw"] = str(ingredients_value)
             # Parser les ingrédients
             raw_ingredients = self._parse_ingredients_text(details["ingredients_raw"])
-            details["ingredients_parsed"] = [self._normalize_ingredient_name(ing) for ing in raw_ingredients]
+            details["ingredients_parsed"] = [self._normalize_ingredient_name(ing).title() for ing in raw_ingredients]
         
         # Autres propriétés DBpedia
         for prop, key in [
@@ -428,7 +429,7 @@ class IBADataParser:
             # Créer l'instance Ingredient
             ingredient = Ingredient(
                 id=ingredient_id,
-                name=data["name"],
+                name=normalized.title(), # Use normalized name for consistency (e.g. "Dry Vermouth" -> "Vermouth")
                 description=f"Utilisé dans {data['count']} cocktails IBA",
                 categories=[f"Count:{data['count']}"],  # Stocker le count dans les catégories temporairement
                 related_concepts=data["cocktails"]  # Cocktails qui utilisent cet ingrédient
