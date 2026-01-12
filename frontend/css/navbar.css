@@ -82,6 +82,7 @@
     display: flex;
     gap: 16px;
     align-items: center;
+    position: relative;
 }
 
 .navbar-right input {
@@ -142,4 +143,114 @@
     color: var(--accent-gold);
     background: rgba(212, 175, 55, 0.15);
     font-weight: 600;
+}
+
+/* Search Results Dropdown */
+.search-results-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    max-height: 400px;
+    overflow-y: auto;
+    margin-top: 8px;
+    border: 1px solid rgba(21, 71, 38, 0.1);
+    z-index: 1001;
+}
+
+.search-result-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(21, 71, 38, 0.05);
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover {
+    background: rgba(212, 175, 55, 0.08);
+    padding-left: 20px;
+}
+
+.search-result-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.search-result-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.search-result-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.search-result-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.search-highlight {
+    color: var(--accent-gold);
+    font-weight: 700;
+    background: rgba(212, 175, 55, 0.15);
+    padding: 0 2px;
+    border-radius: 2px;
+}
+
+.search-result-category {
+    font-size: 0.75rem;
+    color: rgba(44, 62, 80, 0.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 2px;
+}
+
+.search-no-results {
+    padding: 16px;
+    text-align: center;
+    color: rgba(44, 62, 80, 0.6);
+    font-size: 0.9rem;
+}
+
+/* Relative positioning for dropdown parent */
+.navbar-right {
+    position: relative;
+}
+
+/* Scrollbar styling for dropdown */
+.search-results-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+
+.search-results-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.search-results-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(21, 71, 38, 0.2);
+    border-radius: 3px;
+}
+
+.search-results-dropdown::-webkit-scrollbar-thumb:hover {
+    background: rgba(21, 71, 38, 0.4);
 }
