@@ -1,7 +1,6 @@
-import os
-from services.sparql_service import SparqlService
-from services.ingredient_service import IngredientService
-from models.cocktail import Cocktail
+from .sparql_service import SparqlService
+from .ingredient_service import IngredientService
+from ..models.cocktail import Cocktail
 from typing import List, Dict, Any
 import rdflib
 from rdflib import Graph, URIRef, Literal
@@ -9,34 +8,41 @@ from rdflib.namespace import RDF, RDFS
 from collections import defaultdict
 import re
 
+from pathlib import Path
+from ..utils.graph_loader import get_shared_graph
+
 # Define namespaces
 DBO = rdflib.Namespace("http://dbpedia.org/ontology/")
 DBP = rdflib.Namespace("http://dbpedia.org/property/")
 DCT = rdflib.Namespace("http://purl.org/dc/terms/")
 
-
 class CocktailService:
     def __init__(self):
+        # SparqlService now defaults to using the shared graph
         self.sparql_service = SparqlService()
         self.ingredient_service = IngredientService()
-        self.graph = None
-        self._load_local_data()
+        self.graph = get_shared_graph()
+
+    @staticmethod
+    def generate_slug(name: str) -> str:
+        """Generate a slug from cocktail name"""
+        # Convert to lowercase
+        slug = name.lower()
+        # Remove parentheses and their content
+        slug = re.sub(r'\([^)]*\)', '', slug)
+        # Replace non-alphanumeric characters with hyphens
+        slug = re.sub(r'[^a-z0-9]+', '-', slug)
+        # Remove leading/trailing hyphens
+        slug = slug.strip('-')
+        return slug
 
     def _load_local_data(self):
-        """Load the local TTL data into an RDF graph"""
-        # Use the shared graph from SparqlService
-        self.graph = self.sparql_service.local_graph
-        if self.graph is None:
-            print("DEBUG: Shared local graph not available")
+        pass
 
-    def _parse_cocktail_from_graph(self, cocktail_uri) -> Cocktail:
+    def _parse_cocktail_from_graph(self, cocktail_uri: URIRef) -> Cocktail:
         """Parse a cocktail from the RDF graph"""
         if not self.graph:
             return None
-        
-        # Ensure cocktail_uri is a URIRef
-        if not isinstance(cocktail_uri, URIRef):
-            cocktail_uri = URIRef(str(cocktail_uri))
 
         # Get basic properties
         name = self._get_property(cocktail_uri, RDFS.label, "en")
@@ -79,9 +85,11 @@ class CocktailService:
             if isinstance(alt_name, Literal) and alt_name != name:
                 alt_names.append(str(alt_name))
 
+        cocktail_name = name or "Unknown Cocktail"
         return Cocktail(
-            id=str(cocktail_uri),
-            name=name or "Unknown Cocktail",
+            uri=str(cocktail_uri),
+            id=self.generate_slug(cocktail_name),
+            name=cocktail_name,
             alternative_names=alt_names if alt_names else None,
             description=descriptions.get("en") or None,
             image=image,
@@ -94,9 +102,10 @@ class CocktailService:
             related_ingredients=related if related else None,
             labels=labels if labels else None,
             descriptions=descriptions if descriptions else None
+            
         )
 
-    def _get_property(self, subject: URIRef, predicate: URIRef, lang: str = None) -> str | None:
+    def _get_property(self, subject: URIRef, predicate: URIRef, lang: str = None) -> str:
         """Get a property value from the graph"""
         if not self.graph:
             return None
@@ -113,12 +122,13 @@ class CocktailService:
         return ", ".join(values) if values else None
 
     def get_all_cocktails(self) -> List[Cocktail]:
-        """Get all cocktails from local TTL data using SPARQL or fallback to direct graph parsing"""
+        """Get all cocktails from local TTL data using SPARQL"""
         query = """
-        SELECT ?cocktail ?name ?desc ?ingredients ?prep ?served ?garnish ?source WHERE {
+        SELECT ?cocktail ?name ?desc ?image ?ingredients ?prep ?served ?garnish ?source WHERE {
             ?cocktail rdfs:label ?name .
             FILTER(LANG(?name) = "en")
             OPTIONAL { ?cocktail dbo:description ?desc . FILTER(LANG(?desc) = "en") }
+            OPTIONAL { ?cocktail foaf:depiction ?image }
             OPTIONAL { ?cocktail dbp:ingredients ?ingredients . FILTER(LANG(?ingredients) = "en") }
             OPTIONAL { ?cocktail dbp:prep ?prep . FILTER(LANG(?prep) = "en") }
             OPTIONAL { ?cocktail dbp:served ?served . FILTER(LANG(?served) = "en") }
@@ -126,72 +136,51 @@ class CocktailService:
             OPTIONAL { ?cocktail dbp:sourcelink ?source . FILTER(LANG(?source) = "en") }
         }
         """
-        
-        # Try SPARQL query first
         try:
             results = self.sparql_service.execute_local_query(query)
-            if results is not None:
-                cocktails = []
-                for result in results["results"]["bindings"]:
-                    cocktail_uri = result["cocktail"]["value"]
-                    name = result.get("name", {}).get("value", "Unknown Cocktail")
-                    description = result.get("desc", {}).get("value")
-                    ingredients = result.get("ingredients", {}).get("value")
-                    preparation = result.get("prep", {}).get("value")
-                    served = result.get("served", {}).get("value")
-                    garnish = result.get("garnish", {}).get("value")
-                    source_link = result.get("source", {}).get("value")
-
-                    # Parse ingredients and get URIs
-                    parsed_ingredients = self._parse_ingredient_names(ingredients) if ingredients else None
-                    ingredient_uris = self._extract_ingredient_uris(cocktail_uri) if self.graph else None
-
-                    cocktail = Cocktail(
-                        id=cocktail_uri,
-                        name=name,
-                        alternative_names=None,
-                        description=description,
-                        image=None,
-                        ingredients=ingredients,
-                        parsed_ingredients=parsed_ingredients,
-                        ingredient_uris=ingredient_uris,
-                        preparation=preparation,
-                        served=served,
-                        garnish=garnish,
-                        source_link=source_link,
-                        categories=None,
-                        related_ingredients=None,
-                        labels=None,
-                        descriptions=None
-                    )
-                    cocktails.append(cocktail)
-                return cocktails
         except Exception as e:
             print(f"SPARQL query failed: {e}")
-        
-        # Fallback: Parse cocktails directly from the RDF graph
-        print("Falling back to direct RDF graph parsing...")
-        return self._get_all_cocktails_from_graph()
-
-    def _get_all_cocktails_from_graph(self) -> List[Cocktail]:
-        """Get all cocktails directly from the RDF graph without SPARQL"""
-        if not self.graph:
-            print("No RDF graph available")
             return []
 
-        cocktails = []
-        # Find all subjects that have rdfs:label (cocktails)
-        for subject in self.graph.subjects(RDFS.label, None):
-            # Filter to English labels only
-            labels = list(self.graph.objects(subject, RDFS.label))
-            has_english = any(isinstance(label, Literal) and label.language == "en" for label in labels)
-            
-            if has_english:
-                cocktail = self._parse_cocktail_from_graph(subject)
-                if cocktail and cocktail.name:
-                    cocktails.append(cocktail)
+        cocktails_dict = {}
+        for result in results["results"]["bindings"]:
+            cocktail_uri = result["cocktail"]["value"]
 
-        return cocktails
+            # If we've already seen this cocktail URI, skip (keep first occurrence)
+            if cocktail_uri in cocktails_dict:
+                continue
+
+            name = result.get("name", {}).get("value", "Unknown Cocktail")
+            description = result.get("desc", {}).get("value")
+            image = result.get("image", {}).get("value")
+            ingredients = result.get("ingredients", {}).get("value")
+            preparation = result.get("prep", {}).get("value")
+            served = result.get("served", {}).get("value")
+            garnish = result.get("garnish", {}).get("value")
+            source_link = result.get("source", {}).get("value")
+
+            # Parse ingredients and get URIs
+            parsed_ingredients = self._parse_ingredient_names(ingredients) if ingredients else None
+            ingredient_uris = self._extract_ingredient_uris(cocktail_uri) if self.graph else None
+
+            cocktail = Cocktail(
+                uri=cocktail_uri,
+                id=self.generate_slug(name),
+                name=name,
+                description=description,
+                image=image,
+                ingredients=ingredients,
+                parsed_ingredients=parsed_ingredients,
+                ingredient_uris=ingredient_uris,
+                preparation=preparation,
+                served=served,
+                garnish=garnish,
+                source_link=source_link
+            )
+            cocktails_dict[cocktail_uri] = cocktail
+
+        # Return list of unique cocktails preserving first-seen order
+        return list(cocktails_dict.values())
 
     def search_cocktails(self, query: str) -> List[Cocktail]:
         """Search cocktails by name"""
@@ -352,42 +341,30 @@ class CocktailService:
         if not target_cocktail:
             return []
 
-        try:
-            # Build graph data first
-            graph_service = GraphService()
-            graph_data = graph_service.build_graph()
-            if not graph_data:
-                return []
+        # Get graph analysis with communities
+        graph_service = GraphService()
+        analysis = graph_service.analyze_graph()
+        communities = analysis.get('communities', {})
 
-            # Get graph analysis with communities
-            analysis = graph_service.analyze_graph(graph_data)
-            if not analysis:
-                return []
+        # Find the community of the target cocktail
+        target_community = None
+        for node, community_id in communities.items():
+            if node == target_cocktail.name:
+                target_community = community_id
+                break
 
-            communities = analysis.get('communities', {})
-
-            # Find the community of the target cocktail
-            target_community = None
-            for node, community_id in communities.items():
-                if node == target_cocktail.name:
-                    target_community = community_id
-                    break
-
-            if target_community is None:
-                return []
-
-            # Find all cocktails in the same community
-            same_vibe_cocktails = []
-            for cocktail in all_cocktails:
-                if cocktail.id != cocktail_id and cocktail.name in communities:
-                    if communities[cocktail.name] == target_community:
-                        same_vibe_cocktails.append(cocktail)
-
-            # Return up to limit cocktails
-            return same_vibe_cocktails[:limit]
-        except Exception as e:
-            print(f"Error in get_same_vibe_cocktails: {e}")
+        if target_community is None:
             return []
+
+        # Find all cocktails in the same community
+        same_vibe_cocktails = []
+        for cocktail in all_cocktails:
+            if cocktail.id != cocktail_id and cocktail.name in communities:
+                if communities[cocktail.name] == target_community:
+                    same_vibe_cocktails.append(cocktail)
+
+        # Return up to limit cocktails
+        return same_vibe_cocktails[:limit]
 
     def get_bridge_cocktails(self, limit: int = 10) -> List[Cocktail]:
         """Get cocktails that connect different communities (bridge cocktails)"""
@@ -395,38 +372,26 @@ class CocktailService:
 
         all_cocktails = self.get_all_cocktails()
 
-        try:
-            # Build graph data first
-            graph_service = GraphService()
-            graph_data = graph_service.build_graph()
-            if not graph_data:
-                return []
+        # Get graph analysis with communities
+        graph_service = GraphService()
+        analysis = graph_service.analyze_graph()
+        communities = analysis.get('communities', {})
 
-            # Get graph analysis with communities
-            analysis = graph_service.analyze_graph(graph_data)
-            if not analysis:
-                return []
+        bridge_cocktails = []
 
-            communities = analysis.get('communities', {})
+        for cocktail in all_cocktails:
+            if not cocktail.parsed_ingredients:
+                continue
 
-            bridge_cocktails = []
+            # Collect communities of ingredients used in this cocktail
+            ingredient_communities = set()
+            for ingredient_name in cocktail.parsed_ingredients:
+                if ingredient_name in communities:
+                    ingredient_communities.add(communities[ingredient_name])
 
-            for cocktail in all_cocktails:
-                if not cocktail.parsed_ingredients:
-                    continue
+            # If ingredients span more than one community, it's a bridge cocktail
+            if len(ingredient_communities) > 1:
+                bridge_cocktails.append(cocktail)
 
-                # Collect communities of ingredients used in this cocktail
-                ingredient_communities = set()
-                for ingredient_name in cocktail.parsed_ingredients:
-                    if ingredient_name in communities:
-                        ingredient_communities.add(communities[ingredient_name])
-
-                # If ingredients span more than one community, it's a bridge cocktail
-                if len(ingredient_communities) > 1:
-                    bridge_cocktails.append(cocktail)
-
-            # Return up to limit bridge cocktails
-            return bridge_cocktails[:limit]
-        except Exception as e:
-            print(f"Error in get_bridge_cocktails: {e}")
-            return []
+        # Return up to limit bridge cocktails
+        return bridge_cocktails[:limit]

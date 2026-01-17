@@ -35,13 +35,15 @@ class TestPlannerService:
     def test_create_plan_success(self, planner_service):
         mock_cocktails = [
             Cocktail(
-                id="http://example.com/cocktail1",
+                uri="http://example.com/cocktail1",
+                id="cocktail1",
                 name="Mojito",
                 ingredients="Rum, Mint, Soda",
                 parsed_ingredients=["Rum", "Mint", "Soda"]
             ),
             Cocktail(
-                id="http://example.com/cocktail2",
+                uri="http://example.com/cocktail2",
+                id="cocktail2",
                 name="Daiquiri",
                 ingredients="Rum, Lime, Sugar",
                 parsed_ingredients=["Rum", "Lime", "Sugar"]
@@ -105,7 +107,7 @@ class TestPlannerService:
 
     def test_get_recipe_steps(self, planner_service):
         mock_cocktail = Cocktail(
-            id="http://example.com/cocktail1",
+            uri="http://example.com/cocktail1", id="cocktail1",
             name="Mojito",
             ingredients="Rum, Mint, Soda",
             preparation="1. Muddle mint\n2. Add rum\n3. Add soda"
@@ -149,7 +151,7 @@ class TestPlannerService:
 
     def test_get_equipment_requirements(self, planner_service):
         mock_cocktail = Cocktail(
-            id="http://example.com/cocktail1",
+            uri="http://example.com/cocktail1", id="cocktail1",
             name="Mojito",
             ingredients="Rum, Mint, Soda",
             preparation="Mix all ingredients",
@@ -173,7 +175,7 @@ class TestPlannerService:
     def test_calculate_abv_for_plan(self, planner_service):
         mock_cocktails = [
             Cocktail(
-                id="http://example.com/cocktail1",
+                uri="http://example.com/cocktail1", id="cocktail1",
                 name="Mojito",
                 ingredients="Rum, Mint, Soda"
             )
@@ -192,7 +194,7 @@ class TestPlannerService:
     def test_get_timing_suggestions(self, planner_service):
         mock_cocktails = [
             Cocktail(
-                id="http://example.com/cocktail1",
+                uri="http://example.com/cocktail1", id="cocktail1",
                 name="Mojito",
                 ingredients="Rum, Mint, Soda"
             )
@@ -211,12 +213,12 @@ class TestPlannerService:
     def test_suggest_preparation_order(self, planner_service):
         mock_cocktails = [
             Cocktail(
-                id="http://example.com/cocktail1",
+                uri="http://example.com/cocktail1", id="cocktail1",
                 name="Mojito",
                 ingredients="Rum, Mint, Soda"
             ),
             Cocktail(
-                id="http://example.com/cocktail2",
+                uri="http://example.com/cocktail2", id="cocktail2",
                 name="Daiquiri",
                 ingredients="Rum, Lime, Sugar"
             )
@@ -234,7 +236,7 @@ class TestPlannerService:
 
     def test_get_nutrition_info(self, planner_service):
         mock_cocktail = Cocktail(
-            id="http://example.com/cocktail1",
+            uri="http://example.com/cocktail1", id="cocktail1",
             name="Mojito",
             ingredients="Rum, Mint, Soda"
         )

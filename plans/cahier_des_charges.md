@@ -42,8 +42,6 @@ Développer une application web qui dépasse la recherche textuelle simple pour 
 - Exploitation : Graphe cocktail-ingrédient + requêtes SPARQL
 
 #### 3.1.2 Bar Minimum (Optimisation)
-Deux modes :
-- Mode "Party" : Avec N ingrédients, maximiser le nombre de cocktails
 - Mode "Playlist" : Pour une liste de cocktails souhaités, minimiser les ingrédients nécessaires
 Sortie : Liste optimisée + nombre de cocktails couverts + presque couverts
 

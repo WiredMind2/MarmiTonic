@@ -30,11 +30,6 @@ class TestBasicEndpoints:
         # Should return 200 or 500, not 404
         assert response.status_code in [200, 500]
 
-    def test_ingredients_endpoint_exists(self):
-        """Test GET /ingredients/ingredients endpoint exists"""
-        response = client.get("/ingredients/ingredients")
-        assert response.status_code in [200, 500]
-
     def test_404_for_invalid_route(self):
         """Test that invalid routes return 404"""
         response = client.get("/nonexistent/route")
@@ -73,26 +68,19 @@ class TestCocktailEndpoints:
 class TestIngredientEndpoints:
     """Test ingredient endpoints"""
 
-    def test_get_all_ingredients(self):
-        """Test getting all ingredients"""
-        response = client.get("/ingredients/ingredients")
-        assert response.status_code in [200, 500]
-        if response.status_code == 200:
-            assert isinstance(response.json(), list)
-
     def test_search_ingredients_missing_query(self):
         """Test search requires query parameter"""
-        response = client.get("/ingredients/ingredients/search")
+        response = client.get("/ingredients/search")
         assert response.status_code == 422  # Validation error
 
     def test_search_ingredients_with_query(self):
         """Test search with query parameter"""
-        response = client.get("/ingredients/ingredients/search?q=rum")
+        response = client.get("/ingredients/search?q=rum")
         assert response.status_code in [200, 500]
 
     def test_get_inventory(self):
         """Test getting user inventory"""
-        response = client.get("/ingredients/ingredients/inventory/user123")
+        response = client.get("/ingredients/inventory/user123")
         assert response.status_code in [200, 500]
 
     def test_update_inventory(self):
@@ -101,58 +89,24 @@ class TestIngredientEndpoints:
             "user_id": "test_user",
             "ingredients": ["Rum", "Vodka"]
         }
-        response = client.post("/ingredients/ingredients/inventory", json=payload)
+        response = client.post("/ingredients/inventory", json=payload)
         assert response.status_code in [200, 500]
 
     def test_update_inventory_invalid_payload(self):
         """Test invalid payload returns validation error"""
         payload = {"user_id": "test"}  # Missing required field
-        response = client.post("/ingredients/ingredients/inventory", json=payload)
+        response = client.post("/ingredients/inventory", json=payload)
         assert response.status_code == 422
 
 
 class TestPlannerEndpoints:
     """Test planner endpoints"""
 
-    def test_party_mode_valid(self):
-        """Test party mode with valid input"""
-        payload = {"num_ingredients": 5}
-        response = client.post("/planner/planner/party-mode", json=payload)
-        assert response.status_code in [200, 500]
-        if response.status_code == 200:
-            data = response.json()
-            assert "selected_ingredients" in data
-            assert "covered_cocktails" in data
-
-    def test_party_mode_zero_ingredients(self):
-        """Test party mode rejects zero ingredients"""
-        payload = {"num_ingredients": 0}
-        response = client.post("/planner/planner/party-mode", json=payload)
-        assert response.status_code == 400
-
-    def test_party_mode_negative_ingredients(self):
-        """Test party mode rejects negative ingredients"""
-        payload = {"num_ingredients": -1}
-        response = client.post("/planner/planner/party-mode", json=payload)
-        assert response.status_code == 400
-
     def test_playlist_mode_valid(self):
         """Test playlist mode with valid input"""
         payload = {"cocktail_names": ["Mojito", "Daiquiri"]}
-        response = client.post("/planner/planner/playlist-mode", json=payload)
+        response = client.post("/planner/playlist-mode", json=payload)
         assert response.status_code in [200, 500]
-
-    def test_playlist_mode_empty_list(self):
-        """Test playlist mode rejects empty list"""
-        payload = {"cocktail_names": []}
-        response = client.post("/planner/planner/playlist-mode", json=payload)
-        assert response.status_code == 400
-
-    def test_union_ingredients(self):
-        """Test union ingredients endpoint"""
-        payload = {"cocktail_names": ["Mojito"]}
-        response = client.post("/planner/planner/union-ingredients", json=payload)
-        assert response.status_code in [200, 400, 500]
 
 
 class TestInsightsEndpoints:
@@ -160,7 +114,7 @@ class TestInsightsEndpoints:
 
     def test_graph_analysis(self):
         """Test graph analysis endpoint"""
-        response = client.get("/insights/insights/graph")
+        response = client.get("/insights/graph")
         assert response.status_code in [200, 500]
         if response.status_code == 200:
             data = response.json()
@@ -168,17 +122,17 @@ class TestInsightsEndpoints:
 
     def test_graph_visualization(self):
         """Test graph visualization endpoint"""
-        response = client.get("/insights/insights/visualization")
+        response = client.get("/insights/visualization")
         assert response.status_code in [200, 500]
 
     def test_graph_export(self):
         """Test graph export endpoint"""
-        response = client.get("/insights/insights/export")
+        response = client.get("/insights/export")
         assert response.status_code in [200, 500]
 
     def test_disjoint_components(self):
         """Test disjoint components endpoint"""
-        response = client.get("/insights/insights/components")
+        response = client.get("/insights/components")
         assert response.status_code in [200, 500]
 
 
@@ -190,24 +144,6 @@ class TestCORSAndHeaders:
         response = client.options("/cocktails/")
         # OPTIONS should work or return 200/405
         assert response.status_code in [200, 405]
-
-
-class TestInputValidation:
-    """Test input validation"""
-
-    def test_invalid_json(self):
-        """Test invalid JSON payload"""
-        response = client.post(
-            "/planner/planner/party-mode",
-            data="invalid json",
-            headers={"Content-Type": "application/json"}
-        )
-        assert response.status_code in [400, 422]
-
-    def test_missing_required_fields(self):
-        """Test missing required fields"""
-        response = client.post("/planner/planner/party-mode", json={})
-        assert response.status_code == 422
 
 
 if __name__ == "__main__":

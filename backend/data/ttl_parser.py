@@ -1,15 +1,14 @@
 """
 Parser centralisé pour charger et interroger les données IBA en mémoire
-Charge le fichier iba_export.ttl et parse correctement les ingrédients depuis dbp:ingredients
+Charge le fichier data.ttl et parse correctement les ingrédients depuis dbp:ingredients
 Retourne des instances de classes Pydantic définies dans backend/models
 """
 
 import sys
 from pathlib import Path
 
-# Ajouter le répertoire backend au path pour importer les models
-backend_path = Path(__file__).parent.parent / "backend"
-sys.path.insert(0, str(backend_path))
+backend_path = Path(__file__).parent.parent
+sys.path.insert(0, str(backend_path.resolve()))
 
 from rdflib import Graph, Namespace, Literal, URIRef
 from rdflib.namespace import RDF, RDFS
@@ -31,26 +30,38 @@ FOAF = Namespace("http://xmlns.com/foaf/0.1/")
 class IBADataParser:
     """Parser pour les données IBA en format Turtle avec extraction d'ingrédients"""
     
-    def __init__(self, ttl_file_path: str = "iba_export.ttl"):
+    def __init__(self, ttl_file_path: str = "data.ttl"):
         """
         Initialise le parser et charge le fichier TTL en mémoire
         
         Args:
             ttl_file_path: Chemin vers le fichier TTL (relatif au répertoire data/)
         """
+        print(f"DEBUG: IBADataParser init with ttl_file_path: '{ttl_file_path}'")
         self.graph = Graph()
         self.ttl_file_path = ttl_file_path
         self._ingredients_cache = None  # Cache pour les ingrédients dédupliqués
         self._cocktails_cache = None     # Cache pour les cocktails
         self._load_data()
     
+    @staticmethod
+    def generate_slug(name: str) -> str:
+        """Generate a URL-friendly slug from cocktail name"""
+        slug = name.lower()
+        slug = re.sub(r'\([^)]*\)', '', slug)
+        slug = re.sub(r'[^a-z0-9]+', '-', slug)
+        slug = slug.strip('-')
+        return slug
+    
     def _load_data(self):
         """Charge le fichier TTL dans le graph RDFLib"""
-        file_path = os.path.join(os.path.dirname(__file__), self.ttl_file_path)
+        # Utiliser un chemin absolu basé sur la racine du projet
+        project_root = Path(__file__).parent.parent.parent  # Remonte de data/ vers backend/ vers racine
+        file_path = project_root / "backend" / "data" / self.ttl_file_path
         
         try:
             print(f"Chargement du fichier TTL: {file_path}")
-            self.graph.parse(file_path, format="turtle")
+            self.graph.parse(str(file_path), format="turtle")
             print(f"✅ Chargé {len(self.graph)} triples")
         except FileNotFoundError:
             print(f"❌ Fichier non trouvé: {file_path}")
@@ -85,14 +96,49 @@ class IBADataParser:
             
             # Enlever les bullets (* ou -)
             line = re.sub(r'^[\*\-]\s*', '', line)
-            
+
             # Enlever les quantités (nombres + unités)
             # Ex: "30 ml gin" -> "gin", "1 dash bitters" -> "bitters"
-            line = re.sub(r'^\d+\.?\d*\s*(ml|cl|oz|dash|dashes|barspoon|teaspoon|tsp|tablespoon|tbsp|drop|drops|splash|piece|pieces|cube|cubes|slice|slices)?\s+', '', line, flags=re.IGNORECASE)
+            line = re.sub(r'^\d+\.?\d*\s*(ml|cl|oz|dash|dashes|barspoon|teaspoon|tsp|tablespoon|tbsp|drop|drops|splash|piece|pieces|cube|cubes|slice|slices|splash|teaspoons|of)?\s+', '', line, flags=re.IGNORECASE)
             
-            # Nettoyer les espaces multiples
+            # Nettoyer les espaces multiples    
             line = re.sub(r'\s+', ' ', line).strip()
+
             
+            #Cas particulier, 1/4 barspoon Absinthe supprimer le 1/4
+            line = re.sub(r'^\d+\/\d+\s*(ml|cl|oz|dash|dashes|barspoon|teaspoon|tsp|tablespoon|tbsp|drop|drops|splash|piece|pieces|cube|cubes|slice|slices)?\s+', '', line, flags=re.IGNORECASE)
+
+            #Les cas rares Select/Aperol/Campari/Cynar garder que Cynar
+            line = re.sub(r'^(Select)\/', '', line, flags=re.IGNORECASE)
+            line = re.sub(r'^(Aperol)\/', '', line, flags=re.IGNORECASE)
+            line = re.sub(r'^(Campari)\/', '', line, flags=re.IGNORECASE)
+
+            #5.049216E8 supprimer cette ligne si elle est présente
+            line = re.sub(r'^5\.049216E8$', '', line, flags=re.IGNORECASE)
+
+            #Supprimer les splash
+            line = re.sub(r'^(splash of|splash|a splash of)\s+', '', line, flags=re.IGNORECASE)
+
+
+            #supprimer les barspoon of bar spoon
+            line = re.sub(r'^(barspoon of|bar spoon of|barspoon|bar spoon|bar spoons)\s+', '', line, flags=re.IGNORECASE)
+            
+            #supprimer les lignes qui commencent par 100%
+            line = re.sub(r'^(100%|100 %)\s+', '', line, flags=re.IGNORECASE)
+            
+            #Remplacer of Worcestershire sauce par Worcestershire sauce
+            line = re.sub(r'^(of)\s+Worcestershire sauce', 'Worcestershire sauce', line, flags=re.IGNORECASE)
+           
+            #to 8 mint leaves -> mint leaves
+            line = re.sub(r'^(to\s+8|to\s+6|to\s+4|to\s+2|to\s+1)\s+', '', line, flags=re.IGNORECASE)
+            
+            #Two dashes Peychaud's Bitters -> Peychaud's Bitters and Few dashes Angostura bitters -> Angostura bitters
+            line = re.sub(r'^(two|few|one|three|four|five|six|seven|eight|nine|ten)\s+dashes\s+', '', line, flags=re.IGNORECASE)
+            line = re.sub(r'^(two|few|one|three|four|five|six|seven|eight|nine|ten)\s+dash\s+', '', line, flags=re.IGNORECASE)
+
+            #Few drops of egg white -> egg white
+            line = re.sub(r'^(few|one|two|three|four|five|six|seven|eight|nine|ten)\s+drops?\s+(of\s+)?', '', line, flags=re.IGNORECASE)
+
             if line and len(line) > 1:  # Ignorer les lignes vides ou trop courtes
                 ingredients.append(line)
         
@@ -255,10 +301,14 @@ class IBADataParser:
             # Récupérer les catégories
             categories = [str(cat) for cat in self.graph.objects(URIRef(cocktail_uri), DCT.subject)]
             
+            # Générer le nom du cocktail
+            cocktail_name = str(row.label) if row.label else cocktail_uri.split("/")[-1].replace("_", " ")
+            
             # Créer l'instance Cocktail
             cocktail = Cocktail(
-                id=cocktail_uri,
-                name=str(row.label) if row.label else cocktail_uri.split("/")[-1].replace("_", " "),
+                uri=cocktail_uri,
+                id=self.generate_slug(cocktail_name),
+                name=cocktail_name,
                 alternative_names=[str(row.labelFr)] if row.labelFr else None,
                 description=str(row.desc) if row.desc else None,
                 image=str(row.img) if row.img else None,

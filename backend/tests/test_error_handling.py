@@ -16,22 +16,28 @@ import os
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import RDFS
 
+import sys
+from pathlib import Path
+
+# Add parent directory to path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 # Import services
-from backend.services.sparql_service import SparqlService
-from backend.services.cocktail_service import CocktailService
-from backend.services.ingredient_service import IngredientService
-from backend.services.graph_service import GraphService
-from backend.services.planner_service import PlannerService
+from services.sparql_service import SparqlService
+from services.cocktail_service import CocktailService
+from services.ingredient_service import IngredientService
+from services.graph_service import GraphService
+from services.planner_service import PlannerService
 
 # Import models
-from backend.models.cocktail import Cocktail
-from backend.models.ingredient import Ingredient
+from models.cocktail import Cocktail
+from models.ingredient import Ingredient
 
 
 class TestSparqlServiceErrorHandling:
     """Test error handling in SparqlService"""
 
-    @patch('backend.services.sparql_service.Graph')
+    @patch('services.sparql_service.Graph')
     def test_init_missing_ttl_file(self, mock_graph):
         """Test initialization when TTL file doesn't exist"""
         mock_instance = Mock()
@@ -41,7 +47,7 @@ class TestSparqlServiceErrorHandling:
         service = SparqlService("nonexistent.ttl")
         assert service.local_graph is None
 
-    @patch('backend.services.sparql_service.Graph')
+    @patch('services.sparql_service.Graph')
     def test_init_corrupted_ttl_file(self, mock_graph):
         """Test initialization with corrupted TTL file"""
         mock_instance = Mock()
@@ -51,7 +57,7 @@ class TestSparqlServiceErrorHandling:
         service = SparqlService("corrupted.ttl")
         assert service.local_graph is None
 
-    @patch('backend.services.sparql_service.SPARQLWrapper')
+    @patch('services.sparql_service.SPARQLWrapper')
     def test_execute_query_network_timeout(self, mock_wrapper):
         """Test network timeout during remote query"""
         mock_instance = Mock()
@@ -62,7 +68,7 @@ class TestSparqlServiceErrorHandling:
         with pytest.raises(Exception, match="Connection timeout"):
             service.execute_query("SELECT * WHERE { ?s ?p ?o }")
 
-    @patch('backend.services.sparql_service.SPARQLWrapper')
+    @patch('services.sparql_service.SPARQLWrapper')
     def test_execute_query_service_unavailable(self, mock_wrapper):
         """Test when DBpedia service is unavailable"""
         mock_instance = Mock()
@@ -73,7 +79,7 @@ class TestSparqlServiceErrorHandling:
         with pytest.raises(Exception, match="503 Service Unavailable"):
             service.execute_query("SELECT * WHERE { ?s ?p ?o }")
 
-    @patch('backend.services.sparql_service.SPARQLWrapper')
+    @patch('services.sparql_service.SPARQLWrapper')
     def test_execute_query_invalid_sparql_syntax(self, mock_wrapper):
         """Test execution with invalid SPARQL syntax"""
         mock_instance = Mock()
@@ -84,7 +90,7 @@ class TestSparqlServiceErrorHandling:
         with pytest.raises(Exception, match="Malformed query"):
             service.execute_query("INVALID SPARQL QUERY")
 
-    @patch('backend.services.sparql_service.Graph')
+    @patch('services.sparql_service.Graph')
     def test_execute_local_query_no_graph_loaded(self, mock_graph):
         """Test local query when graph failed to load"""
         service = SparqlService()
@@ -93,7 +99,7 @@ class TestSparqlServiceErrorHandling:
         with pytest.raises(ValueError, match="Local graph not loaded"):
             service.execute_local_query("SELECT * WHERE { ?s ?p ?o }")
 
-    @patch('backend.services.sparql_service.Graph')
+    @patch('services.sparql_service.Graph')
     def test_execute_local_query_invalid_sparql(self, mock_graph):
         """Test local query with invalid SPARQL"""
         mock_instance = Mock()
@@ -104,7 +110,7 @@ class TestSparqlServiceErrorHandling:
         with pytest.raises(Exception, match="Invalid SPARQL syntax"):
             service.execute_local_query("INVALID QUERY")
 
-    @patch('backend.services.sparql_service.Graph')
+    @patch('services.sparql_service.Graph')
     def test_execute_local_query_empty_result(self, mock_graph):
         """Test local query returning empty results"""
         mock_instance = Mock()
@@ -118,7 +124,7 @@ class TestSparqlServiceErrorHandling:
         
         assert result == {"results": {"bindings": []}}
 
-    @patch('backend.services.sparql_service.Graph')
+    @patch('services.sparql_service.Graph')
     def test_execute_local_query_none_values(self, mock_graph):
         """Test local query handling None values in results"""
         mock_instance = Mock()
@@ -146,9 +152,9 @@ class TestSparqlServiceErrorHandling:
 class TestCocktailServiceErrorHandling:
     """Test error handling in CocktailService"""
 
-    @patch('backend.services.cocktail_service.SparqlService')
-    @patch('backend.services.cocktail_service.IngredientService')
-    @patch('backend.services.cocktail_service.Graph')
+    @patch('services.cocktail_service.SparqlService')
+    @patch('services.cocktail_service.IngredientService')
+    @patch('services.cocktail_service.Graph')
     def test_init_missing_local_data(self, mock_graph, mock_ingredient, mock_sparql):
         """Test initialization when local data file is missing"""
         mock_sparql_instance = Mock()
@@ -162,9 +168,9 @@ class TestCocktailServiceErrorHandling:
         service = CocktailService()
         assert service.graph is None
 
-    @patch('backend.services.cocktail_service.SparqlService')
-    @patch('backend.services.cocktail_service.IngredientService')
-    @patch('backend.services.cocktail_service.Graph')
+    @patch('services.cocktail_service.SparqlService')
+    @patch('services.cocktail_service.IngredientService')
+    @patch('services.cocktail_service.Graph')
     def test_init_corrupted_local_data(self, mock_graph, mock_ingredient, mock_sparql):
         """Test initialization with corrupted local data"""
         mock_sparql_instance = Mock()
@@ -178,8 +184,8 @@ class TestCocktailServiceErrorHandling:
         service = CocktailService()
         assert service.graph is None
 
-    @patch('backend.services.cocktail_service.SparqlService')
-    @patch('backend.services.cocktail_service.IngredientService')
+    @patch('services.cocktail_service.SparqlService')
+    @patch('services.cocktail_service.IngredientService')
     def test_get_all_cocktails_sparql_failure(self, mock_ingredient, mock_sparql):
         """Test get_all_cocktails when SPARQL query fails"""
         mock_sparql_instance = Mock()
@@ -191,9 +197,9 @@ class TestCocktailServiceErrorHandling:
         
         assert cocktails == []
 
-    @patch('backend.services.cocktail_service.SparqlService')
-    @patch('backend.services.cocktail_service.IngredientService')
-    @patch('backend.services.cocktail_service.Graph')
+    @patch('services.cocktail_service.SparqlService')
+    @patch('services.cocktail_service.IngredientService')
+    @patch('services.cocktail_service.Graph')
     def test_get_all_cocktails_malformed_results(self, mock_graph, mock_ingredient, mock_sparql):
         """Test get_all_cocktails with malformed SPARQL results"""
         mock_sparql_instance = Mock()
@@ -227,9 +233,9 @@ class TestCocktailServiceErrorHandling:
         assert len(cocktails) == 1
         assert cocktails[0].name == "Unknown Cocktail"
 
-    @patch('backend.services.cocktail_service.SparqlService')
-    @patch('backend.services.cocktail_service.IngredientService')
-    @patch('backend.services.cocktail_service.Graph')
+    @patch('services.cocktail_service.SparqlService')
+    @patch('services.cocktail_service.IngredientService')
+    @patch('services.cocktail_service.Graph')
     def test_parse_cocktail_from_graph_no_graph(self, mock_graph, mock_ingredient, mock_sparql):
         """Test parsing cocktail when graph is None"""
         mock_sparql_instance = Mock()
@@ -241,9 +247,9 @@ class TestCocktailServiceErrorHandling:
         result = service._parse_cocktail_from_graph(URIRef("http://example.com/cocktail"))
         assert result is None
 
-    @patch('backend.services.cocktail_service.SparqlService')
-    @patch('backend.services.cocktail_service.IngredientService')
-    @patch('backend.services.cocktail_service.Graph')
+    @patch('services.cocktail_service.SparqlService')
+    @patch('services.cocktail_service.IngredientService')
+    @patch('services.cocktail_service.Graph')
     def test_get_feasible_cocktails_inventory_service_failure(self, mock_graph, mock_ingredient, mock_sparql):
         """Test get_feasible_cocktails when inventory service fails"""
         mock_sparql_instance = Mock()
@@ -260,9 +266,9 @@ class TestCocktailServiceErrorHandling:
         with pytest.raises(Exception, match="Inventory service error"):
             service.get_feasible_cocktails("user1")
 
-    @patch('backend.services.cocktail_service.SparqlService')
-    @patch('backend.services.cocktail_service.IngredientService')
-    @patch('backend.services.cocktail_service.Graph')
+    @patch('services.cocktail_service.SparqlService')
+    @patch('services.cocktail_service.IngredientService')
+    @patch('services.cocktail_service.Graph')
     def test_get_feasible_cocktails_none_ingredients(self, mock_graph, mock_ingredient, mock_sparql):
         """Test get_feasible_cocktails with cocktails having None ingredients"""
         mock_sparql_instance = Mock()
@@ -281,9 +287,9 @@ class TestCocktailServiceErrorHandling:
         feasible = service.get_feasible_cocktails("user1")
         assert feasible == []
 
-    @patch('backend.services.cocktail_service.SparqlService')
-    @patch('backend.services.cocktail_service.IngredientService')
-    @patch('backend.services.cocktail_service.Graph')
+    @patch('services.cocktail_service.SparqlService')
+    @patch('services.cocktail_service.IngredientService')
+    @patch('services.cocktail_service.Graph')
     def test_get_similar_cocktails_target_not_found(self, mock_graph, mock_ingredient, mock_sparql):
         """Test get_similar_cocktails with non-existent target"""
         mock_sparql_instance = Mock()
@@ -298,9 +304,9 @@ class TestCocktailServiceErrorHandling:
         results = service.get_similar_cocktails("nonexistent_id")
         assert results == []
 
-    @patch('backend.services.cocktail_service.SparqlService')
-    @patch('backend.services.cocktail_service.IngredientService')
-    @patch('backend.services.cocktail_service.Graph')
+    @patch('services.cocktail_service.SparqlService')
+    @patch('services.cocktail_service.IngredientService')
+    @patch('services.cocktail_service.Graph')
     def test_get_same_vibe_cocktails_graph_service_failure(self, mock_graph, mock_ingredient, mock_sparql):
         """Test get_same_vibe_cocktails when GraphService fails"""
         mock_sparql_instance = Mock()
@@ -314,7 +320,7 @@ class TestCocktailServiceErrorHandling:
         service.get_all_cocktails = Mock(return_value=[mock_cocktail])
         
         # Mock the GraphService to fail
-        with patch('backend.services.cocktail_service.GraphService') as MockGraphService:
+        with patch('services.cocktail_service.GraphService') as MockGraphService:
             mock_graph_service_instance = Mock()
             MockGraphService.return_value = mock_graph_service_instance
             mock_graph_service_instance.analyze_graph.side_effect = Exception("Graph analysis failed")
@@ -323,9 +329,9 @@ class TestCocktailServiceErrorHandling:
             results = service.get_same_vibe_cocktails("target_id")
             assert results == []
 
-    @patch('backend.services.cocktail_service.SparqlService')
-    @patch('backend.services.cocktail_service.IngredientService')
-    @patch('backend.services.cocktail_service.Graph')
+    @patch('services.cocktail_service.SparqlService')
+    @patch('services.cocktail_service.IngredientService')
+    @patch('services.cocktail_service.Graph')
     def test_get_bridge_cocktails_graph_service_failure(self, mock_graph, mock_ingredient, mock_sparql):
         """Test get_bridge_cocktails when GraphService fails"""
         mock_sparql_instance = Mock()
@@ -338,7 +344,7 @@ class TestCocktailServiceErrorHandling:
         service.get_all_cocktails = Mock(return_value=[mock_cocktail])
         
         # Mock the GraphService to fail
-        with patch('backend.services.cocktail_service.GraphService') as MockGraphService:
+        with patch('services.cocktail_service.GraphService') as MockGraphService:
             mock_graph_service_instance = Mock()
             MockGraphService.return_value = mock_graph_service_instance
             mock_graph_service_instance.analyze_graph.side_effect = Exception("Graph analysis failed")
@@ -347,9 +353,9 @@ class TestCocktailServiceErrorHandling:
             results = service.get_bridge_cocktails()
             assert results == []
 
-    @patch('backend.services.cocktail_service.SparqlService')
-    @patch('backend.services.cocktail_service.IngredientService')
-    @patch('backend.services.cocktail_service.Graph')
+    @patch('services.cocktail_service.SparqlService')
+    @patch('services.cocktail_service.IngredientService')
+    @patch('services.cocktail_service.Graph')
     def test_parse_ingredient_names_edge_cases(self, mock_graph, mock_ingredient, mock_sparql):
         """Test _parse_ingredient_names with edge cases"""
         mock_sparql_instance = Mock()
@@ -376,7 +382,7 @@ class TestCocktailServiceErrorHandling:
 class TestIngredientServiceErrorHandling:
     """Test error handling in IngredientService"""
 
-    @patch('backend.services.ingredient_service.SparqlService')
+    @patch('services.ingredient_service.SparqlService')
     def test_get_all_ingredients_local_query_failure(self, mock_sparql):
         """Test get_all_ingredients when local query fails"""
         mock_sparql_instance = Mock()
@@ -393,7 +399,7 @@ class TestIngredientServiceErrorHandling:
         # Should return empty list, not crash
         assert ingredients == []
 
-    @patch('backend.services.ingredient_service.SparqlService')
+    @patch('services.ingredient_service.SparqlService')
     def test_get_all_ingredients_dbpedia_failure(self, mock_sparql):
         """Test get_all_ingredients when DBpedia query fails"""
         mock_sparql_instance = Mock()
@@ -410,7 +416,7 @@ class TestIngredientServiceErrorHandling:
         # Should return empty list, not crash
         assert ingredients == []
 
-    @patch('backend.services.ingredient_service.SparqlService')
+    @patch('services.ingredient_service.SparqlService')
     def test_get_all_ingredients_partial_local_results(self, mock_sparql):
         """Test get_all_ingredients with partial local results"""
         mock_sparql_instance = Mock()
@@ -438,7 +444,7 @@ class TestIngredientServiceErrorHandling:
         # Should have 3 ingredients total (1 local + 2 DBpedia)
         assert len(ingredients) == 3
 
-    @patch('backend.services.ingredient_service.SparqlService')
+    @patch('services.ingredient_service.SparqlService')
     def test_get_all_ingredients_duplicate_uris(self, mock_sparql):
         """Test get_all_ingredients handles duplicate URIs"""
         mock_sparql_instance = Mock()
@@ -465,7 +471,7 @@ class TestIngredientServiceErrorHandling:
         # Should avoid duplicates
         assert len(ingredients) == 1
 
-    @patch('backend.services.ingredient_service.SparqlService')
+    @patch('services.ingredient_service.SparqlService')
     def test_search_ingredients_network_error(self, mock_sparql):
         """Test search_ingredients with network error"""
         mock_sparql_instance = Mock()
@@ -478,7 +484,7 @@ class TestIngredientServiceErrorHandling:
         # Should return empty list on error
         assert ingredients == []
 
-    @patch('backend.services.ingredient_service.SparqlService')
+    @patch('services.ingredient_service.SparqlService')
     def test_search_ingredients_empty_results(self, mock_sparql):
         """Test search_ingredients with no results"""
         mock_sparql_instance = Mock()
@@ -490,7 +496,7 @@ class TestIngredientServiceErrorHandling:
         
         assert ingredients == []
 
-    @patch('backend.services.ingredient_service.SparqlService')
+    @patch('services.ingredient_service.SparqlService')
     def test_get_ingredient_by_uri_invalid_uri(self, mock_sparql):
         """Test get_ingredient_by_uri with invalid URI"""
         mock_sparql_instance = Mock()
@@ -503,7 +509,7 @@ class TestIngredientServiceErrorHandling:
         
         assert ingredient is None
 
-    @patch('backend.services.ingredient_service.SparqlService')
+    @patch('services.ingredient_service.SparqlService')
     def test_get_ingredient_by_uri_both_services_fail(self, mock_sparql):
         """Test get_ingredient_by_uri when both local and DBpedia fail"""
         mock_sparql_instance = Mock()
@@ -516,7 +522,7 @@ class TestIngredientServiceErrorHandling:
         
         assert ingredient is None
 
-    @patch('backend.services.ingredient_service.SparqlService')
+    @patch('services.ingredient_service.SparqlService')
     def test_get_local_ingredient_uris_query_failure(self, mock_sparql):
         """Test _get_local_ingredient_uris when query fails"""
         mock_sparql_instance = Mock()
@@ -528,7 +534,7 @@ class TestIngredientServiceErrorHandling:
         
         assert uris == []
 
-    @patch('backend.services.ingredient_service.SparqlService')
+    @patch('services.ingredient_service.SparqlService')
     def test_query_local_ingredient_exception(self, mock_sparql):
         """Test _query_local_ingredient handles exceptions"""
         mock_sparql_instance = Mock()
@@ -564,8 +570,8 @@ class TestIngredientServiceErrorHandling:
 class TestGraphServiceErrorHandling:
     """Test error handling in GraphService"""
 
-    @patch('backend.services.graph_service.CocktailService')
-    @patch('backend.services.graph_service.IngredientService')
+    @patch('services.graph_service.CocktailService')
+    @patch('services.graph_service.IngredientService')
     def test_build_graph_cocktail_service_failure(self, mock_ingredient, mock_cocktail):
         """Test build_graph when CocktailService fails"""
         mock_cocktail_instance = Mock()
@@ -577,8 +583,8 @@ class TestGraphServiceErrorHandling:
         with pytest.raises(Exception, match="Failed to build graph"):
             service.build_graph()
 
-    @patch('backend.services.graph_service.CocktailService')
-    @patch('backend.services.graph_service.IngredientService')
+    @patch('services.graph_service.CocktailService')
+    @patch('services.graph_service.IngredientService')
     def test_build_graph_ingredient_service_failure(self, mock_ingredient, mock_cocktail):
         """Test build_graph when IngredientService fails"""
         mock_cocktail_instance = Mock()
@@ -594,8 +600,8 @@ class TestGraphServiceErrorHandling:
         with pytest.raises(Exception, match="Failed to build graph"):
             service.build_graph()
 
-    @patch('backend.services.graph_service.CocktailService')
-    @patch('backend.services.graph_service.IngredientService')
+    @patch('services.graph_service.CocktailService')
+    @patch('services.graph_service.IngredientService')
     def test_build_graph_empty_data(self, mock_ingredient, mock_cocktail):
         """Test build_graph with completely empty data"""
         mock_cocktail_instance = Mock()
@@ -612,13 +618,13 @@ class TestGraphServiceErrorHandling:
         assert len(graph.nodes) == 0
         assert len(graph.edges) == 0
 
-    @patch('backend.services.graph_service.CocktailService')
-    @patch('backend.services.graph_service.IngredientService')
+    @patch('services.graph_service.CocktailService')
+    @patch('services.graph_service.IngredientService')
     def test_build_graph_cocktail_with_none_parsed_ingredients(self, mock_ingredient, mock_cocktail):
         """Test build_graph with cocktail having None parsed_ingredients"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=None
         )
@@ -636,13 +642,13 @@ class TestGraphServiceErrorHandling:
         assert len(graph.nodes) == 1
         assert len(graph.edges) == 0
 
-    @patch('backend.services.graph_service.CocktailService')
-    @patch('backend.services.graph_service.IngredientService')
+    @patch('services.graph_service.CocktailService')
+    @patch('services.graph_service.IngredientService')
     def test_build_graph_ingredient_not_in_graph(self, mock_ingredient, mock_cocktail):
         """Test build_graph when ingredient node doesn't exist in graph"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime"]
         )
@@ -664,8 +670,8 @@ class TestGraphServiceErrorHandling:
         assert graph.has_edge("Mojito", "Rum")
         assert not graph.has_edge("Mojito", "Lime")
 
-    @patch('backend.services.graph_service.CocktailService')
-    @patch('backend.services.graph_service.IngredientService')
+    @patch('services.graph_service.CocktailService')
+    @patch('services.graph_service.IngredientService')
     def test_analyze_graph_build_failure(self, mock_ingredient, mock_cocktail):
         """Test analyze_graph when build_graph fails"""
         mock_cocktail_instance = Mock()
@@ -677,13 +683,13 @@ class TestGraphServiceErrorHandling:
         with pytest.raises(Exception, match="Failed to analyze graph"):
             service.analyze_graph()
 
-    @patch('backend.services.graph_service.CocktailService')
-    @patch('backend.services.graph_service.IngredientService')
+    @patch('services.graph_service.CocktailService')
+    @patch('services.graph_service.IngredientService')
     def test_analyze_graph_community_detection_failure(self, mock_ingredient, mock_cocktail):
         """Test analyze_graph when community detection fails"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=["Rum"]
         )
@@ -698,7 +704,7 @@ class TestGraphServiceErrorHandling:
         service = GraphService()
         
         # Mock networkx to fail during community detection
-        with patch('backend.services.graph_service.nx') as mock_nx:
+        with patch('services.graph_service.nx') as mock_nx:
             mock_graph = Mock()
             mock_nx.Graph.return_value = mock_graph
             mock_graph.nodes.return_value = {"Mojito": {"type": "cocktail"}, "Rum": {"type": "ingredient"}}
@@ -711,8 +717,8 @@ class TestGraphServiceErrorHandling:
             with pytest.raises(Exception, match="Failed to analyze graph"):
                 service.analyze_graph()
 
-    @patch('backend.services.graph_service.CocktailService')
-    @patch('backend.services.graph_service.IngredientService')
+    @patch('services.graph_service.CocktailService')
+    @patch('services.graph_service.IngredientService')
     def test_analyze_graph_empty_graph(self, mock_ingredient, mock_cocktail):
         """Test analyze_graph with empty graph"""
         mock_cocktail_instance = Mock()
@@ -729,8 +735,8 @@ class TestGraphServiceErrorHandling:
         assert result["metrics"]["degree_centrality"] == {}
         assert result["communities"] == {}
 
-    @patch('backend.services.graph_service.CocktailService')
-    @patch('backend.services.graph_service.IngredientService')
+    @patch('services.graph_service.CocktailService')
+    @patch('services.graph_service.IngredientService')
     def test_visualize_graph_build_failure(self, mock_ingredient, mock_cocktail):
         """Test visualize_graph when build_graph fails"""
         mock_cocktail_instance = Mock()
@@ -742,8 +748,8 @@ class TestGraphServiceErrorHandling:
         with pytest.raises(Exception, match="Failed to visualize graph"):
             service.visualize_graph()
 
-    @patch('backend.services.graph_service.CocktailService')
-    @patch('backend.services.graph_service.IngredientService')
+    @patch('services.graph_service.CocktailService')
+    @patch('services.graph_service.IngredientService')
     def test_analyze_disjoint_components_build_failure(self, mock_ingredient, mock_cocktail):
         """Test analyze_disjoint_components when build_graph fails"""
         mock_cocktail_instance = Mock()
@@ -755,8 +761,8 @@ class TestGraphServiceErrorHandling:
         with pytest.raises(Exception, match="Failed to analyze disjoint components"):
             service.analyze_disjoint_components()
 
-    @patch('backend.services.graph_service.CocktailService')
-    @patch('backend.services.graph_service.IngredientService')
+    @patch('services.graph_service.CocktailService')
+    @patch('services.graph_service.IngredientService')
     def test_export_graph_build_failure(self, mock_ingredient, mock_cocktail):
         """Test export_graph when build_graph fails"""
         mock_cocktail_instance = Mock()
@@ -768,13 +774,13 @@ class TestGraphServiceErrorHandling:
         with pytest.raises(Exception, match="Failed to export graph"):
             service.export_graph()
 
-    @patch('backend.services.graph_service.CocktailService')
-    @patch('backend.services.graph_service.IngredientService')
+    @patch('services.graph_service.CocktailService')
+    @patch('services.graph_service.IngredientService')
     def test_export_graph_networkx_failure(self, mock_ingredient, mock_cocktail):
         """Test export_graph when networkx write_gexf fails"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=["Rum"]
         )
@@ -789,7 +795,7 @@ class TestGraphServiceErrorHandling:
         service = GraphService()
         
         # Mock networkx to fail during export
-        with patch('backend.services.graph_service.nx') as mock_nx:
+        with patch('services.graph_service.nx') as mock_nx:
             mock_graph = Mock()
             mock_nx.Graph.return_value = mock_graph
             mock_graph.nodes.return_value = {"Mojito": {"type": "cocktail"}, "Rum": {"type": "ingredient"}}
@@ -803,8 +809,8 @@ class TestGraphServiceErrorHandling:
 class TestPlannerServiceErrorHandling:
     """Test error handling in PlannerService"""
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_init_cocktail_service_failure(self, mock_ingredient, mock_cocktail):
         """Test initialization when CocktailService fails"""
         mock_cocktail_instance = Mock()
@@ -814,8 +820,8 @@ class TestPlannerServiceErrorHandling:
         with pytest.raises(Exception):
             PlannerService()
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_init_empty_cocktails(self, mock_ingredient, mock_cocktail):
         """Test initialization with no cocktails"""
         mock_cocktail_instance = Mock()
@@ -825,13 +831,13 @@ class TestPlannerServiceErrorHandling:
         service = PlannerService()
         assert service.cocktail_ingredients == {}
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_init_cocktail_with_none_parsed_ingredients(self, mock_ingredient, mock_cocktail):
         """Test initialization with cocktail having None parsed_ingredients"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=None
         )
@@ -841,8 +847,8 @@ class TestPlannerServiceErrorHandling:
         service = PlannerService()
         assert service.cocktail_ingredients["Mojito"] == set()
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_optimize_party_mode_zero_ingredients(self, mock_ingredient, mock_cocktail):
         """Test optimize_party_mode with zero ingredients"""
         mock_cocktail_instance = Mock()
@@ -854,8 +860,8 @@ class TestPlannerServiceErrorHandling:
         
         assert result == {'selected_ingredients': [], 'covered_cocktails': []}
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_optimize_party_mode_negative_ingredients(self, mock_ingredient, mock_cocktail):
         """Test optimize_party_mode with negative ingredients"""
         mock_cocktail_instance = Mock()
@@ -867,13 +873,13 @@ class TestPlannerServiceErrorHandling:
         
         assert result == {'selected_ingredients': [], 'covered_cocktails': []}
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_optimize_party_mode_more_ingredients_than_available(self, mock_ingredient, mock_cocktail):
         """Test optimize_party_mode requesting more ingredients than available"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime"]
         )
@@ -886,18 +892,18 @@ class TestPlannerServiceErrorHandling:
         assert len(result['selected_ingredients']) <= 2  # Should not exceed available
         assert len(result['covered_cocktails']) >= 0
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_optimize_party_mode_no_overlap(self, mock_ingredient, mock_cocktail):
         """Test optimize_party_mode with cocktails having no ingredient overlap"""
         mock_cocktail_instance = Mock()
         cocktail1 = Cocktail(
-            id="http://example.com/cocktail1",
+            uri="http://example.com/cocktail1", id="cocktail1",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime"]
         )
         cocktail2 = Cocktail(
-            id="http://example.com/cocktail2",
+            uri="http://example.com/cocktail2", id="cocktail2",
             name="Martini",
             parsed_ingredients=["Gin", "Vermouth"]
         )
@@ -912,18 +918,18 @@ class TestPlannerServiceErrorHandling:
         # Should cover both cocktails since we're selecting 2 ingredients
         assert len(result['covered_cocktails']) >= 1
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_optimize_party_mode_all_same_ingredients(self, mock_ingredient, mock_cocktail):
         """Test optimize_party_mode with all cocktails having same ingredients"""
         mock_cocktail_instance = Mock()
         cocktail1 = Cocktail(
-            id="http://example.com/cocktail1",
+            uri="http://example.com/cocktail1", id="cocktail1",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime", "Mint"]
         )
         cocktail2 = Cocktail(
-            id="http://example.com/cocktail2",
+            uri="http://example.com/cocktail2", id="cocktail2",
             name="Daiquiri",
             parsed_ingredients=["Rum", "Lime", "Sugar"]
         )
@@ -937,8 +943,8 @@ class TestPlannerServiceErrorHandling:
         assert len(result['selected_ingredients']) == 1
         assert len(result['covered_cocktails']) == 2
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_optimize_playlist_mode_empty_list(self, mock_ingredient, mock_cocktail):
         """Test optimize_playlist_mode with empty cocktail list"""
         mock_cocktail_instance = Mock()
@@ -950,13 +956,13 @@ class TestPlannerServiceErrorHandling:
         
         assert result == {'selected_ingredients': [], 'covered_cocktails': []}
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_optimize_playlist_mode_nonexistent_cocktails(self, mock_ingredient, mock_cocktail):
         """Test optimize_playlist_mode with non-existent cocktail names"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime"]
         )
@@ -968,18 +974,18 @@ class TestPlannerServiceErrorHandling:
         
         assert result == {'selected_ingredients': [], 'covered_cocktails': []}
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_optimize_playlist_mode_partial_match(self, mock_ingredient, mock_cocktail):
         """Test optimize_playlist_mode with some cocktails existing and some not"""
         mock_cocktail_instance = Mock()
         cocktail1 = Cocktail(
-            id="http://example.com/cocktail1",
+            uri="http://example.com/cocktail1", id="cocktail1",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime"]
         )
         cocktail2 = Cocktail(
-            id="http://example.com/cocktail2",
+            uri="http://example.com/cocktail2", id="cocktail2",
             name="Martini",
             parsed_ingredients=["Gin", "Vermouth"]
         )
@@ -993,13 +999,13 @@ class TestPlannerServiceErrorHandling:
         assert len(result['covered_cocktails']) == 1
         assert "Mojito" in result['covered_cocktails']
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_optimize_playlist_mode_uncoverable_cocktail(self, mock_ingredient, mock_cocktail):
         """Test optimize_playlist_mode with a cocktail that cannot be fully covered"""
         mock_cocktail_instance = Mock()
         cocktail = Cocktail(
-            id="http://example.com/cocktail",
+            uri="http://example.com/cocktail", id="cocktail",
             name="Complex",
             parsed_ingredients=["Ing1", "Ing2", "Ing3", "Ing4", "Ing5"]
         )
@@ -1015,18 +1021,18 @@ class TestPlannerServiceErrorHandling:
         # May not fully cover the cocktail
         assert len(result['covered_cocktails']) <= 1
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_optimize_playlist_mode_single_ingredient_multiple_cocktails(self, mock_ingredient, mock_cocktail):
         """Test optimize_playlist_mode where one ingredient covers multiple cocktails"""
         mock_cocktail_instance = Mock()
         cocktail1 = Cocktail(
-            id="http://example.com/cocktail1",
+            uri="http://example.com/cocktail1", id="cocktail1",
             name="Mojito",
             parsed_ingredients=["Rum", "Lime"]
         )
         cocktail2 = Cocktail(
-            id="http://example.com/cocktail2",
+            uri="http://example.com/cocktail2", id="cocktail2",
             name="Daiquiri",
             parsed_ingredients=["Rum", "Sugar"]
         )
@@ -1040,18 +1046,18 @@ class TestPlannerServiceErrorHandling:
         assert "Rum" in result['selected_ingredients']
         assert len(result['covered_cocktails']) == 2
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_optimize_playlist_mode_no_progress_possible(self, mock_ingredient, mock_cocktail):
         """Test optimize_playlist_mode when no ingredient can cover remaining cocktails"""
         mock_cocktail_instance = Mock()
         cocktail1 = Cocktail(
-            id="http://example.com/cocktail1",
+            uri="http://example.com/cocktail1", id="cocktail1",
             name="Cocktail1",
             parsed_ingredients=["Ing1"]
         )
         cocktail2 = Cocktail(
-            id="http://example.com/cocktail2",
+            uri="http://example.com/cocktail2", id="cocktail2",
             name="Cocktail2",
             parsed_ingredients=["Ing2"]
         )
@@ -1069,9 +1075,9 @@ class TestPlannerServiceErrorHandling:
 class TestCrossServiceErrorHandling:
     """Test error scenarios that span multiple services"""
 
-    @patch('backend.services.cocktail_service.SparqlService')
-    @patch('backend.services.cocktail_service.IngredientService')
-    @patch('backend.services.cocktail_service.Graph')
+    @patch('services.cocktail_service.SparqlService')
+    @patch('services.cocktail_service.IngredientService')
+    @patch('services.cocktail_service.Graph')
     def test_cocktail_service_chain_failure(self, mock_graph, mock_ingredient, mock_sparql):
         """Test when CocktailService depends on failing SparqlService"""
         mock_sparql_instance = Mock()
@@ -1098,8 +1104,8 @@ class TestCrossServiceErrorHandling:
         assert service.get_feasible_cocktails("user1") == []
         assert service.get_almost_feasible_cocktails("user1") == []
 
-    @patch('backend.services.graph_service.CocktailService')
-    @patch('backend.services.graph_service.IngredientService')
+    @patch('services.graph_service.CocktailService')
+    @patch('services.graph_service.IngredientService')
     def test_graph_service_chain_failure(self, mock_ingredient, mock_cocktail):
         """Test when GraphService depends on failing services"""
         mock_cocktail_instance = Mock()
@@ -1121,8 +1127,8 @@ class TestCrossServiceErrorHandling:
         with pytest.raises(Exception, match="Failed to visualize graph"):
             service.visualize_graph()
 
-    @patch('backend.services.planner_service.CocktailService')
-    @patch('backend.services.planner_service.IngredientService')
+    @patch('services.planner_service.CocktailService')
+    @patch('services.planner_service.IngredientService')
     def test_planner_service_chain_failure(self, mock_ingredient, mock_cocktail):
         """Test when PlannerService depends on failing CocktailService"""
         mock_cocktail_instance = Mock()
@@ -1133,7 +1139,7 @@ class TestCrossServiceErrorHandling:
         with pytest.raises(Exception):
             PlannerService()
 
-    @patch('backend.services.ingredient_service.SparqlService')
+    @patch('services.ingredient_service.SparqlService')
     def test_ingredient_service_fallback_to_dbpedia(self, mock_sparql):
         """Test IngredientService fallback when local queries fail"""
         mock_sparql_instance = Mock()
@@ -1158,9 +1164,9 @@ class TestCrossServiceErrorHandling:
         assert len(ingredients) == 1
         assert ingredients[0].name == "Vodka"
 
-    @patch('backend.services.cocktail_service.SparqlService')
-    @patch('backend.services.cocktail_service.IngredientService')
-    @patch('backend.services.cocktail_service.Graph')
+    @patch('services.cocktail_service.SparqlService')
+    @patch('services.cocktail_service.IngredientService')
+    @patch('services.cocktail_service.Graph')
     def test_cocktail_service_partial_data_recovery(self, mock_graph, mock_ingredient, mock_sparql):
         """Test CocktailService recovery with partial data"""
         mock_sparql_instance = Mock()

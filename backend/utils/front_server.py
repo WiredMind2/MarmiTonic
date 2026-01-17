@@ -11,9 +11,14 @@ class FrontendHTTPRequestHandler(SimpleHTTPRequestHandler):
 
 def start_frontend_server():
     server_address = ('', 8080)
-    httpd = HTTPServer(server_address, FrontendHTTPRequestHandler)
-    print(f"Starting frontend server on: http://localhost:8080")
-    httpd.serve_forever()
+    try:
+        httpd = HTTPServer(server_address, FrontendHTTPRequestHandler)
+        print(f"Starting frontend server on: http://localhost:8080")
+        thread = threading.Thread(target=httpd.serve_forever, daemon=True)
+        thread.start()
+    except Exception as e:
+        print(f"Frontend server already running or failed: {e}")
+
 
 # Start frontend server in a separate thread only if not already started
 frontend_thread = None

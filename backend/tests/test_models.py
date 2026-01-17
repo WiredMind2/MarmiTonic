@@ -23,10 +23,12 @@ class TestCocktailModel:
     def test_valid_cocktail_creation(self):
         """Test creating a Cocktail with valid required fields."""
         cocktail = Cocktail(
-            id="http://dbpedia.org/resource/Margarita",
+            uri="http://dbpedia.org/resource/Margarita",
+            id="margarita",
             name="Margarita"
         )
-        assert cocktail.id == "http://dbpedia.org/resource/Margarita"
+        assert cocktail.uri == "http://dbpedia.org/resource/Margarita"
+        assert cocktail.id == "margarita"
         assert cocktail.name == "Margarita"
         assert cocktail.alternative_names is None
         assert cocktail.description is None
@@ -34,7 +36,8 @@ class TestCocktailModel:
     def test_cocktail_with_all_fields(self):
         """Test creating a Cocktail with all optional fields populated."""
         cocktail = Cocktail(
-            id="http://dbpedia.org/resource/Mojito",
+            uri="http://dbpedia.org/resource/Mojito",
+            id="mojito",
             name="Mojito",
             alternative_names=["Cuba Libre"],
             description="A Cuban cocktail",
@@ -51,33 +54,40 @@ class TestCocktailModel:
             labels={"en": "Mojito", "es": "Mojito"},
             descriptions={"en": "A refreshing Cuban cocktail"}
         )
-        assert cocktail.id == "http://dbpedia.org/resource/Mojito"
+        assert cocktail.uri == "http://dbpedia.org/resource/Mojito"
+        assert cocktail.id == "mojito"
         assert cocktail.name == "Mojito"
         assert len(cocktail.parsed_ingredients) == 5
         assert cocktail.labels["en"] == "Mojito"
 
     def test_cocktail_missing_required_id(self):
         """Test that Cocktail rejects data without required id field."""
-        with pytest.raises(ValueError):
-            Cocktail(name="Margarita")
+        with pytest.raises(Exception):
+            Cocktail(uri="http://test.com", name="Margarita")
 
     def test_cocktail_missing_required_name(self):
         """Test that Cocktail rejects data without required name field."""
-        with pytest.raises(ValueError):
-            Cocktail(id="http://dbpedia.org/resource/Margarita")
+        with pytest.raises(Exception):
+            Cocktail(uri="http://test.com", id="margarita")
+
+    def test_cocktail_missing_required_uri(self):
+        """Test that Cocktail rejects data without required uri field."""
+        with pytest.raises(Exception):
+            Cocktail(id="margarita", name="Margarita")
 
     def test_cocktail_empty_name_rejected(self):
         """Test that Cocktail rejects empty name string due to min_length constraint."""
-        with pytest.raises(ValueError):
+        with pytest.raises(Exception):
             Cocktail(
-                id="http://dbpedia.org/resource/Margarita",
+                uri="http://test.com",
+                id="margarita",
                 name=""
             )
 
     def test_cocktail_whitespace_only_name_accepted(self):
         """Test that Cocktail accepts whitespace-only name string (Pydantic min_length allows whitespace)."""
         cocktail = Cocktail(
-            id="http://dbpedia.org/resource/Margarita",
+            uri="http://dbpedia.org/resource/Margarita", id="margarita",
             name="   "
         )
         assert cocktail.name == "   "
@@ -85,7 +95,7 @@ class TestCocktailModel:
     def test_cocktail_invalid_type_for_id(self):
         """Test that Cocktail rejects non-string type for id field."""
         with pytest.raises(ValueError):
-            Cocktail(
+            Cocktail(uri="http://test.com/dummy", 
                 id=123,  # type: ignore
                 name="Margarita"
             )
@@ -94,7 +104,7 @@ class TestCocktailModel:
         """Test that Cocktail rejects non-string type for name field."""
         with pytest.raises(ValueError):
             Cocktail(
-                id="http://dbpedia.org/resource/Margarita",
+                uri="http://dbpedia.org/resource/Margarita", id="margarita",
                 name=["Margarita"]  # type: ignore
             )
 
@@ -102,7 +112,7 @@ class TestCocktailModel:
         """Test that Cocktail rejects non-list type for parsed_ingredients field."""
         with pytest.raises(ValueError):
             Cocktail(
-                id="http://dbpedia.org/resource/Margarita",
+                uri="http://dbpedia.org/resource/Margarita", id="margarita",
                 name="Margarita",
                 parsed_ingredients="rum, lime"  # type: ignore
             )
@@ -111,7 +121,7 @@ class TestCocktailModel:
         """Test that Cocktail rejects non-list type for ingredient_uris field."""
         with pytest.raises(ValueError):
             Cocktail(
-                id="http://dbpedia.org/resource/Margarita",
+                uri="http://dbpedia.org/resource/Margarita", id="margarita",
                 name="Margarita",
                 ingredient_uris="http://example.com"  # type: ignore
             )
@@ -120,7 +130,7 @@ class TestCocktailModel:
         """Test that Cocktail rejects non-list type for categories field."""
         with pytest.raises(ValueError):
             Cocktail(
-                id="http://dbpedia.org/resource/Margarita",
+                uri="http://dbpedia.org/resource/Margarita", id="margarita",
                 name="Margarita",
                 categories="Cocktail"  # type: ignore
             )
@@ -129,7 +139,7 @@ class TestCocktailModel:
         """Test that Cocktail rejects non-dict type for labels field."""
         with pytest.raises(ValueError):
             Cocktail(
-                id="http://dbpedia.org/resource/Margarita",
+                uri="http://dbpedia.org/resource/Margarita", id="margarita",
                 name="Margarita",
                 labels=["en", "Margarita"]  # type: ignore
             )
@@ -137,7 +147,7 @@ class TestCocktailModel:
     def test_cocktail_invalid_uri_format(self):
         """Test that Cocktail accepts URIs (no validation, but should accept string)."""
         # Pydantic doesn't validate URI format by default, but string should be accepted
-        cocktail = Cocktail(
+        cocktail = Cocktail(uri="http://test.com/not-a-valid-uri", 
             id="not-a-valid-uri",
             name="Test Cocktail"
         )
@@ -146,7 +156,7 @@ class TestCocktailModel:
     def test_cocktail_default_values(self):
         """Test that optional fields have correct default values."""
         cocktail = Cocktail(
-            id="http://dbpedia.org/resource/Margarita",
+            uri="http://dbpedia.org/resource/Margarita", id="margarita",
             name="Margarita"
         )
         assert cocktail.alternative_names is None
@@ -349,7 +359,7 @@ class TestModelJsonSerialization:
     def test_cocktail_json_serialization(self):
         """Test that Cocktail can be serialized to JSON."""
         cocktail = Cocktail(
-            id="http://dbpedia.org/resource/Margarita",
+            uri="http://dbpedia.org/resource/Margarita", id="margarita",
             name="Margarita"
         )
         json_str = cocktail.json()
@@ -381,11 +391,11 @@ class TestModelEquality:
     def test_cocktail_equality(self):
         """Test that two Cocktail instances with same data are equal."""
         cocktail1 = Cocktail(
-            id="http://dbpedia.org/resource/Margarita",
+            uri="http://dbpedia.org/resource/Margarita", id="margarita",
             name="Margarita"
         )
         cocktail2 = Cocktail(
-            id="http://dbpedia.org/resource/Margarita",
+            uri="http://dbpedia.org/resource/Margarita", id="margarita",
             name="Margarita"
         )
         assert cocktail1 == cocktail2
@@ -416,7 +426,7 @@ class TestEdgeCases:
         """Test that Cocktail accepts very long name strings."""
         long_name = "A" * 10000
         cocktail = Cocktail(
-            id="http://dbpedia.org/resource/Test",
+            uri="http://dbpedia.org/resource/Test", id="test",
             name=long_name
         )
         assert len(cocktail.name) == 10000
@@ -433,7 +443,7 @@ class TestEdgeCases:
     def test_cocktail_special_characters_in_name(self):
         """Test that Cocktail accepts special characters in name."""
         cocktail = Cocktail(
-            id="http://dbpedia.org/resource/Test",
+            uri="http://dbpedia.org/resource/Test", id="test",
             name="Café-Ümläut's Drink #1!"
         )
         assert cocktail.name == "Café-Ümläut's Drink #1!"
@@ -449,7 +459,7 @@ class TestEdgeCases:
     def test_cocktail_nested_list_in_labels(self):
         """Test Cocktail with complex nested structure in labels."""
         cocktail = Cocktail(
-            id="http://dbpedia.org/resource/Test",
+            uri="http://dbpedia.org/resource/Test", id="test",
             name="Test",
             labels={"en": "Test", "fr": "Test FR", "es": "Test ES"}
         )

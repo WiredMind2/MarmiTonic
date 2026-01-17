@@ -1,22 +1,26 @@
-from services.sparql_service import SparqlService
-from models.ingredient import Ingredient
+from .sparql_service import SparqlService
+from ..models.ingredient import Ingredient
 from typing import List, Dict
+from pathlib import Path
+from ..utils.graph_loader import get_shared_graph
+from ..data.ttl_parser import get_all_ingredients as get_local_ingredients
 
 class IngredientService:
     def __init__(self):
+        # SparqlService now defaults to using the shared graph
         self.sparql_service = SparqlService()
         self.inventories: Dict[str, List[str]] = {}  # user_id -> list of ingredient names
 
     def get_all_ingredients(self) -> List[Ingredient]:
-        # First, get unique ingredient URIs from local cocktails
-        local_uris = self._get_local_ingredient_uris()
+        # First, load parsed ingredients from the local TTL parser
         ingredients = []
-
-        # Query local graph for ingredients mentioned in cocktails
-        for uri in local_uris:
-            local_ing = self._query_local_ingredient(uri)
-            if local_ing:
-                ingredients.append(local_ing)
+        try:
+            local_ings = get_local_ingredients()
+            if local_ings:
+                ingredients.extend(local_ings)
+        except Exception:
+            # Fall back to empty list if parser fails
+            local_ings = []
 
         # If we have less than 50, supplement with DBpedia
         if len(ingredients) < 50:

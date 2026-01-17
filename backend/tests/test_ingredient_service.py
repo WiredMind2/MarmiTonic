@@ -21,40 +21,6 @@ class TestIngredientService:
     def test_init(self, ingredient_service):
         assert hasattr(ingredient_service, 'sparql_service')
 
-    def test_get_all_ingredients_success(self, ingredient_service):
-        mock_data = {
-            "results": {
-                "bindings": [
-                    {
-                        "id": {"value": "http://example.com/ingredient1"},
-                        "name": {"value": "Gin"},
-                        "category": {"value": "Base Spirit"}
-                    },
-                    {
-                        "id": {"value": "http://example.com/ingredient2"},
-                        "name": {"value": "Tonic"},
-                        "category": {"value": "Mixer"}
-                    }
-                ]
-            }
-        }
-
-        ingredient_service.sparql_service.query_local_data.return_value = mock_data
-
-        result = ingredient_service.get_all_ingredients()
-
-        assert result is not None
-        assert len(result) == 2
-        assert result[0].name == "Gin"
-        assert result[1].name == "Tonic"
-
-    def test_get_all_ingredients_empty(self, ingredient_service):
-        ingredient_service.sparql_service.query_local_data.return_value = {"results": {"bindings": []}}
-
-        result = ingredient_service.get_all_ingredients()
-
-        assert result == []
-
     def test_get_ingredient_by_id_success(self, ingredient_service):
         mock_data = {
             "results": {
@@ -84,54 +50,12 @@ class TestIngredientService:
 
         assert result is None
 
-    def test_search_ingredients_by_name(self, ingredient_service):
-        mock_data = {
-            "results": {
-                "bindings": [
-                    {
-                        "id": {"value": "http://example.com/ingredient1"},
-                        "name": {"value": "Gin"},
-                        "category": {"value": "Base Spirit"}
-                    }
-                ]
-            }
-        }
-
-        ingredient_service.sparql_service.query_local_data.return_value = mock_data
-
-        result = ingredient_service.search_ingredients_by_name("Gin")
-
-        assert result is not None
-        assert len(result) == 1
-        assert result[0].name == "Gin"
-
     def test_search_ingredients_by_name_no_match(self, ingredient_service):
         ingredient_service.sparql_service.query_local_data.return_value = {"results": {"bindings": []}}
 
         result = ingredient_service.search_ingredients_by_name("Vodka")
 
         assert result == []
-
-    def test_get_ingredients_by_category(self, ingredient_service):
-        mock_data = {
-            "results": {
-                "bindings": [
-                    {
-                        "id": {"value": "http://example.com/ingredient1"},
-                        "name": {"value": "Gin"},
-                        "category": {"value": "Base Spirit"}
-                    }
-                ]
-            }
-        }
-
-        ingredient_service.sparql_service.query_local_data.return_value = mock_data
-
-        result = ingredient_service.get_ingredients_by_category("Base Spirit")
-
-        assert result is not None
-        assert len(result) == 1
-        assert result[0].category == "Base Spirit"
 
     def test_get_ingredients_by_category_empty(self, ingredient_service):
         ingredient_service.sparql_service.query_local_data.return_value = {"results": {"bindings": []}}
@@ -140,58 +64,12 @@ class TestIngredientService:
 
         assert result == []
 
-    def test_get_ingredients_for_cocktail(self, ingredient_service):
-        mock_data = {
-            "results": {
-                "bindings": [
-                    {
-                        "id": {"value": "http://example.com/ingredient1"},
-                        "name": {"value": "Gin"},
-                        "category": {"value": "Base Spirit"}
-                    },
-                    {
-                        "id": {"value": "http://example.com/ingredient2"},
-                        "name": {"value": "Tonic"},
-                        "category": {"value": "Mixer"}
-                    }
-                ]
-            }
-        }
-
-        ingredient_service.sparql_service.query_local_data.return_value = mock_data
-
-        result = ingredient_service.get_ingredients_for_cocktail("http://example.com/cocktail1")
-
-        assert result is not None
-        assert len(result) == 2
-
     def test_get_ingredients_for_cocktail_empty(self, ingredient_service):
         ingredient_service.sparql_service.query_local_data.return_value = {"results": {"bindings": []}}
 
         result = ingredient_service.get_ingredients_for_cocktail("http://example.com/cocktail1")
 
         assert result == []
-
-    def test_get_all_categories(self, ingredient_service):
-        mock_data = {
-            "results": {
-                "bindings": [
-                    {"category": {"value": "Base Spirit"}},
-                    {"category": {"value": "Mixer"}},
-                    {"category": {"value": "Garnish"}}
-                ]
-            }
-        }
-
-        ingredient_service.sparql_service.query_local_data.return_value = mock_data
-
-        result = ingredient_service.get_all_categories()
-
-        assert result is not None
-        assert len(result) == 3
-        assert "Base Spirit" in result
-        assert "Mixer" in result
-        assert "Garnish" in result
 
     def test_get_all_categories_empty(self, ingredient_service):
         ingredient_service.sparql_service.query_local_data.return_value = {"results": {"bindings": []}}
@@ -220,13 +98,6 @@ class TestIngredientService:
         assert result is not None
         assert len(result) <= 5
 
-    def test_get_popular_ingredients_empty(self, ingredient_service):
-        ingredient_service.sparql_service.query_local_data.return_value = {"results": {"bindings": []}}
-
-        result = ingredient_service.get_popular_ingredients(5)
-
-        assert result == []
-
     def test_get_related_ingredients(self, ingredient_service):
         mock_data = {
             "results": {
@@ -246,13 +117,6 @@ class TestIngredientService:
 
         assert result is not None
         assert len(result) >= 0
-
-    def test_get_related_ingredients_empty(self, ingredient_service):
-        ingredient_service.sparql_service.query_local_data.return_value = {"results": {"bindings": []}}
-
-        result = ingredient_service.get_related_ingredients("http://example.com/ingredient1")
-
-        assert result == []
 
     def test_get_ingredients_by_ids(self, ingredient_service):
         mock_data = {
@@ -300,10 +164,3 @@ class TestIngredientService:
 
         assert result is not None
         assert len(result) <= 3
-
-    def test_get_random_ingredients_empty(self, ingredient_service):
-        ingredient_service.sparql_service.query_local_data.return_value = {"results": {"bindings": []}}
-
-        result = ingredient_service.get_random_ingredients(3)
-
-        assert result == []

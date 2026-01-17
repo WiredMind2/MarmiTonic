@@ -6,8 +6,8 @@ import numpy as np
 from collections import defaultdict
 
 # Import force-directed layout components
-from .force_directed_graphs.layout import compute_layout
-from .force_directed_graphs.config import REPULSIVE_MULTIPLIER, ATTRACTIVE_MULTIPLIER
+from utils.force_directed_graphs.layout import compute_layout
+from utils.force_directed_graphs.config import REPULSIVE_MULTIPLIER, ATTRACTIVE_MULTIPLIER
 
 def create_graph(data):
     """
