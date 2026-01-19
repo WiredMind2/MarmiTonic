@@ -165,7 +165,7 @@ class D3DisjointForceGraph {
         console.log(`Node clicked: ${d.name} (${d.type})`);
         if (d.type === 'cocktail' && d.id) {
             console.log(`Navigating to cocktail detail page for ID: ${d.id}`);
-            window.location.href = `cocktail-detail.html?id=${d.id}`;
+            window.location.href = `cocktail-detail.html?id=${encodeURIComponent(d.id)}`;
         }
     }
 

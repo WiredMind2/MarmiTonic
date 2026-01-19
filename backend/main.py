@@ -1,6 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.routes import cocktails, ingredients, planner, llm
+from backend.routes.cocktails import router as cocktails
+from backend.routes.ingredients import router as ingredients
+from backend.routes.planner import router as planner
+from backend.routes.llm import router as llm
 from backend.routes.graphs import router as graphs
 from backend.utils.front_server import start_frontend_server_once
 from backend.utils.graph_loader import get_shared_graph

@@ -219,7 +219,7 @@ class GraphVisualizationPage {
         
         // Add cocktail node
         nodes.push({
-            id: cocktail.name,
+            id: cocktail.id,
             name: cocktail.name,
             type: 'cocktail'
         });
@@ -241,7 +241,7 @@ class GraphVisualizationPage {
                 
                 // Add link
                 links.push({
-                    source: cocktail.name,
+                    source: cocktail.id,
                     target: ingredientName,
                     value: 1
                 });
@@ -258,13 +258,13 @@ class GraphVisualizationPage {
         
         // Add all cocktails
         cocktails.forEach(cocktail => {
-            if (!nodeIds.has(cocktail.name)) {
+            if (!nodeIds.has(cocktail.id)) {
                 nodes.push({
-                    id: cocktail.name,
+                    id: cocktail.id,
                     name: cocktail.name,
                     type: 'cocktail'
                 });
-                nodeIds.add(cocktail.name);
+                nodeIds.add(cocktail.id);
             }
         });
         
@@ -287,7 +287,7 @@ class GraphVisualizationPage {
                     
                     // Add link
                     links.push({
-                        source: cocktail.name,
+                        source: cocktail.id,
                         target: ingredientName,
                         value: 1
                     });

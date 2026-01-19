@@ -322,6 +322,25 @@ function initializeInstructionSteps() {
     });
 }
 
+// Update Difficulty based on ingredient count
+function updateDifficulty(ingredients) {
+    const difficultyEl = document.getElementById('difficulty');
+    if (!difficultyEl) return;
+    
+    const ingredientCount = ingredients ? ingredients.length : 0;
+    let difficulty = '';
+    
+    if (ingredientCount <= 3) {
+        difficulty = 'Facile';
+    } else if (ingredientCount >= 4 && ingredientCount <= 6) {
+        difficulty = 'Moyen';
+    } else { // 7+
+        difficulty = 'Difficile';
+    }
+    
+    difficultyEl.textContent = difficulty;
+}
+
 // Load Cocktail Data
 async function loadCocktailData(cocktailId) {
     try {
@@ -356,6 +375,9 @@ function populateCocktailData(data) {
     // Update title
     const nameEl = document.getElementById('cocktailName');
     if (nameEl) nameEl.textContent = data.name;
+    
+    // Update difficulty based on ingredient count
+    updateDifficulty(data.parsed_ingredients);
     
     // Update meta information
     const servedEl = document.getElementById('servedType');
