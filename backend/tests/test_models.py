@@ -222,14 +222,7 @@ class TestIngredientModel:
                 name=123  # type: ignore
             )
 
-    def test_ingredient_invalid_type_for_alternative_names(self):
-        """Test that Ingredient rejects non-list type for alternative_names field."""
-        with pytest.raises(ValueError):
-            Ingredient(
-                id="http://dbpedia.org/resource/Rum",
-                name="Rum",
-                alternative_names="Genever"  # type: ignore
-            )
+
 
     def test_ingredient_invalid_type_for_categories(self):
         """Test that Ingredient rejects non-list type for categories field."""
@@ -240,23 +233,9 @@ class TestIngredientModel:
                 categories="Spirits"  # type: ignore
             )
 
-    def test_ingredient_invalid_type_for_related_concepts(self):
-        """Test that Ingredient rejects non-list type for related_concepts field."""
-        with pytest.raises(ValueError):
-            Ingredient(
-                id="http://dbpedia.org/resource/Rum",
-                name="Rum",
-                related_concepts={"0": "Juniper"}  # type: ignore
-            )
 
-    def test_ingredient_invalid_type_for_labels(self):
-        """Test that Ingredient rejects non-dict type for labels field."""
-        with pytest.raises(ValueError):
-            Ingredient(
-                id="http://dbpedia.org/resource/Rum",
-                name="Rum",
-                labels=["en", "Rum"]  # type: ignore
-            )
+
+
 
     def test_ingredient_default_values(self):
         """Test that optional fields have correct default values."""
@@ -264,13 +243,9 @@ class TestIngredientModel:
             id="http://dbpedia.org/resource/Rum",
             name="Rum"
         )
-        assert ingredient.alternative_names is None
         assert ingredient.description is None
         assert ingredient.image is None
         assert ingredient.categories is None
-        assert ingredient.related_concepts is None
-        assert ingredient.labels is None
-        assert ingredient.descriptions is None
 
 
 class TestSparqlQueryModel:
@@ -429,22 +404,13 @@ class TestEdgeCases:
         )
         assert ingredient.name == "Sucre de canne"
 
-    def test_cocktail_nested_list_in_labels(self):
-        """Test Cocktail with complex nested structure in labels."""
-        cocktail = Cocktail(
-            uri="http://dbpedia.org/resource/Test", id="test",
-            name="Test",
-            labels={"en": "Test", "fr": "Test FR", "es": "Test ES"}
-        )
-        assert len(cocktail.labels) == 3
+
 
     def test_ingredient_empty_lists(self):
         """Test Ingredient with empty lists for optional list fields."""
         ingredient = Ingredient(
             id="http://dbpedia.org/resource/Test",
             name="Test",
-            alternative_names=[],
             categories=[]
         )
-        assert ingredient.alternative_names == []
         assert ingredient.categories == []

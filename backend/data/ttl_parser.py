@@ -333,18 +333,13 @@ class IBADataParser:
                 uri=cocktail_uri,
                 id=self.generate_slug(cocktail_name),
                 name=cocktail_name,
-                alternative_names=[str(row.labelFr)] if row.labelFr else None,
                 description=str(row.desc) if row.desc else None,
                 image=str(row.img) if row.img else None,
                 ingredients=ingredients_raw,
                 parsed_ingredients=parsed_ingredients,
                 preparation=str(row.prep) if row.prep else None,
-                served=str(row.served) if row.served else None,
-                garnish=str(row.garnish) if row.garnish else None,
                 source_link=str(row.sourcelink) if row.sourcelink else None,
-                categories=categories if categories else None,
-                labels=labels if labels else None,
-                descriptions=descriptions if descriptions else None
+                categories=categories if categories else None
             )
             cocktails_dict[cocktail_uri] = cocktail
         
@@ -411,8 +406,6 @@ class IBADataParser:
         # Autres propriétés DBpedia
         for prop, key in [
             (DBP.prep, "preparation"),
-            (DBP.garnish, "garnish"),
-            (DBP.served, "served"),
             (DBP.name, "name"),
             (DBP.sourcelink, "sourcelink")
         ]:
@@ -457,13 +450,18 @@ class IBADataParser:
                 id=ingredient_id,
                 name=normalized.title(), # Use normalized name for consistency (e.g. "Dry Vermouth" -> "Vermouth")
                 description=f"Utilisé dans {data['count']} cocktails IBA",
-                categories=[f"Count:{data['count']}"],  # Stocker le count dans les catégories temporairement
-                related_concepts=data["cocktails"]  # Cocktails qui utilisent cet ingrédient
+                categories=[f"Count:{data['count']}"]  # Stocker le count dans les catégories temporairement
             )
             ingredient_list.append(ingredient)
         
-        # Trier par fréquence d'utilisation (plus utilisé en premier)
-        ingredient_list.sort(key=lambda x: (-len(x.related_concepts), x.name.lower()))
+        # Trier par fréquence d'utilisation (plus utilisé en premier) puis alphabétique
+        def sort_key(ing):
+            if ing.categories and ing.categories[0].startswith('Count:'):
+                count = int(ing.categories[0].split(':')[1])
+                return (-count, ing.name.lower())
+            return (0, ing.name.lower())
+        
+        ingredient_list.sort(key=sort_key)
         
         self._ingredients_cache = ingredient_list
         return ingredient_list
@@ -529,8 +527,7 @@ class IBADataParser:
             "total_cocktails": len(cocktails),
             "total_unique_ingredients": len(ingredients),
             "avg_ingredients_per_cocktail": round(avg_ingredients, 2),
-            "most_used_ingredient": ingredients[0].name if ingredients else None,
-            "most_used_ingredient_count": len(ingredients[0].related_concepts) if ingredients else 0
+            "most_used_ingredient": ingredients[0].name if ingredients else None
         }
     
     def execute_sparql(self, sparql_query: str) -> List[Dict[str, Any]]:
@@ -620,7 +617,8 @@ if __name__ == "__main__":
     # Top 20 ingrédients
     print(f"\n🥃 Top 20 ingrédients les plus utilisés:")
     for i, ingredient in enumerate(parser.get_all_ingredients()[:20], 1):
-        count = len(ingredient.related_concepts) if ingredient.related_concepts else 0
+        # Extract count from categories if available
+        count = int(ingredient.categories[0].split(':')[1]) if ingredient.categories and ingredient.categories[0].startswith('Count:') else 0
         print(f"   {i:2d}. {ingredient.name:30s} (utilisé dans {count} cocktails)")
     
     # Détails d'un cocktail
