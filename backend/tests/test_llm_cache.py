@@ -20,7 +20,7 @@ def test_llm_service_caching():
     print(f"nl2sparql second call: {result2}")
     
     assert result1 == result2
-    print("✅ nl2sparql caching working correctly")
+    print("nl2sparql caching working correctly")
     
     # Test example method caching
     prompt = "What is the capital of France?"
@@ -31,7 +31,7 @@ def test_llm_service_caching():
     print(f"example second call: {result2}")
     
     assert result1 == result2
-    print("✅ example method caching working correctly")
+    print("example method caching working correctly")
 
 
 def test_similarity_service_caching():
@@ -60,7 +60,7 @@ def test_similarity_service_caching():
     print(f"Second cluster title: {title2}")
     
     assert title1 == title2
-    print("✅ Cluster title generation caching working correctly")
+    print("Cluster title generation caching working correctly")
 
 
 def test_cache_expiration():
@@ -82,7 +82,7 @@ def test_cache_expiration():
     
     # Should be the same result (API should return same response)
     assert result1 == result2
-    print("✅ Cache expiration working correctly")
+    print("Cache expiration working correctly")
 
 
 if __name__ == "__main__":
@@ -90,8 +90,8 @@ if __name__ == "__main__":
         test_llm_service_caching()
         test_similarity_service_caching()
         test_cache_expiration()
-        print("\n✅ All caching tests passed!")
+        print("\nAll caching tests passed!")
     except Exception as e:
-        print(f"\n❌ Error: {e}")
+        print(f"\nError: {e}")
         import traceback
         print(traceback.format_exc())

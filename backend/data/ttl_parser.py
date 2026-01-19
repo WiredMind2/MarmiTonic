@@ -59,7 +59,7 @@ class IBADataParser:
         self._cocktails_cache = None     # Cache pour les cocktails
         self._load_data()
         self._initialized = True
-        print(f"✅ IBADataParser initialized with {len(self.graph)} triples")
+        print(f"IBADataParser initialized with {len(self.graph)} triples")
     
     @staticmethod
     def generate_slug(name: str) -> str:
