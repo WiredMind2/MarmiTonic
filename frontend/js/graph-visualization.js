@@ -135,6 +135,7 @@ class GraphVisualizationPage {
 
     async executeSparqlGraph() {
         const query = this.elements.sparqlOutput.value.trim();
+        console.log('Executing SPARQL query:', query);
         if (!query) {
             alert('Aucune requête SPARQL à exécuter.');
             return;
@@ -505,9 +506,6 @@ class GraphVisualizationPage {
             
             this.ginModeActive = false;
             console.log('HORRIBLE GIN MODE deactivated');
-            
-            // Recharger la page pour être sûr de tout restaurer
-            window.location.reload();
         }, 10000);
     }
 }

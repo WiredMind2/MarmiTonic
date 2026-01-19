@@ -80,66 +80,120 @@ class GraphService:
     def get_graph_data(self, query: Optional[str] = None) -> Optional[Dict[str, Any]]:
         """
         Get graph data from SPARQL service and convert to graph format.
-        If query is provided, execute it. Otherwise use default query.
+        Requires a query - no default fallback.
+        Uses parsed ingredients from cocktails to create individual ingredient nodes.
         """
         try:
             # Query data from SPARQL service
-            if query:
-                final_results = self.sparql_service.execute_local_query(query)
-            else:
-                # Default behavior: generic query for cocktails and ingredients
-                default_query = """
-                PREFIX dbo: <http://dbpedia.org/ontology/>
-                PREFIX dbp: <http://dbpedia.org/property/>
-                
-                SELECT ?cocktail ?ingredient WHERE {
-                    ?cocktail a dbo:Cocktail .
-                    ?cocktail dbp:ingredients ?ingredient .
-                } LIMIT 100
-                """
-                final_results = self.sparql_service.execute_local_query(default_query)
+            if not query:
+                raise ValueError("No SPARQL query provided")
+            
+            final_results = self.sparql_service.execute_local_query(query)
             
             if not final_results or 'results' not in final_results or 'bindings' not in final_results['results']:
                 return None
             
-            # Build graph from query results (Flexible parsing)
+            # Build graph from query results
             nodes = {}
             edges = []
             
             bindings = final_results['results']['bindings']
             
+            # Get all cocktails with parsed ingredients for enrichment
+            cocktails = self.cocktail_service.get_all_cocktails()
+            cocktails_by_uri = {c.uri: c for c in cocktails if hasattr(c, 'uri')}
+            
             for row in bindings:
-                # Extract all URIs/Literals as nodes
                 row_values = []
+                cocktail_uri = None
+                cocktail_name_from_query = None
+                
                 for var_name, value_obj in row.items():
                     val = value_obj['value']
                     type_ = value_obj['type']
                     
+                    # Track cocktail URI and name
+                    if var_name == 'cocktail':
+                        cocktail_uri = val
+                    elif var_name == 'name':
+                        cocktail_name_from_query = val
+                    
                     if val not in nodes:
-                         nodes[val] = {
-                             'id': val, 
-                             'name': val.split('/')[-1] if type_ == 'uri' else val,
-                             'type': 'resource' if type_ == 'uri' else 'literal'
-                         }
+                        # Use the name from query if available for better display
+                        node_name = val.split('/')[-1].replace('_', ' ') if type_ == 'uri' else val
+                        if var_name == 'cocktail' and cocktail_name_from_query:
+                            node_name = cocktail_name_from_query
+                        
+                        # For cocktails, get the slug ID from cocktail_service
+                        cocktail_id = val  # Default to URI
+                        if var_name == 'cocktail' and cocktail_uri in cocktails_by_uri:
+                            cocktail_id = cocktails_by_uri[cocktail_uri].id  # Use slug ID
+                        
+                        nodes[val] = {
+                            'id': cocktail_id if var_name == 'cocktail' else val,
+                            'uri': val if var_name == 'cocktail' else None,  # Keep URI for reference
+                            'name': node_name,
+                            'type': 'cocktail' if var_name == 'cocktail' else ('ingredient' if type_ == 'uri' else 'literal')
+                        }
                     row_values.append(val)
                 
-                # Create links (Star topology or pairwise)
+                # Update cocktail node with proper name and ID if we got it from query
+                if cocktail_uri and cocktail_uri in nodes and cocktail_uri in cocktails_by_uri:
+                    nodes[cocktail_uri]['name'] = cocktail_name_from_query or nodes[cocktail_uri]['name']
+                    nodes[cocktail_uri]['id'] = cocktails_by_uri[cocktail_uri].id  # Ensure slug ID
+                
+                # Create edges between cocktail and ingredients (use URI as key)
                 if len(row_values) > 1:
                     source = row_values[0]
                     for target in row_values[1:]:
                         if source != target:
                             edges.append({
-                                'source': source,
+                                'source': cocktails_by_uri[source].id if source in cocktails_by_uri else source,
                                 'target': target
                             })
+                
+                # Add parsed ingredients as individual nodes
+                if cocktail_uri and cocktail_uri in cocktails_by_uri:
+                    cocktail = cocktails_by_uri[cocktail_uri]
+                    if hasattr(cocktail, 'parsed_ingredients') and cocktail.parsed_ingredients:
+                        for ingredient_name in cocktail.parsed_ingredients:
+                            # Create unique ID for ingredient
+                            ingredient_id = f"ingredient:{ingredient_name.lower().replace(' ', '_')}"
                             
+                            if ingredient_id not in nodes:
+                                nodes[ingredient_id] = {
+                                    'id': ingredient_id,
+                                    'name': ingredient_name,
+                                    'type': 'ingredient'
+                                }
+                            
+                            # Add edge from cocktail (using slug ID) to ingredient
+                            if not any(e['source'] == cocktail.id and e['target'] == ingredient_id for e in edges):
+                                edges.append({
+                                    'source': cocktail.id,  # Use slug ID
+                                    'target': ingredient_id
+                                })
+            
+            # Filter out literal nodes (text fields like dbp:ingredients raw text)
+            # Keep only cocktail and ingredient nodes
+            filtered_nodes = [node for node in nodes.values() if node['type'] in ['cocktail', 'ingredient']]
+            
+            # Filter edges to only those connecting filtered nodes
+            filtered_node_ids = {node['id'] for node in filtered_nodes}
+            filtered_edges = [
+                edge for edge in edges 
+                if edge['source'] in filtered_node_ids and edge['target'] in filtered_node_ids
+            ]
+            
             return {
-                'nodes': list(nodes.values()),
-                'edges': edges
+                'nodes': filtered_nodes,
+                'edges': filtered_edges
             }
             
         except Exception as e:
             print(f"Error getting graph data: {e}")
+            import traceback
+            traceback.print_exc()
             return None
 
         """
