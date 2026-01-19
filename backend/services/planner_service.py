@@ -21,39 +21,24 @@ class PlannerService:
   
 
     def optimize_playlist_mode(self, cocktail_names: List[str]) -> Dict[str, List]:
+        """
+        Get all unique ingredients needed to make all cocktails in the playlist.
+        Returns all ingredients required across the cocktail list.
+        """
         if not cocktail_names:
             return {'selected_ingredients': [], 'covered_cocktails': []}
 
         # Filter to existing cocktails
-        universe = set(c for c in cocktail_names if c in self.cocktail_ingredients)
-        if not universe:
+        valid_cocktails = [c for c in cocktail_names if c in self.cocktail_ingredients]
+        if not valid_cocktails:
             return {'selected_ingredients': [], 'covered_cocktails': []}
 
-        # Get all unique ingredients
+        # Get union of all ingredients needed for these cocktails
         all_ingredients = set()
-        for ings in self.cocktail_ingredients.values():
-            all_ingredients.update(ings)
-
-        selected = []
-        covered = set()
-
-        while covered != universe:
-            best_ing = None
-            max_cover = 0
-            best_covers = set()
-            for ing in all_ingredients - set(selected):
-                covers = {c for c in universe if ing in self.cocktail_ingredients.get(c, set()) and c not in covered}
-                if len(covers) > max_cover:
-                    max_cover = len(covers)
-                    best_ing = ing
-                    best_covers = covers
-            if best_ing is None:
-                # Cannot cover remaining
-                break
-            selected.append(best_ing)
-            covered.update(best_covers)
+        for cocktail_name in valid_cocktails:
+            all_ingredients.update(self.cocktail_ingredients.get(cocktail_name, set()))
 
         return {
-            'selected_ingredients': selected,
-            'covered_cocktails': list(covered)
+            'selected_ingredients': sorted(list(all_ingredients)),
+            'covered_cocktails': valid_cocktails
         }
