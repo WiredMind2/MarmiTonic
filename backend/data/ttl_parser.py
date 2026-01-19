@@ -16,8 +16,8 @@ from typing import List, Dict, Any, Optional, Set
 import os
 import re
 
-from backend.models.cocktail import Cocktail
-from backend.models.ingredient import Ingredient
+from models.cocktail import Cocktail
+from models.ingredient import Ingredient
 
 # Définition des namespaces DBpedia
 DBR = Namespace("http://dbpedia.org/resource/")

@@ -1,0 +1,12 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "marmitonic_backend"
+version = "0.1.0"
+description = "MarmiTonic backend services"
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = ["pytest", "coverage"]

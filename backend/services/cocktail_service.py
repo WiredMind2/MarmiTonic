@@ -1,7 +1,7 @@
-from .ingredient_service import IngredientService
-from ..models.cocktail import Cocktail
+from services.ingredient_service import IngredientService
+from models.cocktail import Cocktail
 from typing import List, Dict, Any, Optional
-from ..data.ttl_parser import (
+from data.ttl_parser import (
     get_all_cocktails as get_local_cocktails,
     get_cocktails_by_ingredients as get_local_cocktails_by_ingredients,
     search_cocktails as search_local_cocktails,

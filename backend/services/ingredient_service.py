@@ -1,10 +1,10 @@
 
-from backend.services.sparql_service import SparqlService
-from backend.models.ingredient import Ingredient
+from services.sparql_service import SparqlService
+from models.ingredient import Ingredient
 from typing import List, Dict
 from pathlib import Path
-from backend.utils.graph_loader import get_shared_graph
-from backend.data.ttl_parser import get_all_ingredients as get_local_ingredients
+from utils.graph_loader import get_shared_graph
+from data.ttl_parser import get_all_ingredients as get_local_ingredients
 
 class IngredientService:
     def __init__(self, local_ingredient_loader=None):
