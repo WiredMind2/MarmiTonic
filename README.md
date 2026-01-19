@@ -73,6 +73,8 @@ You can also directly open `frontend/index.html` in your web browser.
 
 Try typing "gin" in the natural language query input on the Graph Visualization page... 🍸✨
 
+> ⚠️ **AVERTISSEMENT** : This easter egg contains fast light effects that can trigger seizures in epileptic or photosensitive people. The people concerned must not throw this easter egg.
+
 ## Technical Stack
 
 - **Backend**: Python with FastAPI
@@ -131,3 +133,4 @@ python -m pytest backend/tests/test_planner_service.py -v
 ## License
 
 This project is developed for academic purposes and does not include a specific license.
+
