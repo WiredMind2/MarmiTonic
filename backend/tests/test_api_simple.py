@@ -109,33 +109,6 @@ class TestPlannerEndpoints:
         assert response.status_code in [200, 500]
 
 
-class TestInsightsEndpoints:
-    """Test insights endpoints"""
-
-    def test_graph_analysis(self):
-        """Test graph analysis endpoint"""
-        response = client.get("/insights/graph")
-        assert response.status_code in [200, 500]
-        if response.status_code == 200:
-            data = response.json()
-            assert "metrics" in data or "communities" in data or isinstance(data, dict)
-
-    def test_graph_visualization(self):
-        """Test graph visualization endpoint"""
-        response = client.get("/insights/visualization")
-        assert response.status_code in [200, 500]
-
-    def test_graph_export(self):
-        """Test graph export endpoint"""
-        response = client.get("/insights/export")
-        assert response.status_code in [200, 500]
-
-    def test_disjoint_components(self):
-        """Test disjoint components endpoint"""
-        response = client.get("/insights/components")
-        assert response.status_code in [200, 500]
-
-
 class TestCORSAndHeaders:
     """Test CORS and headers"""
 

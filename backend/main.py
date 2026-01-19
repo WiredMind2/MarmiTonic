@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from backend.routes import cocktails, ingredients, planner, insights, llm
+from backend.routes import cocktails, ingredients, planner, llm
 from backend.routes.graphs import router as graphs
 from backend.utils.front_server import start_frontend_server_once
 from backend.utils.graph_loader import get_shared_graph
@@ -29,7 +29,6 @@ app.add_middleware(
 app.include_router(cocktails, prefix="/cocktails", tags=["cocktails"])
 app.include_router(ingredients, prefix="/ingredients", tags=["ingredients"])
 app.include_router(planner, prefix="/planner", tags=["planner"])
-app.include_router(insights, prefix="/insights", tags=["insights"])
 app.include_router(graphs, prefix="/graphs", tags=["graphs"])
 app.include_router(llm, prefix="/llm", tags=["llm"])
 

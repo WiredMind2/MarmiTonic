@@ -206,34 +206,6 @@ class IngredientService:
         """Search ingredients by name"""
         return self.search_ingredients(name)
 
-    def get_ingredients_by_category(self, category: str) -> List[Ingredient]:
-        """Get ingredients by category"""
-        query = f"""
-        SELECT ?id ?name ?description WHERE {{
-            ?id rdf:type dbo:Food .
-            ?id rdfs:label ?name .
-            ?id dbo:category "{category}" .
-            FILTER(LANG(?name) = "en")
-            OPTIONAL {{ ?id dbo:abstract ?description . FILTER(LANG(?description) = "en") }}
-        }}
-        """
-        try:
-            results = self.sparql_service.execute_query(query)
-            ingredients = []
-            if results and results.get("results") and results["results"].get("bindings"):
-                for result in results["results"]["bindings"]:
-                    ingredient = Ingredient(
-                        id=result["id"]["value"],
-                        name=result["name"]["value"],
-                        categories=[category],
-                        description=result.get("description", {}).get("value")
-                    )
-                    ingredients.append(ingredient)
-            return ingredients
-        except Exception as e:
-            print(f"Error getting ingredients by category {category}: {e}")
-            return []
-
     def get_ingredients_for_cocktail(self, cocktail_id: str) -> List[Ingredient]:
         """Get ingredients for a specific cocktail"""
         query = f"""
@@ -273,34 +245,3 @@ class IngredientService:
         except Exception as e:
             print(f"Error getting all categories: {e}")
             return []
-
-    def get_popular_ingredients(self, limit: int = 10) -> List[Ingredient]:
-        """Get popular ingredients based on usage in cocktails"""
-        # This is a simplified implementation for testing
-        all_ingredients = self.get_all_ingredients()
-        return all_ingredients[:limit]
-
-    def get_related_ingredients(self, ingredient_id: str) -> List[Ingredient]:
-        """Get ingredients that are commonly used with the given ingredient"""
-        # Simplified implementation for testing
-        all_ingredients = self.get_all_ingredients()
-        related = []
-        for ing in all_ingredients:
-            if ing.id != ingredient_id and len(related) < 5:
-                related.append(ing)
-        return related
-
-    def get_ingredients_by_ids(self, ingredient_ids: List[str]) -> List[Ingredient]:
-        """Get ingredients by multiple IDs"""
-        ingredients = []
-        for uri in ingredient_ids:
-            ingredient = self.get_ingredient_by_uri(uri)
-            if ingredient:
-                ingredients.append(ingredient)
-        return ingredients
-
-    def get_random_ingredients(self, count: int = 5) -> List[Ingredient]:
-        """Get random ingredients"""
-        all_ingredients = self.get_all_ingredients()
-        import random
-        return random.sample(all_ingredients, min(count, len(all_ingredients)))
