@@ -579,7 +579,7 @@ dbr:Caipirinha	rdfs:label	"Caipirinha"@en ,
 <http://dbpedia.org/resource/Paloma_(cocktail)>	rdfs:label	"Paloma (cocktail)"@en ,
 		"Paloma (cocktail)"@fr ;
 	dbp:name	"Paloma"@en ;
-	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/TequilaPaloma.jpg> ;
+	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/TequilaPaloma.JPG> ;
 	dbo:description	"tequila-based cocktail"@en ;
 	dbo:wikiPageWikiLink	dbr:Fresca ,
 		dbr:Club_soda ,
@@ -1588,7 +1588,7 @@ dbr:List_of_IBA_official_cocktails	dbo:wikiPageWikiLink	<http://dbpedia.org/reso
 dbr:Margarita	rdfs:label	"Margarita"@en ,
 		"Margarita (cocktail)"@fr ;
 	dbp:name	"Margarita"@en ;
-	foaf:depiction	<http://commons.wikimedia.org/wiki/Special:FilePath/Balinese-room.jpg> ,
+	foaf:depiction
 		<http://commons.wikimedia.org/wiki/Special:FilePath/Memorial_Day_margaritas.jpg> ,
 		<http://commons.wikimedia.org/wiki/Special:FilePath/MargaritaReal.jpg> ,
 		<http://commons.wikimedia.org/wiki/Special:FilePath/Blended_Margarita.jpg> ,
