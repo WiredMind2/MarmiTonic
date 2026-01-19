@@ -5,15 +5,13 @@ from backend.routes.ingredients import router as ingredients
 from backend.routes.planner import router as planner
 from backend.routes.llm import router as llm
 from backend.routes.graphs import router as graphs
-from backend.utils.front_server import start_frontend_server_once
+from backend.utils.front_server import mount_frontend
 from backend.utils.graph_loader import get_shared_graph
+from backend.data.ttl_parser import get_all_cocktails, get_all_ingredients
 from rdflib import Graph
 from pathlib import Path
 from contextlib import asynccontextmanager
 import time
-
-# Start frontend server
-start_frontend_server_once()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -24,7 +22,6 @@ async def lifespan(app: FastAPI):
     RDF_GRAPH = get_shared_graph()
     
     print("Pre-warming data caches...")
-    from backend.data.ttl_parser import get_all_cocktails, get_all_ingredients
     
     cache_start = time.time()
     cocktails = get_all_cocktails()
@@ -37,7 +34,7 @@ async def lifespan(app: FastAPI):
     total_time = time.time() - start_time
     
     print(f"Cache pre-warmed in {cache_time:.3f}s")
-    print(f"Server ready in {total_time:.3f}s - All subsequent requests will be instant!\n")
+    print(f"Server ready in {total_time:.3f}s\n")
     
     yield
     
@@ -66,6 +63,6 @@ app.include_router(planner, prefix="/planner", tags=["planner"])
 app.include_router(graphs, prefix="/graphs", tags=["graphs"])
 app.include_router(llm, prefix="/llm", tags=["llm"])
 
-@app.get("/")
-def read_root():
-    return {"message": "Welcome to MarmiTonic API"}
+# Mount frontend
+mount_frontend(app)
+

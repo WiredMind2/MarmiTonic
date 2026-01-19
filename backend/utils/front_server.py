@@ -1,34 +1,28 @@
-
-from http.server import HTTPServer, SimpleHTTPRequestHandler
 import os
-import threading
+from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
 
 
-class FrontendHTTPRequestHandler(SimpleHTTPRequestHandler):
-    def __init__(self, *args, **kwargs):
-        directory = os.path.join(os.path.dirname(__file__), '..', '..', 'frontend')
-        super().__init__(*args, directory=directory, **kwargs)
-
-def start_frontend_server():
-    server_address = ('', 8080)
-    try:
-        httpd = HTTPServer(server_address, FrontendHTTPRequestHandler)
-        print(f"Starting frontend server on: http://localhost:8080")
-        thread = threading.Thread(target=httpd.serve_forever, daemon=True)
-        thread.start()
-    except Exception as e:
-        print(f"Frontend server already running or failed: {e}")
 
 
-# Start frontend server in a separate thread only if not already started
-frontend_thread = None
+def mount_frontend(app: FastAPI):
+    """
+    Mounts the frontend static files to the FastAPI app.
+    This replaces the standalone HTTP server approach.
+    """
+    # Calculate the path to the frontend directory
+    # utils -> backend -> root -> frontend
+    frontend_dir = os.path.join(os.path.dirname(__file__), '..', '..', 'frontend')
+    frontend_dir = os.path.normpath(frontend_dir)
+
+    if not os.path.isdir(frontend_dir):
+        print(f"Warning: Frontend directory not found at: {frontend_dir}")
+        return
+
+    print(f"Mounting frontend from: {frontend_dir}")
+    
+    # Mount the frontend directory at the root path "/"
+    # html=True allows serving index.html automatically
+    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
 
 
-def start_frontend_server_once():
-    global frontend_thread
-    if frontend_thread is None or not frontend_thread.is_alive():
-        frontend_thread = threading.Thread(target=start_frontend_server, daemon=True)
-        frontend_thread.start()
-        print(f"Starting frontend server on: http://localhost:8080")
-    else:
-        print(f"Frontend server already running on: http://localhost:8080")
