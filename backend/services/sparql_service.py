@@ -1,11 +1,6 @@
-import os
-import requests
-from SPARQLWrapper import SPARQLWrapper, JSON
 from rdflib import Graph
 from rdflib.term import URIRef
 from typing import Optional, Union
-import sys
-from pathlib import Path
 
 # Importer le parser IBA
 from backend.data.ttl_parser import IBADataParser
@@ -13,8 +8,7 @@ from backend.utils.graph_loader import get_shared_graph
 
 class SparqlService:
     def __init__(self, local_graph: Optional[Union[str, Graph]] = None):
-        self.endpoint = "https://dbpedia.org/sparql"
-        self.local_endpoint = "http://localhost:3030/marmitonic"
+        # ONLY LOCAL GRAPH - NO EXTERNAL DBPEDIA QUERIES ALLOWED
         self.local_graph_path = "data.ttl"
 
         # If local_graph is a Graph object, use it directly
@@ -34,30 +28,9 @@ class SparqlService:
             self.parser = None
 
     def execute_query(self, query: str):
-        """Execute SPARQL query on DBpedia"""
-        sparql = SPARQLWrapper("https://dbpedia.org/sparql")
-        sparql.setQuery(query)
-        sparql.setReturnFormat(JSON)
-        try:
-            results = sparql.query().convert()
-            return results
-        except Exception as e:
-            print(f"Error executing SPARQL query: {e}")
-            # Fallback to requests if SPARQLWrapper fails
-            params = {
-                'query': query,
-                'format': 'application/sparql-results+json'
-            }
-            headers = {
-                'Accept': 'application/sparql-results+json'
-            }
-            try:
-                response = requests.get("https://dbpedia.org/sparql", params=params, headers=headers, timeout=30)
-                if response.status_code >= 400:
-                    return None
-                return response.json()
-            except:
-                return None
+        """Execute SPARQL query - ONLY ON LOCAL GRAPH"""
+        # All queries go to local graph - no external access
+        return self.execute_local_query(query)
 
     def execute_local_query(self, query: str):
         """Execute SPARQL query on local RDF graph"""
