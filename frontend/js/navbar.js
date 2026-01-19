@@ -11,7 +11,6 @@
     const menuNoNavbar = document.getElementById('no-navbar-menu');
     const searchInput = document.querySelector('.navbar-right input[type="text"]');
     
-    // Initialize
     function init() {
         if (menuNoNavbar) {
             menuNoNavbar.style.display = 'none';
@@ -22,7 +21,6 @@
         setupSearchFunctionality();
     }
     
-    // Setup menu toggle functionality
     function setupMenuToggle() {
         menuNoNavbar.onclick = function() {
             if (navbar) {
@@ -32,14 +30,12 @@
         };
     }
     
-    // Fonctionnalité de recherche
     function setupSearchFunctionality() {
         if (!searchInput) return;
         
         let searchTimeout;
         let searchResultsDropdown;
         
-        // Créer le dropdown des résultats de recherche
         function createDropdown() {
             const dropdown = document.createElement('div');
             dropdown.className = 'search-results-dropdown';
@@ -59,7 +55,6 @@
             searchResultsDropdown.style.display = 'none';
         });
         
-        // Gérer les changements d'entrée
         searchInput.addEventListener('input', async (e) => {
             clearTimeout(searchTimeout);
             const query = e.target.value.trim();
@@ -69,7 +64,6 @@
                 return;
             }
             
-            // ébouncer la recherche
             searchTimeout = setTimeout(async () => {
                 try {
                     const results = await searchCocktails(query);
@@ -91,7 +85,6 @@
             }, 300);
         });
         
-        // Focus to show results again
         searchInput.addEventListener('focus', async (e) => {
             const query = e.target.value.trim();
             if (query.length > 0 && searchResultsDropdown.innerHTML !== '') {
@@ -100,7 +93,6 @@
         });
     }
     
-    // Score de recherche floue - trouve les lettres n'importe où dans la chaîne
     function fuzzyScore(text, query) {
         text = text.toLowerCase();
         query = query.toLowerCase();
@@ -108,12 +100,10 @@
         let score = 0;
         let lastIndex = -1;
         
-        // Vérifier si la requête commence par le texte (priorité la plus élevée)
         if (text.startsWith(query)) {
             return 1000 + text.length - query.length;
         }
         
-        // Vérifier chaque caractère de la requête dans le texte
         for (let i = 0; i < query.length; i++) {
             const char = query[i];
             const index = text.indexOf(char, lastIndex + 1);
@@ -122,7 +112,6 @@
                 return -1; // Caractère non trouvé
             }
             
-            // Préférer les caractères consécutifs (score élevé)
             if (lastIndex === -1 || index === lastIndex + 1) {
                 score += 10;
             }
@@ -139,7 +128,6 @@
         return score;
     }
     
-    // Mettre en évidence les caractères correspondants dans le texte
     function highlightMatches(text, query) {
         const lowerText = text.toLowerCase();
         const lowerQuery = query.toLowerCase();
@@ -158,7 +146,6 @@
         return result;
     }
     
-    // Afficher les résultats de recherche dans le dropdown
     function displaySearchResults(results, dropdown) {
         const query = searchInput.value.trim();
         
@@ -223,26 +210,20 @@
     
     // Naviguer vers la page de détail du cocktail
     function navigateToCocktailDetail(cocktail) {
-        // Stocker le cocktail sélectionné dans sessionStorage
         sessionStorage.setItem('selectedCocktail', JSON.stringify(cocktail));
         
-        // Obtenir le chemin relatif en fonction de l'emplacement actuel
         let detailPagePath = '../pages/cocktail-detail.html';
         
-        // Si nous sommes déjà dans le répertoire des pages, ajuster le chemin
         if (window.location.pathname.includes('/pages/')) {
             detailPagePath = './cocktail-detail.html';
         }
-        // Si nous sommes sur la page d'accueil (index.html), utiliser le répertoire des pages
         else if (window.location.pathname.endsWith('/index.html') || window.location.pathname.endsWith('/')) {
             detailPagePath = 'pages/cocktail-detail.html';
         }
         
-        // Naviguer vers la page de détail
         window.location.href = detailPagePath + '?id=' + encodeURIComponent(cocktail.id);
     }
     
-    // Setup scroll behavior to hide/show navbar
     function setupScrollBehavior() {
         window.addEventListener('scroll', function() {
             const currentScrollPos = window.pageYOffset;
@@ -261,7 +242,6 @@
         });
     }
     
-    // Initialize when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {

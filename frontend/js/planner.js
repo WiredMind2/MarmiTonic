@@ -84,7 +84,6 @@ function findCocktail(idOrName) {
     );
 }
 
-// Get playlist by ID (including special 'liked' playlist)
 function getPlaylist(playlistId) {
     if (playlistId === 'liked') {
         const likedIds = JSON.parse(localStorage.getItem(`marmitonic_liked_${marmitonicUserId}`) || '[]');
@@ -217,10 +216,8 @@ async function openPlaylistModal(playlistId) {
     const cocktailsGrid = document.getElementById('modalCocktailsGrid');
     const ingredientsList = document.getElementById('modalIngredientsList');
 
-    // Update modal header
     modalTitle.textContent = playlist.name;
     
-    // Get cocktail objects
     const cocktails = (playlist.cocktailIds || []).map(id => findCocktail(id)).filter(c => c);
     modalCount.textContent = cocktails.length;
 
@@ -302,11 +299,9 @@ function displayOptimizedIngredients(container, optimization) {
             </span>
         `;
         
-        // Add checkbox event listener
         const checkbox = item.querySelector('input[type="checkbox"]');
         checkbox.addEventListener('change', (e) => {
             toggleIngredient(ingredient);
-            // Update the summary count
             const newOwnedCount = optimization.selected_ingredients.filter(ing => userInventory.has(ing)).length;
             const summary = container.querySelector('div');
             summary.innerHTML = `<i class="fa fa-check-circle"></i> ${newOwnedCount}/${totalCount} ingrédients possédés`;
@@ -316,7 +311,6 @@ function displayOptimizedIngredients(container, optimization) {
     });
 }
 
-// Create Modal Cocktail Card
 function createModalCocktailCard(cocktail, playlistId) {
     const card = document.createElement('div');
     card.className = 'modal-cocktail-card';
@@ -335,7 +329,6 @@ function createModalCocktailCard(cocktail, playlistId) {
         </div>
     `;
 
-    // Add click to view cocktail detail
     card.addEventListener('click', (e) => {
         if (!e.target.closest('.modal-cocktail-remove')) {
             // Use id if available
@@ -344,7 +337,6 @@ function createModalCocktailCard(cocktail, playlistId) {
         }
     });
 
-    // Remove from playlist
     const removeBtn = card.querySelector('.modal-cocktail-remove');
     removeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -359,11 +351,6 @@ function createModalCocktailCard(cocktail, playlistId) {
     return card;
 }
 
-// Calculate Needed Ingredients (removed - using backend optimization instead)
-
-// Create Ingredient Item (removed - using backend optimization instead)
-
-// Update Modal Count
 function updateModalCount() {
     const cocktailsGrid = document.getElementById('modalCocktailsGrid');
     const count = cocktailsGrid.children.length;
@@ -402,7 +389,6 @@ function updateModalCount() {
     }
 }
 
-// Remove from Playlist
 function removeFromPlaylist(playlistId, cocktailId) {
     if (playlistId === 'liked') {
         const likedIds = JSON.parse(localStorage.getItem(`marmitonic_liked_${marmitonicUserId}`) || '[]');
@@ -421,7 +407,6 @@ function removeFromPlaylist(playlistId, cocktailId) {
     showNotification('Cocktail retiré de la playlist', 'success');
 }
 
-// Setup Modal Close Handlers
 function setupModalCloseHandlers(modal) {
     const closeBtn = modal.querySelector('.modal-close');
     const backdrop = modal.querySelector('.modal-backdrop');
@@ -434,7 +419,6 @@ function setupModalCloseHandlers(modal) {
     closeBtn.onclick = closeModal;
     backdrop.onclick = closeModal;
 
-    // ESC key to close
     const escHandler = (e) => {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
             closeModal();
@@ -444,7 +428,6 @@ function setupModalCloseHandlers(modal) {
     document.addEventListener('keydown', escHandler);
 }
 
-// Create Playlist Modal
 function setupCreatePlaylistModal() {
     const createBtn = document.getElementById('createPlaylistBtn');
     const modal = document.getElementById('createPlaylistModal');
@@ -505,13 +488,11 @@ function createPlaylist(name, description) {
     userPlaylists.push(newPlaylist);
     savePlaylists();
     
-    // Add new playlist card to grid
     const playlistsGrid = document.getElementById('playlistsGrid');
     const newCard = createPlaylistCard(newPlaylist);
     
     playlistsGrid.insertBefore(newCard, playlistsGrid.firstChild);
     
-    // Setup click handler for new card
     newCard.addEventListener('click', (e) => {
         if (!e.target.closest('.play-button')) {
             openPlaylistModal(newCard.dataset.playlistId);
@@ -520,7 +501,6 @@ function createPlaylist(name, description) {
 
     showNotification(`Playlist "${name}" créée avec succès !`, 'success');
     
-    // Animate new card
     newCard.style.animation = 'slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
 }
 
@@ -552,7 +532,6 @@ function addCocktailToPlaylist(cocktailId, playlistId) {
     }
 }
 
-// Show Playlist Dropdown for "Add to Playlist"
 function showPlaylistDropdown(cocktailId, buttonElement) {
     // Remove existing dropdown if any
     const existingDropdown = document.querySelector('.playlist-dropdown');
@@ -633,7 +612,6 @@ function showPlaylistDropdown(cocktailId, buttonElement) {
     }, 100);
 }
 
-// Utility: Show Notification
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
@@ -665,7 +643,6 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-// Add fade out animation
 const style = document.createElement('style');
 style.textContent = `
     @keyframes fadeOut {
@@ -703,10 +680,8 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Export functions for use in other pages
 window.PlannerAPI = {
     openAddToPlaylistDropdown: function(cocktailId, buttonElement) {
-        // This will be called from cocktail-detail.js
         showPlaylistDropdown(cocktailId, buttonElement);
     },
     addCocktailToPlaylist: addCocktailToPlaylist,
@@ -715,9 +690,7 @@ window.PlannerAPI = {
     }
 };
 
-// Show Playlist Dropdown for "Add to Playlist"
 function showPlaylistDropdown(cocktailId, buttonElement) {
-    // Remove existing dropdown if any
     const existingDropdown = document.querySelector('.playlist-dropdown');
     if (existingDropdown) {
         existingDropdown.remove();
@@ -729,7 +702,6 @@ function showPlaylistDropdown(cocktailId, buttonElement) {
     
     let dropdownHTML = '<div class="dropdown-header">Ajouter à une playlist</div>';
     
-    // Add liked playlist
     dropdownHTML += `
         <div class="dropdown-item" data-playlist-id="liked">
             <i class="fa fa-heart"></i>
@@ -737,7 +709,6 @@ function showPlaylistDropdown(cocktailId, buttonElement) {
         </div>
     `;
     
-    // Add user playlists
     userPlaylists.forEach(playlist => {
         dropdownHTML += `
             <div class="dropdown-item" data-playlist-id="${playlist.id}">
@@ -800,7 +771,6 @@ function addCocktailToPlaylist(cocktailId, playlistId) {
     const playlist = samplePlaylists.find(p => p.id === playlistId);
     if (playlist) {
         showNotification(`Ajouté à "${playlist.name}" !`, 'success');
-        // TODO: Implement API call to add cocktail to playlist
         console.log(`Adding cocktail ${cocktailId} to playlist ${playlistId}`);
     }
 }
