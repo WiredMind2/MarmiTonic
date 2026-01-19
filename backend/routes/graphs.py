@@ -47,23 +47,3 @@ async def get_sparql_graph_post(request: SparqlGraphRequest):
         return d3_format
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to get SPARQL graph: {str(e)}")
-
-    """
-    Return analysis of disjoint components in the graph.
-    """
-    service = GraphService()
-    try:
-        graph_data = service.build_graph()
-        if not graph_data:
-            raise HTTPException(status_code=404, detail="No graph data available")
-        
-        components = service.analyze_disjoint_components(graph_data)
-        if not components:
-            raise HTTPException(status_code=500, detail="Failed to analyze components")
-        
-        return {
-            'components': components,
-            'message': 'Disjoint components analyzed successfully'
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Failed to get graph components: {str(e)}")
