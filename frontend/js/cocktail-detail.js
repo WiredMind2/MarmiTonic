@@ -3,7 +3,6 @@
 let marmitonicUserId = null;
 let currentCocktail = null;
 
-// Recently Viewed management (mirrors discovery.js behavior)
 const RecentlyViewed = {
     key: 'marmitonic_recently_viewed',
     maxItems: 12,
@@ -118,10 +117,8 @@ function showPlaylistDropdown(cocktailId, buttonElement) {
         return;
     }
 
-    // Load playlists from localStorage
     const userPlaylists = JSON.parse(localStorage.getItem(`marmitonic_playlists_${marmitonicUserId}`) || '[]');
     
-    // Build playlists array with liked first, then user playlists
     const playlists = [
         { id: 'liked', name: 'Cocktails Favoris', icon: 'fa-heart' },
         ...userPlaylists.map(p => ({ id: p.id, name: p.name, icon: 'fa-list' }))
@@ -291,7 +288,6 @@ function initializeIngredientTracking() {
     });
 }
 
-// Instruction Steps - Interactive Checkoff
 function initializeInstructionSteps() {
     const steps = document.querySelectorAll('.instruction-step');
     
@@ -538,14 +534,6 @@ function createInstructionStep(text, number) {
     `;
     
     return div;
-}
-
-// Utility Functions
-function checkIfFavorited() {
-    const favorites = JSON.parse(localStorage.getItem('favoriteCocktails') || '[]');
-    const urlParams = new URLSearchParams(window.location.search);
-    const cocktailId = urlParams.get('id');
-    return favorites.includes(cocktailId);
 }
 
 function showNotification(message, type = 'info') {

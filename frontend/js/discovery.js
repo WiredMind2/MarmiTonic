@@ -5,9 +5,6 @@
     let vibeClusters = [];
     let currentRandomCocktail = null;
     
-    /**
-     * Recently Viewed Cocktails Management
-     */
     const RecentlyViewed = {
         key: 'marmitonic_recently_viewed',
         maxItems: 12,
@@ -23,9 +20,6 @@
         },
     };
     
-    /**
-     * Initialize discovery page
-     */
     async function init() {
         console.log('Discovery page initializing...');
         console.log('API functions check:');
@@ -54,9 +48,6 @@
         console.log('Discovery page initialized');
     }
     
-    /**
-     * Show error state
-     */
     function showErrorState(message) {
         const sections = document.querySelectorAll('.cocktails-section');
         sections.forEach((section, index) => {
@@ -70,9 +61,6 @@
         });
     }
     
-    /**
-     * Load vibe clusters from backend
-     */
     async function loadVibeClusters() {
         try {
             console.log('Fetching vibe clusters...');
@@ -92,9 +80,6 @@
         }
     }
     
-    /**
-     * Load random cocktail
-     */
     async function loadRandomCocktail() {
         try {
             currentRandomCocktail = await fetchRandomCocktail();
@@ -105,18 +90,12 @@
         }
     }
     
-    /**
-     * Load recently viewed cocktails
-     */
     async function loadRecentlyViewed() {
         const recent = RecentlyViewed.get();
         console.log('Recently viewed:', recent);
         renderRecentlyViewed(recent);
     }
     
-    /**
-     * Render recently viewed cocktails
-     */
     function renderRecentlyViewed(recentCocktails) {
         const grid = document.querySelector('.recent-cocktails-grid');
         if (!grid) return;
@@ -143,9 +122,7 @@
         `).join('');
     }
     
-    /**
-     * Render random cocktail
-     */
+
     function renderRandomCocktail() {
         if (!currentRandomCocktail) return;
         
@@ -169,9 +146,6 @@
         `;
     }
     
-    /**
-     * Render vibe clusters
-     */
     function renderVibeClusters() {
         if (!vibeClusters || vibeClusters.length === 0) {
             console.warn('No vibe clusters to render');
@@ -212,18 +186,12 @@
         });
     }
     
-    /**
-     * Get cocktail image URL
-     */
     function getCocktailImage(cocktail) {
         if (cocktail.image && cocktail.image.startsWith('http')) {
             return cocktail.image;
         }
     }
     
-    /**
-     * Setup horizontal scroll arrows for cocktail rows
-     */
     function setupScrollArrows() {
         const scrollContainers = document.querySelectorAll('.cocktails-scroll-container');
         
@@ -262,17 +230,12 @@
                 rightArrow.disabled = isAtEnd;
             }
             
-            // Initial state
             updateArrowStates();
             
-            // Update on scroll
             row.addEventListener('scroll', updateArrowStates);
         });
     }
     
-    /**
-     * Setup shuffle button for random cocktail
-     */
     function setupShuffleButton() {
         const shuffleButton = document.querySelector('.shuffle-button');
         
@@ -296,11 +259,7 @@
         }
     }
     
-    /**
-     * Handle cocktail card clicks
-     */
     function setupCocktailCards() {
-        // Use event delegation for dynamically loaded cards
         document.addEventListener('click', (e) => {
             const card = e.target.closest('.cocktail-card, .recent-cocktail-card, .random-cocktail-card');
             if (!card) return;
@@ -312,9 +271,6 @@
         });
     }
     
-    /**
-     * Handle individual cocktail click
-     */
     function handleCocktailClick(cocktailId, cardElement) {
         console.log(`Cocktail clicked: ${cocktailId}`);
         
