@@ -73,15 +73,25 @@ def test_cache_expiration():
     result1 = llm_service.example(prompt)
     print(f"First call result: {result1}")
     
+    # Verify cache has the entry
+    cache_key = llm_service._get_cache_key(prompt, "example")
+    cached = llm_service.cache.get(cache_key)
+    assert cached is not None, "Entry should be in cache"
+    
     # Wait for cache to expire
     time.sleep(3)
+    
+    # Cache should be expired now
+    cached_after_expiry = llm_service.cache.get(cache_key)
+    assert cached_after_expiry is None, "Entry should be expired"
     
     # This should trigger a new API call
     result2 = llm_service.example(prompt)
     print(f"Call after expiration: {result2}")
     
-    # Should be the same result (API should return same response)
-    assert result1 == result2
+    # Both should have some content (don't compare exact text)
+    assert result1 is not None and len(result1) > 0
+    assert result2 is not None and len(result2) > 0
     print("Cache expiration working correctly")
 
 

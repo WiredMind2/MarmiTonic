@@ -20,37 +20,24 @@ def sparql_service():
 class TestSparqlService:
 
     def test_init(self, sparql_service):
-        assert sparql_service.endpoint == 'https://dbpedia.org/sparql'
-        assert 'data.ttl' in sparql_service.local_graph_path
-        assert sparql_service.local_endpoint == 'http://localhost:3030/marmitonic'
+        assert sparql_service.local_graph is not None
+        assert hasattr(sparql_service, 'parser')
 
-    def test_execute_query_success(self, sparql_service):
-        mock_response = Mock()
-        mock_response.convert.return_value = {'results': {'bindings': [{'test': {'value': 'test_value'}}]}}
+    def test_execute_query_redirects_to_local(self, sparql_service):
+        # Test that execute_query redirects to execute_local_query
+        query = 'SELECT ?s WHERE { ?s ?p ?o } LIMIT 1'
+        result = sparql_service.execute_query(query)
+        # Should return same as execute_local_query
+        assert result is not None
+        assert 'results' in result
+        assert 'bindings' in result['results']
 
-        with patch('services.sparql_service.SPARQLWrapper') as mock_sparql_wrapper:
-            instance = mock_sparql_wrapper.return_value
-            instance.query.return_value = mock_response
-            
-            result = sparql_service.execute_query('SELECT * WHERE { ?s ?p ?o }')
-
-            mock_sparql_wrapper.assert_called_once()
-            assert result['results']['bindings'][0]['test']['value'] == 'test_value'
-
-    def test_execute_query_http_error(self, sparql_service):
-        # Mock both SPARQLWrapper and requests to ensure we return None
-        with patch('services.sparql_service.SPARQLWrapper.query', side_effect=Exception('HTTP 500 Error')), \
-             patch('services.sparql_service.requests.get', side_effect=Exception('HTTP 500 Error')):
-            result = sparql_service.execute_query('SELECT * WHERE { ?s ?p ?o }')
-
-            assert result is None
-
-    def test_execute_query_timeout(self, sparql_service):
-        import requests
-        with patch('services.sparql_service.SPARQLWrapper.query', side_effect=requests.Timeout()), \
-             patch('services.sparql_service.requests.get', side_effect=requests.Timeout()):
-            result = sparql_service.execute_query('SELECT * WHERE { ?s ?p ?o }')
-            assert result is None
+    def test_execute_query_invalid_syntax(self, sparql_service):
+        # Test with invalid SPARQL syntax
+        query = 'INVALID QUERY SYNTAX'
+        result = sparql_service.execute_query(query)
+        # Should handle error gracefully
+        assert result is None
 
     def test_execute_local_query_success(self, sparql_service):
         mock_graph = Mock()
