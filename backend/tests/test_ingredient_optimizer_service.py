@@ -4,17 +4,17 @@ import sys
 from pathlib import Path
 
 # Add parent directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from services.ingredient_optimizer_service import IngredientOptimizerService
-from models.cocktail import Cocktail
+from backend.services.ingredient_optimizer_service import IngredientOptimizerService
+from backend.models.cocktail import Cocktail
 
 
 @pytest.fixture
 def ingredient_optimizer_service():
     """Fixture to create an instance of IngredientOptimizerService with mocked dependencies"""
-    with patch('services.ingredient_optimizer_service.CocktailService') as mock_cocktail_service, \
-         patch('services.ingredient_optimizer_service.IngredientService') as mock_ingredient_service:
+    with patch('backend.services.ingredient_optimizer_service.CocktailService') as mock_cocktail_service, \
+         patch('backend.services.ingredient_optimizer_service.IngredientService') as mock_ingredient_service:
         
         # Create mock instances
         mock_cocktail_service_instance = Mock()
@@ -206,8 +206,8 @@ if __name__ == "__main__":
     
     try:
         # Create mock service
-        with patch('services.ingredient_optimizer_service.CocktailService') as mock_cocktail_service, \
-             patch('services.ingredient_optimizer_service.IngredientService') as mock_ingredient_service:
+        with patch('backend.services.ingredient_optimizer_service.CocktailService') as mock_cocktail_service, \
+             patch('backend.services.ingredient_optimizer_service.IngredientService') as mock_ingredient_service:
             
             mock_cocktail_service_instance = Mock()
             mock_ingredient_service_instance = Mock()

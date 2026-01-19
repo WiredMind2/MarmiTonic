@@ -1,7 +1,7 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from services.planner_service import PlannerService
-from models.cocktail import Cocktail
+from backend.services.planner_service import PlannerService
+from backend.models.cocktail import Cocktail
 
 @pytest.fixture
 def mock_cocktails():

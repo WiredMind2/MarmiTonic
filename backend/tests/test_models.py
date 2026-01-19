@@ -9,12 +9,12 @@ import os
 from pathlib import Path
 
 # Add parent directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 import pytest
-from models.cocktail import Cocktail
-from models.ingredient import Ingredient
-from models.sparql_query import SparqlQuery
+from backend.models.cocktail import Cocktail
+from backend.models.ingredient import Ingredient
+from backend.models.sparql_query import SparqlQuery
 
 
 class TestCocktailModel:

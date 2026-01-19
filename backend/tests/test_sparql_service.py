@@ -4,10 +4,10 @@ import sys
 from pathlib import Path
 from rdflib import URIRef
 
-# Add parent directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+# Add project root to path
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from services.sparql_service import SparqlService
+from backend.services.sparql_service import SparqlService
 
 
 @pytest.fixture

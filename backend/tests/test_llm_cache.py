@@ -1,7 +1,7 @@
 """Test the LLM service caching functionality"""
 import time
-from services.llm_service import LLMService
-from services.similarity_service import SimilarityService
+from backend.services.llm_service import LLMService
+from backend.services.similarity_service import SimilarityService
 
 
 def test_llm_service_caching():

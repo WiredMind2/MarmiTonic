@@ -4,16 +4,16 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 # Add backend directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from services.ingredient_optimizer_service import IngredientOptimizerService
-from models.cocktail import Cocktail
+from backend.services.ingredient_optimizer_service import IngredientOptimizerService
+from backend.models.cocktail import Cocktail
 
 
 @pytest.fixture
 def ingredient_optimizer_service():
-    with patch('services.ingredient_optimizer_service.CocktailService') as mock_cocktail_service, \
-         patch('services.ingredient_optimizer_service.IngredientService') as mock_ingredient_service:
+    with patch('backend.services.ingredient_optimizer_service.CocktailService') as mock_cocktail_service, \
+         patch('backend.services.ingredient_optimizer_service.IngredientService') as mock_ingredient_service:
         
         mock_cocktail_service_instance = MagicMock()
         mock_ingredient_service_instance = MagicMock()

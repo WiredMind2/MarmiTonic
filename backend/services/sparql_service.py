@@ -3,8 +3,8 @@ from rdflib.term import URIRef
 from typing import Optional, Union
 
 # Importer le parser IBA
-from data.ttl_parser import IBADataParser
-from utils.graph_loader import get_shared_graph
+from backend.data.ttl_parser import IBADataParser
+from backend.utils.graph_loader import get_shared_graph
 
 class SparqlService:
     def __init__(self, local_graph: Optional[Union[str, Graph]] = None):

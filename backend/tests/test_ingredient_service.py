@@ -4,9 +4,9 @@ import sys
 from pathlib import Path
 
 # Add parent directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from services.ingredient_service import IngredientService
+from backend.services.ingredient_service import IngredientService
 
 
 @pytest.fixture
@@ -15,7 +15,7 @@ def ingredient_service():
     mock_local_loader = Mock()
     mock_local_loader.return_value = []
     
-    with patch('services.ingredient_service.SparqlService'):
+    with patch('backend.services.ingredient_service.SparqlService'):
         service = IngredientService(local_ingredient_loader=mock_local_loader)
         return service
 

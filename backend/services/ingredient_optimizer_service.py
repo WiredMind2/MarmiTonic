@@ -1,6 +1,6 @@
 from typing import List, Dict, Set
-from services.cocktail_service import CocktailService
-from services.ingredient_service import IngredientService
+from .cocktail_service import CocktailService
+from .ingredient_service import IngredientService
 
 class IngredientOptimizerService:
     def __init__(self):

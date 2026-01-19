@@ -4,14 +4,14 @@ import sys
 from pathlib import Path
 
 # Add parent directory to path
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from services.graph_service import GraphService
+from backend.services.graph_service import GraphService
 
 
 @pytest.fixture
 def graph_service():
-    patcher = patch('services.graph_service.SparqlService')
+    patcher = patch('backend.services.graph_service.SparqlService')
     mock_sparql = patcher.start()
     service = GraphService()
     yield service

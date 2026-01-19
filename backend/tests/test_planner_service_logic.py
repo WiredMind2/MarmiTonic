@@ -5,10 +5,10 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 # Add backend directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from services.planner_service import PlannerService
-from models.cocktail import Cocktail
+from backend.services.planner_service import PlannerService
+from backend.models.cocktail import Cocktail
 
 @pytest.fixture
 def mock_cocktails():
