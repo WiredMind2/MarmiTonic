@@ -46,6 +46,14 @@ def test_get_all_ingredients():
     assert "Rum" in names
     assert "Gin" in names
 
+def test_get_ingredient_by_id_local(ingredient_service):
+    # Mock _query_local_ingredient
+    mock_ing = Ingredient(id="http://test/rum", name="Rum")
+    ingredient_service._query_local_ingredient = MagicMock(return_value=mock_ing)
+    
+    result = ingredient_service.get_ingredient_by_id("http://test/rum")
+    assert result.name == "Rum"
+
 def test_search_ingredients(ingredient_service):
     # Mock sparql_service.execute_query
     mock_results = {

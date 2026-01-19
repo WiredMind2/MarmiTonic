@@ -66,6 +66,43 @@ class IngredientService:
 
         return ingredients
 
+    def _get_local_ingredient_uris(self) -> List[str]:
+        """Extract unique ingredient URIs from cocktail wikiPageWikiLink"""
+        query = """
+        SELECT DISTINCT ?ingredient WHERE {
+            ?cocktail dbo:wikiPageWikiLink ?ingredient .
+            ?cocktail rdfs:label ?cocktailName .
+            FILTER(LANG(?cocktailName) = "en")
+        }
+        """
+        try:
+            results = self.sparql_service.execute_local_query(query)
+            return [result["ingredient"]["value"] for result in results["results"]["bindings"]]
+        except:
+            return []
+
+    def _query_local_ingredient(self, uri: str) -> Ingredient:
+        """Query local graph for ingredient details"""
+        query = f"""
+        SELECT ?name ?description WHERE {{
+            <{uri}> rdfs:label ?name .
+            FILTER(LANG(?name) = "en")
+            OPTIONAL {{ <{uri}> dbo:abstract ?description . FILTER(LANG(?description) = "en") }}
+        }}
+        """
+        try:
+            results = self.sparql_service.query_local_data(query)
+            if results and results.get("results") and results["results"].get("bindings"):
+                result = results["results"]["bindings"][0]
+                return Ingredient(
+                    id=uri,
+                    name=result.get("name", {}).get("value", "Unknown"),
+                    description=result.get("description", {}).get("value")
+                )
+        except Exception as e:
+            print(f"Error querying local ingredient {uri}: {e}")
+
+        return None
     def search_ingredients(self, query: str) -> List[Ingredient]:
         # 1. Search locally first (fast and relevant)
         local_matches = []
@@ -118,3 +155,79 @@ class IngredientService:
 
     def get_inventory(self, user_id: str) -> List[str]:
         return self.inventories.get(user_id, [])
+
+    def get_ingredient_by_uri(self, uri: str) -> Ingredient:
+        # Try local first
+        local_ing = self._query_local_ingredient(uri)
+        if local_ing:
+            return local_ing
+        # Then DBpedia
+        query = f"""
+        SELECT ?name ?category ?description WHERE {{
+            <{uri}> rdfs:label ?name .
+            FILTER(LANG(?name) = "en")
+            OPTIONAL {{ <{uri}> dbo:category ?category }}
+            OPTIONAL {{ <{uri}> dbo:abstract ?description . FILTER(LANG(?description) = "en") }}
+        }}
+        """
+        try:
+            results = self.sparql_service.execute_query(query)
+            if results["results"]["bindings"]:
+                result = results["results"]["bindings"][0]
+                return Ingredient(
+                    id=uri,
+                    name=result["name"]["value"],
+                    categories=[result.get("category", {}).get("value", "Unknown")],
+                    description=result.get("description", {}).get("value")
+                )
+        except Exception as e:
+            print(f"Error getting ingredient by URI {uri}: {e}")
+        return None
+
+    def get_ingredient_by_id(self, ingredient_id: str) -> Ingredient:
+        """Alias for get_ingredient_by_uri for compatibility"""
+        return self.get_ingredient_by_uri(ingredient_id)
+
+    def search_ingredients_by_name(self, name: str) -> List[Ingredient]:
+        """Search ingredients by name"""
+        return self.search_ingredients(name)
+
+    def get_ingredients_for_cocktail(self, cocktail_id: str) -> List[Ingredient]:
+        """Get ingredients for a specific cocktail"""
+        query = f"""
+        SELECT ?ingredient ?name ?description WHERE {{
+            <{cocktail_id}> dbo:ingredient ?ingredient .
+            ?ingredient rdfs:label ?name .
+            FILTER(LANG(?name) = "en")
+            OPTIONAL {{ ?ingredient dbo:abstract ?description . FILTER(LANG(?description) = "en") }}
+        }}
+        """
+        try:
+            results = self.sparql_service.execute_query(query)
+            ingredients = []
+            for result in results["results"]["bindings"]:
+                ingredient = Ingredient(
+                    id=result["ingredient"]["value"],
+                    name=result["name"]["value"],
+                    description=result.get("description", {}).get("value")
+                )
+                ingredients.append(ingredient)
+            return ingredients
+        except Exception as e:
+            print(f"Error getting ingredients for cocktail {cocktail_id}: {e}")
+            return []
+
+    def get_all_categories(self) -> List[str]:
+        """Get all unique ingredient categories"""
+        query = """
+        SELECT DISTINCT ?category WHERE {
+            ?ingredient rdf:type dbo:Food .
+            ?ingredient dbo:category ?category .
+        }
+        """
+        try:
+            results = self.sparql_service.execute_query(query)
+            return [result["category"]["value"] for result in results["results"]["bindings"]]
+        except Exception as e:
+            print(f"Error getting all categories: {e}")
+            return []

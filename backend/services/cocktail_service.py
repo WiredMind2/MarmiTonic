@@ -14,6 +14,17 @@ class CocktailService:
         self.ingredient_service = IngredientService()
         # No longer maintaining own graph state, relying on centralized parser
 
+    @staticmethod
+    def generate_slug(name: str) -> str:
+        """Generate a slug from cocktail name"""
+        # Delegated to the parser via the models usually, but kept for utility if needed
+        import re
+        slug = name.lower()
+        slug = re.sub(r'\([^)]*\)', '', slug)
+        slug = re.sub(r'[^a-z0-9]+', '-', slug)
+        slug = slug.strip('-')
+        return slug
+
     def get_all_cocktails(self) -> List[Cocktail]:
         """Get all cocktails from local TTL data using centralized parser"""
         return get_local_cocktails()
