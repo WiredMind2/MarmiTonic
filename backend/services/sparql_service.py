@@ -12,9 +12,6 @@ from backend.data.ttl_parser import IBADataParser
 from backend.utils.graph_loader import get_shared_graph
 
 class SparqlService:
-    _shared_parser = None
-    _shared_graph_path = None
-
     def __init__(self, local_graph: Optional[Union[str, Graph]] = None):
         self.endpoint = "https://dbpedia.org/sparql"
         self.local_endpoint = "http://localhost:3030/marmitonic"
@@ -25,32 +22,15 @@ class SparqlService:
             self.parser = None
             return
 
-        # Set local_graph_path based on parameter or default
-        if isinstance(local_graph, str):
-            self.local_graph_path = local_graph
-        else:
-            # Try to find data.ttl
-            data_file = Path(__file__).parent.parent / "data" / "data.ttl"
-            if not data_file.exists():
-                data_file = Path(__file__).parent.parent / "data" / "iba_export.ttl"
-            self.local_graph_path = str(data_file) if data_file.exists() else "data.ttl"
-
-        # Load shared parser if not already loaded or path changed
-        if SparqlService._shared_graph_path != self.local_graph_path or SparqlService._shared_parser is None:
-            SparqlService._shared_graph_path = self.local_graph_path
-            try:
-                print(f"DEBUG: Loading IBA data parser with file: {self.local_graph_path}")
-                SparqlService._shared_parser = IBADataParser(self.local_graph_path)
-                print(f"DEBUG: Parser loaded successfully with {len(SparqlService._shared_parser.graph)} triples")
-            except Exception as e:
-                print(f"DEBUG: Error loading parser: {e}")
-                # Fallback to shared graph if parser fails
-                self.local_graph = get_shared_graph()
-                self.parser = None
-                return
-
-        self.parser = SparqlService._shared_parser
-        self.local_graph = SparqlService._shared_parser.graph if SparqlService._shared_parser else get_shared_graph()
+        # Use the singleton parser - it handles caching internally
+        try:
+            self.parser = IBADataParser()
+            self.local_graph = self.parser.graph
+        except Exception as e:
+            print(f"Error loading parser: {e}")
+            # Fallback to shared graph if parser fails
+            self.local_graph = get_shared_graph()
+            self.parser = None
 
     def execute_query(self, query: str):
         """Execute SPARQL query on DBpedia"""
