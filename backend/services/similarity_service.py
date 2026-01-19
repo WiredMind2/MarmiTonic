@@ -4,25 +4,37 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 import pickle
 import os
-from ..models.cocktail import Cocktail
-from ..models.vibe_cluster import VibeCluster
-from .cocktail_service import CocktailService
-from .llm_service import LLMService
-from backend.models import cocktail
+import hashlib
+import time
+from backend.models.cocktail import Cocktail
+from backend.models.vibe_cluster import VibeCluster
+from backend.services.cocktail_service import CocktailService
+from backend.services.llm_service import LLMService, SimpleCache
 
 
 class SimilarityService:
     """Service de recherche de cocktails similaires avec FAISS et RAG."""
     
-    def __init__(self, model_name: str = "sentence-transformers/all-MiniLM-L6-v2"):
+    def __init__(self, model_name: str = "sentence-transformers/all-MiniLM-L6-v2", cache_ttl: int = 3600, cache_size: int = 100):
         self.cocktail_service = CocktailService()
-        self.llm_service = LLMService()
+        self.llm_service = LLMService(cache_ttl=cache_ttl, cache_size=cache_size)
         self.model = SentenceTransformer(model_name)
         self.index: Optional[faiss.Index] = None
         self.cocktails: List[Cocktail] = []
         self.embeddings: Optional[np.ndarray] = None
         self.index_path = "backend/data/faiss_index.bin"
         self.cocktails_path = "backend/data/cocktails_cache.pkl"
+        self.embeddings_path = "backend/data/embeddings_cache.pkl"
+        # Create custom cache for cluster title generation
+        self.title_cache = SimpleCache(ttl=cache_ttl, max_size=cache_size)
+        # Create cache for clusters
+        self.clusters_cache = SimpleCache(ttl=cache_ttl, max_size=cache_size)
+    
+    def _get_cluster_cache_key(self, cocktails: List[Cocktail]) -> str:
+        # Generate a unique cache key based on cocktail IDs
+        cocktail_ids = sorted([cocktail.id for cocktail in cocktails])
+        key_string = "|".join(cocktail_ids)
+        return hashlib.md5(key_string.encode('utf-8')).hexdigest()
         self.embeddings_path = "backend/data/embeddings_cache.pkl"
         
     def _create_cocktail_text(self, cocktail: Cocktail) -> str:
@@ -148,6 +160,12 @@ class SimilarityService:
     
     def _generate_cluster_title(self, cocktails: List[Cocktail]) -> str:
         """Generate a vibe/title for a cluster using LLM based on cocktail characteristics."""
+        # Check cache first
+        cache_key = self._get_cluster_cache_key(cocktails)
+        cached_title = self.title_cache.get(cache_key)
+        if cached_title:
+            return cached_title
+
         # Create a summary of the cocktails in the cluster
         cocktail_info = []
         for cocktail in cocktails[:5]:  # Use top 5 closest cocktails
@@ -172,6 +190,8 @@ class SimilarityService:
             title = self.llm_service.example(prompt).strip()
             # Remove quotes if present
             title = title.strip('"').strip("'")
+            # Cache the result
+            self.title_cache.set(cache_key, title)
             return title
         except Exception as e:
             print(f"Error generating cluster title: {e}")
@@ -179,6 +199,13 @@ class SimilarityService:
     
     def create_cocktails_clusters(self, n_clusters: int = 6) -> Dict[int, VibeCluster]:
         """Regroupe les cocktails en clusters basés sur leurs embeddings."""
+        # Check cache first
+        cache_key = f"clusters_{n_clusters}"
+        cached_clusters = self.clusters_cache.get(cache_key)
+        if cached_clusters:
+            print(f"Using cached clusters (n_clusters={n_clusters})")
+            return cached_clusters
+
         if self.index is None or not self.cocktails:
             self.build_index()
         if self.index is None or not self.cocktails:
@@ -241,4 +268,8 @@ class SimilarityService:
                 cluster.title = f"Vibe {cluster_id}"
                 print(f"Cluster {cluster_id} has {len(cluster.cocktail_ids)} cocktails.")
 
+        # Cache the clusters
+        self.clusters_cache.set(cache_key, clusters)
+        print(f"Clusters cached (n_clusters={n_clusters})")
+        
         return clusters
